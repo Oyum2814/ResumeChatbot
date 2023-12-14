@@ -22,6 +22,26 @@ model User {
   favouriteIds   String[]  @db.ObjectId
   sessions       Session[]
   accounts       Account[]
+  info           Info?
+}
+
+model Info {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String        @unique @db.ObjectId
+  firstName    String
+  middleName   String?
+  lastName     String
+  designation  String
+  address      String
+  email        String
+  phone        String
+  summary      String
+  achievements Achievement[]
+  experiences  Experience[]
+  educations   Education[]
+  projects     Project[]
+  skills       Skill[]
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Account {
@@ -67,4 +87,51 @@ model Resume {
   description  String
   thumbnailUrl String
   code         String
+}
+
+model Achievement {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  infoId      String
+  info        Info   @relation(fields: [infoId], references: [id])
+}
+
+model Experience {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  organisation String
+  location     String
+  startDate    String
+  endDate      String
+  description  String
+  infoId       String @unique
+  info         Info   @relation(fields: [infoId], references: [id])
+}
+
+model Education {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  school         String
+  degree         String
+  city           String
+  startDate      String
+  graduationDate String
+  description    String
+  infoId         String
+  info           Info   @relation(fields: [infoId], references: [id])
+}
+
+model Project {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  link        String
+  description String
+  infoId      String
+  info        Info   @relation(fields: [infoId], references: [id])
+}
+
+model Skill {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  infoId String
+  info   Info   @relation(fields: [infoId], references: [id])
 }

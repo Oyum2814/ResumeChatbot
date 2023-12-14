@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Resume from "@/components/Resume";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 
@@ -22,6 +23,7 @@ export default function Home() {
   return (
     <div>
       <Navbar />
+      <Resume />
     </div>
   )
 }
