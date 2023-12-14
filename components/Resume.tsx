@@ -763,8 +763,8 @@ const Resume:React.FC = ()=>{
                                     <h3>skills</h3>
                                 </div>
                                 <div className="skills-items preview-blk-list" id="skills_dsp">
-                                    {skills.map((skill)=>(
-                                        <div className="preview-item">
+                                    {skills.map((skill,index)=>(
+                                        <div className="preview-item" key={index}>
                                             <span className="preview-item-val">{skill?.title}</span>
                                         </div>
                                     ))}
@@ -798,8 +798,8 @@ const Resume:React.FC = ()=>{
                                         <h3>educations</h3>
                                     </div>
                                     <div className="educations-items preview-blk-list" id="educations_dsp">
-                                        {educations.map((education)=>(
-                                            <div className="preview-item">
+                                        {educations.map((education,index)=>(
+                                            <div className="preview-item" key={index}>
                                                 <span className="preview-item-val">{education?.school}</span>
                                                 <span className="preview-item-val">{education?.degree}</span>
                                                 <span className="preview-item-val">{education?.city}</span>
@@ -819,8 +819,8 @@ const Resume:React.FC = ()=>{
                                         <h3>experiences</h3>
                                     </div>
                                     <div className="experiences-items preview-blk-list" id="experiences_dsp">
-                                        {experiences.map((experience) =>(
-                                            <div className="preview-item">
+                                        {experiences.map((experience,index) =>(
+                                            <div className="preview-item" key={index}>
                                                 <span className="preview-item-val">{experience?.title}</span>
                                                 <span className="preview-item-val">{experience?.organization}</span>
                                                 <span className="preview-item-val">{experience?.location}</span>
