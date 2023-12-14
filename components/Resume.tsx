@@ -839,8 +839,8 @@ const Resume:React.FC = ()=>{
                                         <h3>projects</h3>
                                     </div>
                                     <div className="projects-items preview-blk-list" id="projects_dsp">
-                                            {projects.map((project)=>(
-                                                <div className="preview-item">
+                                            {projects.map((project,index)=>(
+                                                <div className="preview-item" key={index}>
                                                     <span className="preview-item-val font-semibold ">{project?.title}</span>
                                                     <span className="preview-item-val underline cursor-pointer">{project?.link}</span>
                                                     <span className="preview-item-val">{project?.description}</span>
