@@ -12,7 +12,7 @@ const AccountMenu:React.FC<AccountMenuProps> =({visible})=>{
     const {data:user} = useCurrentUser();
     if (!visible) return null;
     return (
-        <div className="border-[0.5px] rounded-md bg-white w-56 absolute top-14 right-0 py-5 m-4 flex-col border-1 border-gray-800 flex">
+        <div className="border-[0.5px] rounded-md bg-white text-black w-56 absolute top-14 right-0 py-5 m-4 flex-col border-1 border-gray-800 flex">
             <div className="flex flex-col gap-3">
                 <div className="px-3 group/item flex flex-row items-center w-full">
                     <Image width="80" height="80"

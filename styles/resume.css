@@ -16,6 +16,7 @@
 }
 
 *{
+
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -29,6 +30,9 @@ body{
     font-size: 1.6rem;
     font-family: var(--font-poppins);
 }
+body{
+    @apply h-screen overflow-hidden
+}
 
 button{
     border: none;
@@ -38,10 +42,10 @@ button{
     font-family: inherit;
 }
 
-img{
+/* img{
     width: 100%;
     display: block;
-}
+} */
 
 a{
     text-decoration: none;
@@ -581,9 +585,5 @@ textarea{
 
     .print_area{
         width: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        overflow: hidden;
     }
 }

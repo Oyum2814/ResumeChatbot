@@ -44,28 +44,26 @@ const Navbar = ()=>{
     
 
     return (
-        
-        <nav className="w-full fixed z-40">
-                <div className={`px-4 md:px-16 py-6 flex items-center transition 
-                duration-500 ${showBackground?'bg-neutral-200 bg-opacity-95':''}`}>
-                <div className="font-bold">Resume<span className="text-blue-600">Genie</span></div>
+        <nav className="w-full fixed z-40 text-white flex flex-col justify-center">
+                <div className={'px-4 md:px-16 py-6 flex items-center transition' }>
+                {/* <div className="font-bold">Resume<span className="text-blue-600">Genie</span></div>
                 <div className="flex-row ml-12 gap-7 hidden lg:flex">
                     <NavbarItem label="Home" route="/"/>
                     <NavbarItem label="My Resume" route="/myResumes"/>
                 </div>
                 <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">
-                    <p className="text-black text-sm">Browse</p>
-                    <BsChevronDown className={`text-black transition ${showMobileMenu?'rotate-180':'rotate-0'}`}/>
+                    <p className=" text-sm">Browse</p>
+                    <BsChevronDown className={`transition ${showMobileMenu?'rotate-180':'rotate-0'}`}/>
                     <MobileMenu visible={showMobileMenu} />
-                </div>
+                </div> */}
                 <div className="flex flex-row ml-auto gap-7 items-center">
                     <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
-                        <div className="w-10 h-10 rounded-full overflow-hidden">
+                        <div className="w-16 h-16 rounded-full border border-[2px] overflow-hidden bg-white">
                         <Image width="80" height="80"
-                    className="h-10 w-10 object-contain rounded-full"
+                    className="h-16 w-16 object-contain rounded-full "
                     src={user?.image? user.image : 'https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png'} alt="profileImage"/>
                         </div>
-                        <BsChevronDown className={`text-black transition hover:scale-125 ${showAccountMenu?'rotate-180':'rotate-0'}`}/>
+                        {/* <BsChevronDown className={`transition hover:scale-125 ${showAccountMenu?'rotate-180':'rotate-0'}`}/> */}
                     </div>
                     <AccountMenu visible={showAccountMenu}/>
                 </div>

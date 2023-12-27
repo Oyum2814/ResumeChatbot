@@ -75,7 +75,7 @@ const Resume:React.FC = ()=>{
         address:'Your Address',
         email:'name@gmail.com',
         phone:'your phone number',
-        summary:'I am a full stack web developer with a keen enthusiasm and knack for web scraping and automation'
+        summary:'Summary ...'
     });
     const [achievements,setAchievements] = useState<Achievement[]>([
         {
@@ -128,8 +128,8 @@ const Resume:React.FC = ()=>{
         window.print();
     };
     return(
-        <div>
-            <section id="about-sc" className="">
+        <div className="h-screen w-screen flex justify-between absolute overflow-y-hidden">
+            <section id="about-sc" className="w-[50%] h-screen overflow-y-auto">
                 <div className="container">
                     <div className="about-cnt">
                         <form action="" className="cv-form" id="cv-form">
@@ -303,7 +303,7 @@ const Resume:React.FC = ()=>{
                                         ))}
                                         
                                     </div>
-                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn"
+                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
                                      onClick={()=>{
                                         setAchievements((prevAchievements)=>[
                                             ...prevAchievements,
@@ -429,7 +429,7 @@ const Resume:React.FC = ()=>{
                                         
                                     </div>
                                     <button 
-                                    type="button" data-repeater-create value="Add" className="repeater-add-btn"
+                                    type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
                                     onClick={()=>{
                                         setExperiences((prevExperiences)=>[
                                             ...prevExperiences,
@@ -561,7 +561,7 @@ const Resume:React.FC = ()=>{
                                         ))}
                                         
                                     </div>
-                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn"
+                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
                                     onClick={()=>{
                                         setEducations((prevEducations)=>[
                                             ...prevEducations,
@@ -646,7 +646,7 @@ const Resume:React.FC = ()=>{
                                         }
                                         
                                     </div>
-                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn"
+                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
                                     onClick={()=>{
                                         setProjects((prevProjects)=>[
                                             ...prevProjects,
@@ -694,7 +694,7 @@ const Resume:React.FC = ()=>{
                                             </div>
                                         ))}
                                     </div>
-                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn"
+                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
                                     onClick={()=>{
                                         setSkills((prevSkills)=>[
                                             ...prevSkills,
@@ -710,7 +710,7 @@ const Resume:React.FC = ()=>{
                 </div>
             </section>
 
-            <section id="preview-sc" className="print_area">
+            <section id="preview-sc" className="h-screen overflow-y-auto print_area w-[50%] bg-gray-500 pt-36 pb-48 px-16">
                 <div className="container">
                     <div className="preview-cnt">
                         <div className="preview-cnt-l bg-green text-white">
@@ -751,6 +751,7 @@ const Resume:React.FC = ()=>{
                                         </span>
                                     </div>
                                     <div className="preview-item">
+                                        <br />
                                         <span className="preview-item-val" id="summary_dsp">
                                             {info?.summary}
                                         </span>
@@ -855,11 +856,11 @@ const Resume:React.FC = ()=>{
                 </div>
             </section>
             
-            <section className="print-btn-sc">
+            {/* <section className="print-btn-sc absolute">
                 <div className="container">
                     <button type="button" className="print-btn btn btn-primary" onClick={printCV}>Print CV</button>
                 </div>
-            </section>                                
+            </section>                                 */}
         </div>
     )
 }
