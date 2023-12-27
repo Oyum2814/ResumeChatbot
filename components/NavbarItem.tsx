@@ -7,7 +7,7 @@ interface NavbarItemProps{
 
 const NavbarItem:React.FC<NavbarItemProps> = ({label,route})=>{
     return (
-        <Link href={route} className="text-black cursor-pointer hover:font-semibold transition">
+        <Link href={route} className="cursor-pointer hover:font-semibold transition">
             {label}
         </Link>
     )

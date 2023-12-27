@@ -44,16 +44,16 @@ const Auth = ()=>{
                <div className="flex flex-col xl:flex-row justify-between items-center px-4 text-black ">
                     <div className="w-[60%] flex-col justify-center md:ml-[80px] hidden xl:flex">
                         <Image src={logo}
-                        className="md:ml-[80px]"
+                        className=""
                         alt="Logo"
-                        height={160} width={120}/>
+                        height={320} width={240}/>
                         <h2 className="text-5xl font-bold">Resume<span className="text-blue-600">Genie</span></h2>
                         <p className="mt-4 max-w-[70%]">Resume Genie is an Online platform which helps you create a resume via conversation with a Chatbot.
                         Choose from multiple templates from our site and build your resume today in 10 minutes!</p>
                     </div>
                     <div className="bg-[#1F7A56]/20 border-[4px] border-[#19CC85]/60  p-16 self-center rounded-[20px] 
                     xl:w-[30%]  xl:mr-[80px] my-auto">
-                        <h2 className=" text-4xl mb-8 font-semibold">
+                        <h2 className=" text-4xl mb-8 font-semibold text-neutral-700 ">
                             {variant==='login'?'Sign In':'Register'}
                         </h2>
                         <div className="flex flex-col gap-4">
@@ -91,7 +91,7 @@ const Auth = ()=>{
                                 signIn('google',{callbackUrl:'/'});
                                 }} className=" xs:bg-blue-400 border-[1px] border-black w-15 h-15 flex items-center p-2 justify-center cursor-pointer
                                 hover:bg-neutral-200 transition rounded-full">
-                                <FcGoogle size={30}/>
+                                <FcGoogle size={20}/>
 
                             </div>
                             <div onClick={()=>signIn('github',{callbackUrl:'/'})} className="border-[1px]
