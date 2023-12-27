@@ -711,7 +711,7 @@ const Resume:React.FC = ()=>{
             </section>
 
             <section id="preview-sc" className="h-screen overflow-y-auto print_area w-[50%] bg-gray-500 pt-36 pb-48 px-16">
-                <div className="container">
+                {/* <div className="container">
                     <div className="preview-cnt">
                         <div className="preview-cnt-l bg-green text-white">
                             <div className="preview-blk">
@@ -853,7 +853,8 @@ const Resume:React.FC = ()=>{
                             
                         </div>
                     </div>
-                </div>
+                </div> */}
+                This section is still under construction
             </section>
             
             {/* <section className="print-btn-sc absolute">

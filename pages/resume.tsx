@@ -1,4 +1,3 @@
-import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import Resume from "@/components/Resume";
 import { NextPageContext } from "next";
@@ -20,11 +19,11 @@ export async function getServerSideProps(context: NextPageContext){
     props:{}
   }
 }
-export default function Home() {
+export default function resume() {
   return (
     <div>
       <Navbar />
-      <Hero />
+      <Resume />
     </div>
   )
 }
