@@ -52,12 +52,15 @@
 //     ];
 // }
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
+
+import { format } from "date-fns";
 
 interface Achievement {
     title: string;
     description: string;
 }
+
 
 const Resume:React.FC = ()=>{
     const [image,setImage ] = useState<File | null>(null);
@@ -65,7 +68,14 @@ const Resume:React.FC = ()=>{
     const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
         const selectedImage = event.target.files?.[0];
         setImage(selectedImage ?? null);
-      };
+    };
+
+    const formatDate = (date: any): any | null => {
+        if (!date) {
+          return null;
+        }
+        return format(new Date(date), 'MMMM yyyy');
+    };
 
     const [info,setInfo] = useState({
         firstName:'John',
@@ -236,7 +246,7 @@ const Resume:React.FC = ()=>{
                                             <span className="form-text"></span>
                                         </div>
                                         <div className="form-elem">
-                                            <label htmlFor="" className="form-label">Summary</label>
+                                            <label htmlFor="" className="form-label">Objective</label>
                                             <input name="summary" type="text" className="form-control summary" id=""
                                                  placeholder="e.g. Doe"
                                                  onChange={(e)=>{
@@ -253,7 +263,139 @@ const Resume:React.FC = ()=>{
 
                             <div className="cv-form-blk">
                                 <div className="cv-form-row-title">
-                                    <h3>achievements</h3>
+                                    <h3>Academic Profile</h3>
+                                </div>
+
+                                <div className="row-separator repeater">
+                                    <div className="repeater" data-repeater-list="group-c">
+                                        {educations.map((education,index)=>(
+                                            <div data-repeater-item key={index}>
+                                                <div className="cv-form-row cv-form-row-experience">
+                                                    <div className="cols-3">
+                                                        <div className="form-elem">
+                                                            <label htmlFor="" className="form-label">School</label>
+                                                            <input name="edu_school" type="text" className="form-control edu_school"
+                                                                id="" 
+                                                                onChange={(e) => {
+                                                                    setEducations((prevEducations) => {
+                                                                        const newEducations = [...prevEducations];
+                                                                        newEducations[index] = {
+                                                                             ...newEducations[index], 
+                                                                            school: e.target.value 
+                                                                        };
+                                                                        return newEducations;
+                                                                    })}}/>
+                                                            <span className="form-text"></span>
+                                                        </div>
+                                                        <div className="form-elem">
+                                                            <label htmlFor="" className="form-label">Degree</label>
+                                                            <input name="edu_degree" type="text" className="form-control edu_degree"
+                                                                id="" 
+                                                                onChange={(e) => {
+                                                                    setEducations((prevEducations) => {
+                                                                        const newEducations = [...prevEducations];
+                                                                        newEducations[index] = {
+                                                                             ...newEducations[index], 
+                                                                            degree: e.target.value 
+                                                                        };
+                                                                        return newEducations;
+                                                                    })}}/>
+                                                            <span className="form-text"></span>
+                                                        </div>
+                                                        <div className="form-elem">
+                                                            <label htmlFor="" className="form-label">City</label>
+                                                            <input name="edu_city" type="text" className="form-control edu_city" id=""
+                                                             onChange={(e) => {
+                                                                setEducations((prevEducations) => {
+                                                                    const newEducations = [...prevEducations];
+                                                                    newEducations[index] = {
+                                                                         ...newEducations[index], 
+                                                                        city: e.target.value 
+                                                                    };
+                                                                    return newEducations;
+                                                                })}}   />
+                                                            <span className="form-text"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="cols-3">
+                                                        <div className="form-elem">
+                                                            <label htmlFor="" className="form-label">Start Date</label>
+                                                            <input name="edu_start_date" type="date"
+                                                                className="form-control edu_start_date" id="" 
+                                                                onChange={(e) => {
+                                                                    setEducations((prevEducations) => {
+                                                                        const newEducations = [...prevEducations];
+                                                                        newEducations[index] = {
+                                                                             ...newEducations[index], 
+                                                                            startDate: e.target.value 
+                                                                        };
+                                                                        return newEducations;
+                                                                    })}}/>
+                                                            <span className="form-text"></span>
+                                                        </div>
+                                                        <div className="form-elem">
+                                                            <label htmlFor="" className="form-label">End Date</label>
+                                                            <input name="edu_graduation_date" type="date"
+                                                                className="form-control edu_graduation_date" id=""
+                                                                onChange={(e) => {
+                                                                    setEducations((prevEducations) => {
+                                                                        const newEducations = [...prevEducations];
+                                                                        newEducations[index] = {
+                                                                             ...newEducations[index], 
+                                                                            graduationDate: e.target.value 
+                                                                        };
+                                                                        return newEducations;
+                                                                    })}} />
+                                                            <span className="form-text"></span>
+                                                        </div>
+                                                        <div className="form-elem">
+                                                            <label htmlFor="" className="form-label">Description</label>
+                                                            <input name="edu_description" type="text"
+                                                                className="form-control edu_description" id=""
+                                                                onChange={(e) => {
+                                                                    setEducations((prevEducations) => {
+                                                                        const newEducations = [...prevEducations];
+                                                                        newEducations[index] = {
+                                                                             ...newEducations[index], 
+                                                                            description: e.target.value 
+                                                                        };
+                                                                        return newEducations;
+                                                                    })}} />
+                                                            <span className="form-text"></span>
+                                                        </div>
+                                                    </div>
+
+                                                    <button data-repeater-delete type="button"
+                                                        className="repeater-remove-btn"
+                                                        onClick={()=>{
+                                                            setEducations((prevEducations) => prevEducations.slice(0, -1));
+                                                        }}>-</button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                        
+                                    </div>
+                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
+                                    onClick={()=>{
+                                        setEducations((prevEducations)=>[
+                                            ...prevEducations,
+                                            {
+                                                school:'',
+                                                degree:'',
+                                                city:'',
+                                                startDate:'',
+                                                graduationDate:'',
+                                                description:''
+                                            },
+                                        ])
+                                    }}>+</button>
+                                </div>
+                            </div>
+
+                            <div className="cv-form-blk">
+                                <div className="cv-form-row-title">
+                                    <h3>achievements profile</h3>
                                 </div>
 
                                 <div className="row-separator repeater">
@@ -315,7 +457,7 @@ const Resume:React.FC = ()=>{
 
                             <div className="cv-form-blk">
                                 <div className="cv-form-row-title">
-                                    <h3>experience</h3>
+                                    <h3>Internship Profile</h3>
                                 </div>
 
                                 <div className="row-separator repeater">
@@ -440,138 +582,6 @@ const Resume:React.FC = ()=>{
                                                 startDate: '',
                                                 endDate: '',
                                                 description: ''
-                                            },
-                                        ])
-                                    }}>+</button>
-                                </div>
-                            </div>
-
-                            <div className="cv-form-blk">
-                                <div className="cv-form-row-title">
-                                    <h3>education</h3>
-                                </div>
-
-                                <div className="row-separator repeater">
-                                    <div className="repeater" data-repeater-list="group-c">
-                                        {educations.map((education,index)=>(
-                                            <div data-repeater-item key={index}>
-                                                <div className="cv-form-row cv-form-row-experience">
-                                                    <div className="cols-3">
-                                                        <div className="form-elem">
-                                                            <label htmlFor="" className="form-label">School</label>
-                                                            <input name="edu_school" type="text" className="form-control edu_school"
-                                                                id="" 
-                                                                onChange={(e) => {
-                                                                    setEducations((prevEducations) => {
-                                                                        const newEducations = [...prevEducations];
-                                                                        newEducations[index] = {
-                                                                             ...newEducations[index], 
-                                                                            school: e.target.value 
-                                                                        };
-                                                                        return newEducations;
-                                                                    })}}/>
-                                                            <span className="form-text"></span>
-                                                        </div>
-                                                        <div className="form-elem">
-                                                            <label htmlFor="" className="form-label">Degree</label>
-                                                            <input name="edu_degree" type="text" className="form-control edu_degree"
-                                                                id="" 
-                                                                onChange={(e) => {
-                                                                    setEducations((prevEducations) => {
-                                                                        const newEducations = [...prevEducations];
-                                                                        newEducations[index] = {
-                                                                             ...newEducations[index], 
-                                                                            degree: e.target.value 
-                                                                        };
-                                                                        return newEducations;
-                                                                    })}}/>
-                                                            <span className="form-text"></span>
-                                                        </div>
-                                                        <div className="form-elem">
-                                                            <label htmlFor="" className="form-label">City</label>
-                                                            <input name="edu_city" type="text" className="form-control edu_city" id=""
-                                                             onChange={(e) => {
-                                                                setEducations((prevEducations) => {
-                                                                    const newEducations = [...prevEducations];
-                                                                    newEducations[index] = {
-                                                                         ...newEducations[index], 
-                                                                        city: e.target.value 
-                                                                    };
-                                                                    return newEducations;
-                                                                })}}   />
-                                                            <span className="form-text"></span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="cols-3">
-                                                        <div className="form-elem">
-                                                            <label htmlFor="" className="form-label">Start Date</label>
-                                                            <input name="edu_start_date" type="date"
-                                                                className="form-control edu_start_date" id="" 
-                                                                onChange={(e) => {
-                                                                    setEducations((prevEducations) => {
-                                                                        const newEducations = [...prevEducations];
-                                                                        newEducations[index] = {
-                                                                             ...newEducations[index], 
-                                                                            startDate: e.target.value 
-                                                                        };
-                                                                        return newEducations;
-                                                                    })}}/>
-                                                            <span className="form-text"></span>
-                                                        </div>
-                                                        <div className="form-elem">
-                                                            <label htmlFor="" className="form-label">End Date</label>
-                                                            <input name="edu_graduation_date" type="date"
-                                                                className="form-control edu_graduation_date" id=""
-                                                                onChange={(e) => {
-                                                                    setEducations((prevEducations) => {
-                                                                        const newEducations = [...prevEducations];
-                                                                        newEducations[index] = {
-                                                                             ...newEducations[index], 
-                                                                            graduationDate: e.target.value 
-                                                                        };
-                                                                        return newEducations;
-                                                                    })}} />
-                                                            <span className="form-text"></span>
-                                                        </div>
-                                                        <div className="form-elem">
-                                                            <label htmlFor="" className="form-label">Description</label>
-                                                            <input name="edu_description" type="text"
-                                                                className="form-control edu_description" id=""
-                                                                onChange={(e) => {
-                                                                    setEducations((prevEducations) => {
-                                                                        const newEducations = [...prevEducations];
-                                                                        newEducations[index] = {
-                                                                             ...newEducations[index], 
-                                                                            description: e.target.value 
-                                                                        };
-                                                                        return newEducations;
-                                                                    })}} />
-                                                            <span className="form-text"></span>
-                                                        </div>
-                                                    </div>
-
-                                                    <button data-repeater-delete type="button"
-                                                        className="repeater-remove-btn"
-                                                        onClick={()=>{
-                                                            setEducations((prevEducations) => prevEducations.slice(0, -1));
-                                                        }}>-</button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                        
-                                    </div>
-                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
-                                    onClick={()=>{
-                                        setEducations((prevEducations)=>[
-                                            ...prevEducations,
-                                            {
-                                                school:'',
-                                                degree:'',
-                                                city:'',
-                                                startDate:'',
-                                                graduationDate:'',
-                                                description:''
                                             },
                                         ])
                                     }}>+</button>
@@ -710,8 +720,10 @@ const Resume:React.FC = ()=>{
                 </div>
             </section>
 
-            <section id="preview-sc" className="h-screen overflow-y-auto print_area w-[50%] bg-gray-500 pt-36 pb-48 px-16">
-                {/* <div className="container">
+            <section id="preview-sc" className="h-screen
+             overflow-y-auto print_area w-[50%] bg-gray-500 
+             flex justify-center items-center relative">
+                {/* <div className="container"> 
                     <div className="preview-cnt">
                         <div className="preview-cnt-l bg-green text-white">
                             <div className="preview-blk">
@@ -854,9 +866,50 @@ const Resume:React.FC = ()=>{
                         </div>
                     </div>
                 </div> */}
-                This section is still under construction
+                <div className="w-[592px] h-[842px] bg-white  flex flex-col items-center">
+                    <h2 className="text-[40px] font-extralight">
+                        {info?.firstName} {info?.middleName} {info?.lastName}
+                    </h2>
+                    <p className="text-[9px] font-medium">
+                        {info?.email} | {info?.phone} | {info?.address} 
+                    </p>
+                    <p className="text-[10px] text-center px-4 font-extralight mt-2">
+                        {info?.summary}
+                    </p>
+                    <div className="flex w-[95%] mt-4">
+                        <div className="w-[40%] h-full" id="left-side">
+                            <h2 className="text-[#6A6A6A] text-[16px] font-[600]">ACADEMIC</h2>
+                            {educations?.map((education,i)=>(
+                                <div className="py-1" key={i}>
+                                    <h3 className="text-[12px] uppercase inter font-[700]">{education?.school}</h3>
+                                    <h3 className="tracking-[.55px] font-[400] text-[11px] uppercase">{education?.degree}</h3>
+                                    <p className="text-[8px] tracking-[0.4px] font-weight-[400]">{formatDate(education?.graduationDate)} | {education?.city}</p>
+                                    <p className="text-[8px] font-[400] tracking-[0.4px] ">{education?.description}</p>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="w-[60%] h-full" id="right-side">
+                            <h2 className="text-[#6A6A6A] text-[16px] font-[600] uppercase">Internship</h2>
+                            {experiences?.map((experience,i)=>(
+                                <div className="py-1" key={i}>
+                                    <h3 className="text-[12px] uppercase inter font-[700]">{experience?.organization} | {experience?.title} </h3>
+                                    <h3 className="font-[400] text-[9px] ">{formatDate(experience?.startDate)} - {experience?.endDate? (formatDate(experience?.endDate)) : 'Present'} | {experience?.location}</h3>
+                                    <article className="text-[9px] font-[400] ">
+                                        {experience?.description}
+                                    </article>
+                                </div>
+                            ))}
+
+                            <h2 className="text-[#6A6A6A] text-[16px] font-[600] uppercase">Achievements</h2>
+                            {achievements?.map((achievement,i)=>(
+                                <div className="" key={i}>
+                                    <li className="text-[9px] font-[400] inter">{achievement?.description}</li>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
             </section>
-            
             {/* <section className="print-btn-sc absolute">
                 <div className="container">
                     <button type="button" className="print-btn btn btn-primary" onClick={printCV}>Print CV</button>
