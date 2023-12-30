@@ -89,43 +89,35 @@ const Resume:React.FC = ()=>{
     });
     const [achievements,setAchievements] = useState<Achievement[]>([
         {
-        title:'',
-        description:''
+        title:'title',
+        description:'description of the achievement'
         }
     ]);
     const [experiences, setExperiences] = useState([
         {
-            title:'',
-            organization:'',
-            location:'',
+            title:'<<role>>',
+            organization:'<<companyName>>',
+            location:'<<location>>',
             startDate:'',
             endDate:'',
-            description:''
+            description:'<<description>>'
         }
     ]);
     const [educations, setEducations] = useState([
         {
-            school:'',
-            degree:'',
-            city:'',
+            school:'<<name>>',
+            degree:'<<degree>>',
+            city:'<<city>>',
             startDate:'',
             graduationDate:'',
-            description:''
-        },
-        {
-            school:'',
-            degree:'',
-            city:'',
-            startDate:'',
-            graduationDate:'',
-            description:''
+            description:'<<description>>'
         }
     ]);
     const [projects, setProjects] = useState([
         {
-            title:'',
-            link:'',
-            description:''
+            title:'<<projectTite>>',
+            link:'<<projectLink>>',
+            description:'<<projectDescription>>'
         }
     ]);
     const [skills, setSkills] = useState([
@@ -319,7 +311,7 @@ const Resume:React.FC = ()=>{
                                                     </div>
 
                                                     <div className="cols-3">
-                                                        <div className="form-elem">
+                                                        {/* <div className="form-elem">
                                                             <label htmlFor="" className="form-label">Start Date</label>
                                                             <input name="edu_start_date" type="date"
                                                                 className="form-control edu_start_date" id="" 
@@ -333,7 +325,7 @@ const Resume:React.FC = ()=>{
                                                                         return newEducations;
                                                                     })}}/>
                                                             <span className="form-text"></span>
-                                                        </div>
+                                                        </div> */}
                                                         <div className="form-elem">
                                                             <label htmlFor="" className="form-label">End Date</label>
                                                             <input name="edu_graduation_date" type="date"
@@ -404,7 +396,7 @@ const Resume:React.FC = ()=>{
                                             <div key={index} data-repeater-item>
                                                 <div className="cv-form-row cv-form-row-achievement">
                                                     <div className="cols-2">
-                                                        <div className="form-elem">
+                                                        {/* <div className="form-elem">
                                                             <label htmlFor="" className="form-label">Title</label>
                                                             <input 
                                                             name="achieve_title"
@@ -419,7 +411,7 @@ const Resume:React.FC = ()=>{
                                                             className="form-control achieve_title" id="" 
                                                             placeholder="e.g. johndoe@gmail.com"/>
                                                             <span className="form-text"></span>
-                                                        </div>
+                                                        </div> */}
                                                         <div className="form-elem">
                                                             <label htmlFor="" className="form-label">Description</label>
                                                             <input name="achieve_description" type="text"
