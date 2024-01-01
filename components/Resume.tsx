@@ -122,7 +122,7 @@ const Resume:React.FC = ()=>{
     ]);
     const [skills, setSkills] = useState([
         {
-            title:''
+            title:'<<skill>>'
         }
     ]);
 
