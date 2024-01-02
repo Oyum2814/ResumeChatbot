@@ -137,7 +137,7 @@ const Resume:React.FC = ()=>{
                         <form action="" className="cv-form" id="cv-form">
                             <div className="cv-form-blk">
                                 <div className="cv-form-row-title">
-                                    <h3>About section</h3>
+                                    <h2>About section</h2>
                                 </div>
                                 <div className="cv-form-row cv-form-row-about">
                                     <div className="cols-3">

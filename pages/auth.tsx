@@ -81,6 +81,7 @@ const Auth = ()=>{
                                 value={password}
                             />
                         </div>
+                        {/* Login Button now works on both devices */}
                         <button onClick={variant==='login'?login:register} className="bg-[#4FB0C6]/80 py-3 text-white font-medium rounded-md w-full mt-10
                         hover:bg-[#4FB0C6] transition-">
                             {variant==='login'?'Login':'Sign Up'}
