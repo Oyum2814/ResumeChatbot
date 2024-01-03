@@ -137,7 +137,7 @@ const Resume:React.FC = ()=>{
                         <form action="" className="cv-form" id="cv-form">
                             <div className="cv-form-blk">
                                 <div className="cv-form-row-title">
-                                    <h2>About section</h2>
+                                    <h2 className="font-[600] uppercase tracking-[1.5px] text-2xl">About section</h2>
                                 </div>
                                 <div className="cv-form-row cv-form-row-about">
                                     <div className="cols-3">
@@ -892,10 +892,11 @@ const Resume:React.FC = ()=>{
                                 </div>
                             ))}
 
-                            <h2 className="text-[#6A6A6A] text-[16px] font-[600] uppercase">Achievements</h2>
-                            {achievements?.map((achievement,i)=>(
-                                <div className="" key={i}>
-                                    <li className="text-[9px] font-[400] inter">{achievement?.description}</li>
+                            <h2 className="text-[#6A6A6A] text-[16px] font-[600] uppercase">Projects</h2>
+                            {projects?.map((project,i)=>(
+                                <div className="py-1" key={i}>
+                                   <h3 className="text-[12px] uppercase inter font-[700]">{project?.title}</h3>
+                                   <p className="text-[10px] tracking-[0.4px] font-[400]">{project?.description}</p>
                                 </div>
                             ))}
                         </div>
