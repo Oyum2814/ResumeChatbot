@@ -354,7 +354,7 @@ const Resume:React.FC = ()=>{
                                                                         };
                                                                         return newEducations;
                                                                     })}} />
-                                                            <span className="form-text"></span>
+                                                            <span className="form-text xl:block"></span>
                                                         </div>
                                                     </div>
 
@@ -662,7 +662,7 @@ const Resume:React.FC = ()=>{
                                 </div>
                             </div>
 
-                            <div className="cv-form-blk">
+                            <div className="cv-form-blk xl:block">
                                 <div className="cv-form-row-title">
                                     <h3>skills</h3>
                                 </div>
@@ -717,7 +717,7 @@ const Resume:React.FC = ()=>{
              flex justify-center items-center relative">
              
                 <div className="w-[592px] h-[842px] bg-white  flex flex-col items-center">
-                    <h2 className="text-[40px] font-extralight">
+                    <h2 className="text-[40px] font-extralight xl:text-[42px]">
                         {info?.firstName} {info?.middleName} {info?.lastName}
                     </h2>
                     <p className="text-[9px] font-medium">
