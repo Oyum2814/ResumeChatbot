@@ -87,6 +87,7 @@ const Resume:React.FC = ()=>{
         phone:'your phone number',
         summary:'Summary ...',
         story:'',
+        site:'',
     });
     const [achievements,setAchievements] = useState<Achievement[]>([
         {
@@ -118,7 +119,9 @@ const Resume:React.FC = ()=>{
         {
             title:'<<projectTitle>>',
             link:'<<projectLink>>',
-            description:'<<projectDescription>>'
+            description:'<<projectDescription>>',
+            startDate:'',
+            endDate:'',
         }
     ]);
     const [skills, setSkills] = useState([
@@ -144,6 +147,7 @@ const Resume:React.FC = ()=>{
                 <div className="container">
                     <div className="about-cnt">
                         <form action="" className="cv-form" id="cv-form">
+                            
                             <div className="cv-form-blk">
                                 <div className="cv-form-row-title">
                                     <h2 className="font-[600] uppercase tracking-[1.5px] text-2xl">About section</h2>
@@ -271,6 +275,22 @@ const Resume:React.FC = ()=>{
                                                  }}/>
                                             <span className="form-text"></span>
                                         </div>
+                                    </div>
+
+                                    <div className="cols-3">
+                                        <div className="form-elem">
+                                            <label htmlFor="" className="form-label">Website</label>
+                                            <input name="email" type="text" className="form-control email" id=""
+                                                 placeholder="www.example.com"
+                                                 onChange={(e)=>{
+                                                    setInfo((prevInfo) => ({
+                                                        ...prevInfo,
+                                                        site: e.target.value,
+                                                      }));
+                                                 }}/>
+                                            <span className="form-text"></span>
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -402,52 +422,6 @@ const Resume:React.FC = ()=>{
                                                 startDate:'',
                                                 graduationDate:'',
                                                 description:''
-                                            },
-                                        ])
-                                    }}>+</button>
-                                </div>
-                            </div>
-
-                            <div className="cv-form-blk xl:block">
-                                <div className="cv-form-row-title">
-                                    <h3>Skill Profile</h3>
-                                </div>
-
-                                <div className="row-separator repeater">
-                                    <div className="repeater" data-repeater-list="group-e">
-                                        {skills.map((skill,index)=>(
-                                            <div data-repeater-item key={index}>
-                                                <div className="cv-form-row cv-form-row-skills">
-                                                    <div className="form-elem">
-                                                        <label htmlFor="" className="form-label">Skill</label>
-                                                        <input name="skill" type="text" className="form-control skill" id=""
-                                                           onChange={(e) => {
-                                                            setSkills((prevSkills) => {
-                                                                const newSkills = [...prevSkills];
-                                                                newSkills[index] = {
-                                                                     ...newSkills[index], 
-                                                                    title: e.target.value 
-                                                                };
-                                                                return newSkills;
-                                                            })}} />
-                                                        <span className="form-text"></span>
-                                                    </div>
-
-                                                    <button data-repeater-delete type="button"
-                                                        className="repeater-remove-btn"
-                                                        onClick={()=>{
-                                                            setSkills((prevSkills) => prevSkills.slice(0, -1));
-                                                        }}>-</button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
-                                    onClick={()=>{
-                                        setSkills((prevSkills)=>[
-                                            ...prevSkills,
-                                            {
-                                                title:''
                                             },
                                         ])
                                     }}>+</button>
@@ -644,6 +618,38 @@ const Resume:React.FC = ()=>{
                                                                 <span className="form-text"></span>
                                                             </div>
                                                         </div>
+                                                        <div className="cols-3">
+                                                        <div className="form-elem">
+                                                            <label htmlFor="" className="form-label">Start Date</label>
+                                                            <input name="exp_start_date" type="date"
+                                                                className="form-control exp_start_date" id="" 
+                                                                onChange={(e) => {
+                                                                    setProjects((prevProjects) => {
+                                                                        const newProjects = [...prevProjects];
+                                                                        newProjects[index] = {
+                                                                             ...newProjects[index], 
+                                                                            startDate: e.target.value 
+                                                                        };
+                                                                        return newProjects;
+                                                                    })}}/>
+                                                            <span className="form-text"></span>
+                                                        </div>
+                                                        <div className="form-elem">
+                                                            <label htmlFor="" className="form-label">End Date</label>
+                                                            <input name="exp_end_date" type="date" className="form-control exp_end_date"
+                                                                id="" 
+                                                                onChange={(e) => {
+                                                                    setProjects((prevProjects) => {
+                                                                        const newProjects = [...prevProjects];
+                                                                        newProjects[index] = {
+                                                                             ...newProjects[index], 
+                                                                            endDate: e.target.value 
+                                                                        };
+                                                                        return newProjects;
+                                                                    })}}/>
+                                                            <span className="form-text"></span>
+                                                        </div>
+                                                        </div>
                                                         <button data-repeater-delete type="button"
                                                             className="repeater-remove-btn"
                                                             onClick={()=>{
@@ -662,7 +668,55 @@ const Resume:React.FC = ()=>{
                                             {
                                                 title:'',
                                                 link:'',
-                                                description:''
+                                                description:'',
+                                                startDate:'',
+                                                endDate:'',
+                                            },
+                                        ])
+                                    }}>+</button>
+                                </div>
+                            </div>
+
+                            <div className="cv-form-blk xl:block">
+                                <div className="cv-form-row-title">
+                                    <h3>Skill Profile</h3>
+                                </div>
+
+                                <div className="row-separator repeater">
+                                    <div className="repeater" data-repeater-list="group-e">
+                                        {skills.map((skill,index)=>(
+                                            <div data-repeater-item key={index}>
+                                                <div className="cv-form-row cv-form-row-skills">
+                                                    <div className="form-elem">
+                                                        <label htmlFor="" className="form-label">Skill</label>
+                                                        <input name="skill" type="text" className="form-control skill" id=""
+                                                           onChange={(e) => {
+                                                            setSkills((prevSkills) => {
+                                                                const newSkills = [...prevSkills];
+                                                                newSkills[index] = {
+                                                                     ...newSkills[index], 
+                                                                    title: e.target.value 
+                                                                };
+                                                                return newSkills;
+                                                            })}} />
+                                                        <span className="form-text"></span>
+                                                    </div>
+
+                                                    <button data-repeater-delete type="button"
+                                                        className="repeater-remove-btn"
+                                                        onClick={()=>{
+                                                            setSkills((prevSkills) => prevSkills.slice(0, -1));
+                                                        }}>-</button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
+                                    onClick={()=>{
+                                        setSkills((prevSkills)=>[
+                                            ...prevSkills,
+                                            {
+                                                title:''
                                             },
                                         ])
                                     }}>+</button>
@@ -758,7 +812,7 @@ const Resume:React.FC = ()=>{
 
             <section id="preview-sc" className="h-screen
              overflow-y-auto print_area w-[50%] bg-gray-500 
-             flex justify-center items-center relative">
+             flex justify-center items-center relative roboto">
              
                 <div className="w-[592px] h-[842px] bg-white  flex flex-col items-center py-8 px-4 text-[10px]">
                     <div className="w-full flex items-center justify-start">
@@ -769,7 +823,7 @@ const Resume:React.FC = ()=>{
                     <div className="w-full flex items-center justify-start mt-1">
                         <h1 className="w-[40%] px-4 font-[400] tracking-[0.1rem] uppercase text-[12px]">{info?.designation}</h1>
                         <p className="w-[30%] px-4 font-[400]">{info?.address}</p>
-                        <p className="w-[30%] px-4 font-[400]">hello@gmail.com</p>
+                        <p className="w-[30%] px-4 font-[400]">{info?.site}</p>
                     </div>
                     <hr className="w-[94%] mt-3 border-[1px] border-black mb-4"/>
                     <div className="w-[94%]">
@@ -790,33 +844,61 @@ const Resume:React.FC = ()=>{
                         <div className="w-[70%]">
                             <div>
                                 <h2 className="uppercase text-neutral-600 text-[13px] font-[700]">Academic Profile</h2>
-                                <hr className="border-[1px] border-neutral-400 w-[36%] mt-[4px] mb-2"/>
+                                <hr className="border-[1.5px] border-neutral-400 w-[36%] mt-[4px] mb-2"/>
                                 {educations?.map((education,i)=>(
-                                    <div key={i}>
-                                        <div className="text-black font-[600] mb-1">
+                                    <div key={i} className="py-1">
+                                        <div className="text-black font-[600] mb-1 uppercase">
                                             {education?.degree}  
                                         </div>
-                                        <div>
-                                            {education?.school}
+                                        <div >
+                                           <span>{education?.school}</span> 
                                             <span>, </span>
                                             <span>{education?.city}</span>
+                                        </div>
+                                        <div>
+                                            Year of Passing -  
+                                            <span>
+                                                {formatDate(education?.graduationDate)}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            {education?.description}
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                            <div>
-                                <h2 className="uppercase text-neutral-600 text-[13px] font-[700] mt-4">Internship Profile</h2>
-                                <hr className="border-[1px] border-neutral-400 w-[36%] mt-[4px] mb-2"/>
+                            <div className="mt-4">
+                                <h2 className="uppercase text-neutral-600 text-[13px] font-[700]">Internship Profile</h2>
+                                <hr className="border-[1.5px] border-neutral-400 w-[36%] mt-[4px] mb-2"/>
                                 {experiences?.map((experience,i)=>(
-                                    <div key={i}>
+                                    <div key={i} className="py-1">
                                         <div className="text-black font-[600] mb-1 flex items-center">
                                             {experience?.title}  
                                             <div className="w-[3px] h-[10px] bg-neutral-400 mx-1"/>
                                             {experience?.organization} 
                                         </div>
                                         <div>
+                                            {experience?.location} | {formatDate(experience?.startDate)} - {experience?.endDate? (formatDate(experience?.endDate)) : 'Present'}
+                                        </div>
+                                        <div>
                                             {experience?.description}
                                         </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="mt-4">
+                                <h2 className="uppercase text-neutral-600 text-[13px] font-[700]">Project Profile</h2>
+                                <hr className="border-[1.5px] border-neutral-400 w-[36%] mt-[4px] mb-2"/>
+                                {projects?.map((project,i)=>(
+                                    <div key={i} className="py-1">
+                                        <a className="cursor-pointer" href={project?.link}>
+                                            <div className="text-black font-[600] mb-1">
+                                                {project?.title} | {formatDate(project?.startDate)} - {project?.endDate? (formatDate(project?.endDate)) : 'Present'}
+                                            </div>
+                                            <div>
+                                                {project?.description}
+                                            </div>
+                                        </a>
                                     </div>
                                 ))}
                             </div>
@@ -825,7 +907,22 @@ const Resume:React.FC = ()=>{
                         <div className="w-[30%]">
                             <div>
                                 <h2 className="uppercase text-neutral-600 text-[13px] font-[700]">Skills Profile</h2>
-                                <hr className="border-[1px] border-neutral-400 w-[66%] mt-[4px] mb-2"/>
+                                <hr className="border-[1.5px] border-neutral-400 w-[66%] mt-[4px] mb-2"/>
+                                {skills.map((skill,i)=>(
+                                    <div key={i} className="py-1">
+                                        <li className="">{skill.title}</li>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="mt-4">
+                                <h2 className="uppercase text-neutral-600 text-[13px] font-[700]">Socials Profile</h2>
+                                <hr className="border-[1.5px] border-neutral-400 w-[66%] mt-[4px] mb-2"/>
+                                {socials.map((social,i)=>(
+                                    <div key={i} className="py-1">
+                                        <div className="font-[700] text-[11px] text-black">{social?.platform}</div>
+                                        <a href={social?.link} className="underline">{social?.username}</a>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
