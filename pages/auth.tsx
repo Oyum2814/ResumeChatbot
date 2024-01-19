@@ -20,7 +20,7 @@ const Auth = ()=>{
 
     const login = useCallback(async()=>{
         try{
-            const res = await signIn('credentials',{email, password, callbackUrl:'/'});
+            const res = await signIn('credentials',{email, password, callbackUrl:'/templates'});
             if (res?.error) { console.log("Error  - ",res.error); }
         } catch(error){
             console.log(error);
@@ -81,6 +81,7 @@ const Auth = ()=>{
                                 value={password}
                             />
                         </div>
+                        {/* Login Button now works on both devices */}
                         <button onClick={variant==='login'?login:register} className="bg-[#4FB0C6]/80 py-3 text-white font-medium rounded-md w-full mt-10
                         hover:bg-[#4FB0C6] transition-">
                             {variant==='login'?'Login':'Sign Up'}
@@ -88,13 +89,13 @@ const Auth = ()=>{
                         <div className="flex items-center gap-4 mt-8 justify-center">
                             <div onClick={(e)=>{
                                 e.preventDefault();
-                                signIn('google',{callbackUrl:'/'});
+                                signIn('google',{callbackUrl:'/templates'});
                                 }} className=" xs:bg-blue-400 border-[1px] border-black w-15 h-15 flex items-center p-2 justify-center cursor-pointer
                                 hover:bg-neutral-200 transition rounded-full">
                                 <FcGoogle size={20}/>
 
                             </div>
-                            <div onClick={()=>signIn('github',{callbackUrl:'/'})} className="border-[1px]
+                            <div onClick={()=>signIn('github',{callbackUrl:'/templates'})} className="border-[1px]
                              border-black w-15 h-15 p-2 flex items-center justify-center cursor-pointer
                              hover:bg-neutral-200 transition rounded-full">
                                 <FaGithub size={30}/>
