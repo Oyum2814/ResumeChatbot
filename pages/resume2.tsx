@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar";
-import Resume from "@/components/Resume";
 import Resume2 from "@/components/Resume2";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
@@ -20,7 +19,7 @@ export async function getServerSideProps(context: NextPageContext){
     props:{}
   }
 }
-export default function resume() {
+export default function resume2() {
   return (
     <div>
       <Navbar />

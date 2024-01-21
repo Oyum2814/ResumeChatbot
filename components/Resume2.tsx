@@ -1,74 +1,36 @@
-// interface ResumeProps{
-//     firstName:string;
-//     middleName?:string;
-//     lastName:string;
-//     designation:string;
-//     address:string;
-//     email:string;
-//     phone:string;
-//     summary:string;
-//     // achievements need to be an array of objects
-//     achievements:[
-//         {
-//             title:string;
-//             description:string;
-//         }
-//     ];
-//     // experiences need to be an array of objects
-//     experiences:[
-//         {
-//             title:string;
-//             organization:string;
-//             location:string;
-//             startDate:string;
-//             endDate:string;
-//             description:string;
-//         }
-//     ];
-//     // educations need to be an array of objects
-//     educations:[
-//         {
-//             school:string;
-//             degree:string;
-//             city:string;
-//             startDate:string;
-//             graduationDate:string;
-//             description:string;
-//         }
-//     ];
-//     // projects need to be an array of objects
-//     projects:[
-//         {
-//             title:string;
-//             link:string;
-//             description:string;
-//         }
-//     ];
-//     // Skills neeed to be an array of objects
-//     skills:[
-//         {
-//             skill:string;
-//         }
-//     ];
-// }
+interface UserProfile {
+    firstName?: string;
+    middleName?: string;
+    lastName?: string;
+    designation?: string;
+    address?: string;
+    phone?: string;
+    summary?: string;
+    story?:string;
+    site?:string;
+    experiences?: any[]; // Adjust the type based on your actual data structure
+    educations?: any[]; // Adjust the type based on your actual data structure
+    projects?: any[]; // Adjust the type based on your actual data structure
+    skills?: any[]; // Adjust the type based on your actual data structure
+    socials?: any[]; // Adjust the type based on your actual data structure
+}
 
-import { ChangeEvent, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 
 import { format } from "date-fns";
+import axios from "axios";
+import useUser from "@/hooks/useUsers";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import toast from "react-hot-toast";
+import useExperiences from "@/hooks/useExperiences";
+import useEducations from "@/hooks/useEducations";
 
-interface Achievement {
-    title: string;
-    description: string;
-}
+
 
 
 const Resume:React.FC = ()=>{
-    const [image,setImage ] = useState<File | null>(null);
-
-    const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const selectedImage = event.target.files?.[0];
-        setImage(selectedImage ?? null);
-    };
+    const {data:currentUser,mutate:mutateCurrentUser} = useCurrentUser();
+    const {data:currentEducations,mutate:mutateCurrentEducations} = useEducations(currentUser?.id);
 
     const formatDate = (date: any): any | null => {
         if (!date) {
@@ -83,38 +45,22 @@ const Resume:React.FC = ()=>{
         lastName:'Doe',
         designation:'Role',
         address:'Your Address',
-        email:'name@gmail.com',
         phone:'your phone number',
         summary:'Summary ...',
         story:'',
         site:'',
     });
-    const [achievements,setAchievements] = useState<Achievement[]>([
-        {
-        title:'title',
-        description:'description of the achievement'
-        }
-    ]);
-    const [experiences, setExperiences] = useState([
-        {
-            title:'<<role>>',
-            organization:'<<companyName>>',
-            location:'<<location>>',
-            startDate:'',
-            endDate:'',
-            description:'<<description>>'
-        }
-    ]);
-    const [educations, setEducations] = useState([
-        {
-            school:'',
-            degree:'',
-            city:'',
-            startDate:'',
-            graduationDate:'',
-            description:''
-        }
-    ]);
+   
+    const [experiences, setExperiences] = useState([ {
+        title:'<<role>>',
+        organization:'<<companyName>>',
+        location:'<<location>>',
+        startDate:'',
+        endDate:'',
+        description:'<<description>>'
+    }]);
+    const [educations, setEducations] = useState(currentEducations);
+
     const [projects, setProjects] = useState([
         {
             title:'<<projectTitle>>',
@@ -137,10 +83,66 @@ const Resume:React.FC = ()=>{
         }
     ]);
 
+    useEffect(()=>{
+        setInfo((prevInfo)=>({
+            ...prevInfo,
+            firstName: currentUser?.firstName,
+            middleName:currentUser?.middleName,
+            lastName: currentUser?.lastName,
+            designation: currentUser?.designation,
+            address:currentUser?.address,
+            phone:currentUser?.phone,
+            summary:currentUser?.summary,
+            story:currentUser?.story,
+            site:currentUser?.site,
+        }));        
+    },[currentUser]);
 
-    const printCV=()=>{
-        window.print();
-    };
+    useEffect(() => {
+        if (currentEducations) {
+            setEducations(currentEducations);
+        }
+        console.log(currentEducations);
+    }, [currentEducations]);
+
+    useEffect(() => {
+        setUserProfile({
+            ...info,
+            experiences,
+            educations,
+            projects,
+            skills,
+            socials,
+        });
+    }, [info, experiences, educations, projects, skills, socials]);
+
+
+    const [userProfile, setUserProfile] = useState({
+        ...info,
+        experiences,
+        educations,
+        projects,
+        skills,
+        socials,
+      });
+
+    const saveProfile = useCallback(async () => {
+        try {
+            console.log(userProfile?.educations);
+            const response = await axios.patch('/api/edit', userProfile);
+            await mutateCurrentUser((updatedUser:any) => ({
+                ...updatedUser,
+                ...userProfile,
+            }));
+            await mutateCurrentEducations();
+            toast.success('Saved');
+            console.log('User profile updated successfully:', response.data);
+            // Handle updated user data as needed
+        } catch (error:any) {
+          console.error('Error updating user profile:', error.message);
+        }
+      }, [userProfile]);
+    
     return(
         <div className="h-screen w-screen flex justify-between absolute overflow-y-hidden">
             <section id="about-sc" className="w-[50%] h-screen overflow-y-auto">
@@ -156,7 +158,9 @@ const Resume:React.FC = ()=>{
                                     <div className="cols-3">
                                         <div className="form-elem">
                                             <label htmlFor="" className="form-label">First Name</label>
-                                            <input name="firstname" type="text" className="form-control firstname" id=""
+                                            <input
+                                            value={info?.firstName}
+                                            name="firstname" type="text" className="form-control firstname" id=""
                                                  placeholder="e.g. John" 
                                                  onChange={(e)=>{
                                                     setInfo((prevInfo) => ({
@@ -169,7 +173,9 @@ const Resume:React.FC = ()=>{
                                         <div className="form-elem">
                                             <label htmlFor="" className="form-label">Middle Name <span
                                                     className="opt-text">(optional)</span></label>
-                                            <input name="middlename" type="text" className="form-control middlename" id=""
+                                            <input
+                                            value={info?.middleName}
+                                            name="middlename" type="text" className="form-control middlename" id=""
                                             placeholder="e.g. Herbert"
                                             onChange={(e)=>{
                                                 setInfo((prevInfo) => ({
@@ -181,7 +187,9 @@ const Resume:React.FC = ()=>{
                                         </div>
                                         <div className="form-elem">
                                             <label htmlFor="" className="form-label">Last Name</label>
-                                            <input name="lastname" type="text" className="form-control lastname" id=""
+                                            <input 
+                                            value = {info?.lastName}
+                                            name="lastname" type="text" className="form-control lastname" id=""
                                                  placeholder="e.g. Doe" 
                                                  onChange={(e)=>{
                                                     setInfo((prevInfo) => ({
@@ -203,6 +211,7 @@ const Resume:React.FC = ()=>{
                                             <label htmlFor="" className="form-label">Designation</label>
                                             <input name="designation" type="text" className="form-control designation" id=""
                                                  placeholder="e.g. Sr.Accountants"
+                                                 value = {info?.designation}
                                                  onChange={(e)=>{
                                                     setInfo((prevInfo) => ({
                                                         ...prevInfo,
@@ -215,6 +224,7 @@ const Resume:React.FC = ()=>{
                                             <label htmlFor="" className="form-label">Address</label>
                                             <input name="address" type="text" className="form-control address" id=""
                                                  placeholder="e.g. Lake Street-23"
+                                                 value = {info?.address}
                                                  onChange={(e)=>{
                                                     setInfo((prevInfo) => ({
                                                         ...prevInfo,
@@ -228,6 +238,7 @@ const Resume:React.FC = ()=>{
                                             <label htmlFor="" className="form-label">My Story</label>
                                             <input name="story" type="text" className="form-control email" id=""
                                                  placeholder=""
+                                                 value = {info?.story}
                                                  onChange={(e)=>{
                                                     setInfo((prevInfo) => ({
                                                         ...prevInfo,
@@ -239,22 +250,23 @@ const Resume:React.FC = ()=>{
                                     </div>
 
                                     <div className="cols-3">
-                                        <div className="form-elem">
+                                        {/* <div className="form-elem">
                                             <label htmlFor="" className="form-label">Email</label>
                                             <input name="email" type="text" className="form-control email" id=""
                                                  placeholder="e.g. johndoe@gmail.com"
                                                  onChange={(e)=>{
                                                     setInfo((prevInfo) => ({
                                                         ...prevInfo,
-                                                        email: e.target.value,
+                                                        mail: e.target.value,
                                                       }));
                                                  }}/>
                                             <span className="form-text"></span>
-                                        </div>
+                                        </div> */}
                                         <div className="form-elem">
                                             <label htmlFor="" className="form-label">Phone No:</label>
                                             <input name="phoneno" type="text" className="form-control phoneno" id=""
                                                  placeholder="e.g. 456-768-798, 567.654.002"
+                                                 value = {info?.phone}
                                                  onChange={(e)=>{
                                                     setInfo((prevInfo) => ({
                                                         ...prevInfo,
@@ -267,6 +279,7 @@ const Resume:React.FC = ()=>{
                                             <label htmlFor="" className="form-label">Objective</label>
                                             <input name="summary" type="text" className="form-control summary" id=""
                                                  placeholder="e.g. Doe"
+                                                 value = {info?.summary}
                                                  onChange={(e)=>{
                                                     setInfo((prevInfo) => ({
                                                         ...prevInfo,
@@ -282,6 +295,7 @@ const Resume:React.FC = ()=>{
                                             <label htmlFor="" className="form-label">Website</label>
                                             <input name="email" type="text" className="form-control email" id=""
                                                  placeholder="www.example.com"
+                                                 value = {info?.site}
                                                  onChange={(e)=>{
                                                     setInfo((prevInfo) => ({
                                                         ...prevInfo,
@@ -302,16 +316,18 @@ const Resume:React.FC = ()=>{
 
                                 <div className="row-separator repeater">
                                     <div className="repeater" data-repeater-list="group-c">
-                                        {educations.map((education,index)=>(
+                                        {educations?.map((education:any,index:any)=>(
                                             <div data-repeater-item key={index}>
                                                 <div className="cv-form-row cv-form-row-experience">
                                                     <div className="cols-3">
                                                         <div className="form-elem">
                                                             <label htmlFor="" className="form-label">Institution</label>
-                                                            <input name="edu_school" type="text" className="form-control edu_school"
+                                                            <input name="edu_school"
+                                                            value={education?.school}
+                                                            type="text" className="form-control edu_school"
                                                                 id="" 
                                                                 onChange={(e) => {
-                                                                    setEducations((prevEducations) => {
+                                                                    setEducations((prevEducations:any) => {
                                                                         const newEducations = [...prevEducations];
                                                                         newEducations[index] = {
                                                                              ...newEducations[index], 
@@ -325,8 +341,9 @@ const Resume:React.FC = ()=>{
                                                             <label htmlFor="" className="form-label">Degree</label>
                                                             <input name="edu_degree" type="text" className="form-control edu_degree"
                                                                 id="" 
+                                                                value={education?.degree}
                                                                 onChange={(e) => {
-                                                                    setEducations((prevEducations) => {
+                                                                    setEducations((prevEducations:any) => {
                                                                         const newEducations = [...prevEducations];
                                                                         newEducations[index] = {
                                                                              ...newEducations[index], 
@@ -338,9 +355,11 @@ const Resume:React.FC = ()=>{
                                                         </div>
                                                         <div className="form-elem">
                                                             <label htmlFor="" className="form-label">City</label>
-                                                            <input name="edu_city" type="text" className="form-control edu_city" id=""
+                                                            <input
+                                                             value={education?.city}
+                                                            name="edu_city" type="text" className="form-control edu_city" id=""
                                                              onChange={(e) => {
-                                                                setEducations((prevEducations) => {
+                                                                setEducations((prevEducations:any) => {
                                                                     const newEducations = [...prevEducations];
                                                                     newEducations[index] = {
                                                                          ...newEducations[index], 
@@ -373,7 +392,7 @@ const Resume:React.FC = ()=>{
                                                             <input name="edu_graduation_date" type="date"
                                                                 className="form-control edu_graduation_date" id=""
                                                                 onChange={(e) => {
-                                                                    setEducations((prevEducations) => {
+                                                                    setEducations((prevEducations:any) => {
                                                                         const newEducations = [...prevEducations];
                                                                         newEducations[index] = {
                                                                              ...newEducations[index], 
@@ -389,14 +408,16 @@ const Resume:React.FC = ()=>{
                                                                 placeholder="CGPA/Percentage"
                                                                 className="form-control edu_description" id=""
                                                                 onChange={(e) => {
-                                                                    setEducations((prevEducations) => {
+                                                                    setEducations((prevEducations:any) => {
                                                                         const newEducations = [...prevEducations];
                                                                         newEducations[index] = {
                                                                              ...newEducations[index], 
                                                                             description: e.target.value 
                                                                         };
                                                                         return newEducations;
-                                                                    })}} />
+                                                                    });
+                                                                    mutateCurrentEducations();
+                                                                    }} />
                                                             <span className="form-text xl:block"></span>
                                                         </div>
                                                     </div>
@@ -404,7 +425,8 @@ const Resume:React.FC = ()=>{
                                                     <button data-repeater-delete type="button"
                                                         className="repeater-remove-btn"
                                                         onClick={()=>{
-                                                            setEducations((prevEducations) => prevEducations.slice(0, -1));
+                                                            setEducations((prevEducations:any) => prevEducations.slice(0, -1));
+                                                            mutateCurrentEducations();
                                                         }}>-</button>
                                                 </div>
                                             </div>
@@ -413,7 +435,7 @@ const Resume:React.FC = ()=>{
                                     </div>
                                     <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
                                     onClick={()=>{
-                                        setEducations((prevEducations)=>[
+                                        setEducations((prevEducations:any)=>[
                                             ...prevEducations,
                                             {
                                                 school:'',
@@ -435,7 +457,7 @@ const Resume:React.FC = ()=>{
 
                                 <div className="row-separator repeater">
                                     <div className="repeater" data-repeater-list="group-b">
-                                        {experiences.map((experience,index) =>(
+                                        {experiences?.map((experience:any,index:any) =>(
                                             <div data-repeater-item key={index}>
                                                 <div className="cv-form-row cv-form-row-experience">
                                                     <div className="cols-3">
@@ -443,7 +465,7 @@ const Resume:React.FC = ()=>{
                                                             <label htmlFor="" className="form-label">Title</label>
                                                             <input name="exp_title" type="text" className="form-control exp_title" id=""
                                                            onChange={(e) => {
-                                                            setExperiences((prevExperiences) => {
+                                                            setExperiences((prevExperiences:any) => {
                                                                 const newExperiences = [...prevExperiences];
                                                                 newExperiences[index] = {
                                                                      ...newExperiences[index], 
@@ -458,7 +480,7 @@ const Resume:React.FC = ()=>{
                                                             <input name="exp_organization" type="text"
                                                                 className="form-control exp_organization" id="" 
                                                                 onChange={(e) => {
-                                                                    setExperiences((prevExperiences) => {
+                                                                    setExperiences((prevExperiences:any) => {
                                                                         const newExperiences = [...prevExperiences];
                                                                         newExperiences[index] = {
                                                                              ...newExperiences[index], 
@@ -473,7 +495,7 @@ const Resume:React.FC = ()=>{
                                                             <input name="exp_location" type="text" className="form-control exp_location"
                                                                 id="" 
                                                                 onChange={(e) => {
-                                                                    setExperiences((prevExperiences) => {
+                                                                    setExperiences((prevExperiences:any) => {
                                                                         const newExperiences = [...prevExperiences];
                                                                         newExperiences[index] = {
                                                                              ...newExperiences[index], 
@@ -491,7 +513,7 @@ const Resume:React.FC = ()=>{
                                                             <input name="exp_start_date" type="date"
                                                                 className="form-control exp_start_date" id="" 
                                                                 onChange={(e) => {
-                                                                    setExperiences((prevExperiences) => {
+                                                                    setExperiences((prevExperiences:any) => {
                                                                         const newExperiences = [...prevExperiences];
                                                                         newExperiences[index] = {
                                                                              ...newExperiences[index], 
@@ -506,7 +528,7 @@ const Resume:React.FC = ()=>{
                                                             <input name="exp_end_date" type="date" className="form-control exp_end_date"
                                                                 id="" 
                                                                 onChange={(e) => {
-                                                                    setExperiences((prevExperiences) => {
+                                                                    setExperiences((prevExperiences:any) => {
                                                                         const newExperiences = [...prevExperiences];
                                                                         newExperiences[index] = {
                                                                              ...newExperiences[index], 
@@ -521,7 +543,7 @@ const Resume:React.FC = ()=>{
                                                             <input name="exp_description" type="text"
                                                                 className="form-control exp_description" id=""
                                                                 onChange={(e) => {
-                                                                    setExperiences((prevExperiences) => {
+                                                                    setExperiences((prevExperiences:any) => {
                                                                         const newExperiences = [...prevExperiences];
                                                                         newExperiences[index] = {
                                                                              ...newExperiences[index], 
@@ -536,7 +558,7 @@ const Resume:React.FC = ()=>{
                                                     <button data-repeater-delete type="button"
                                                         className="repeater-remove-btn"
                                                         onClick={()=>{
-                                                            setExperiences((prevExperiences) => prevExperiences.slice(0, -1));
+                                                            setExperiences((prevExperiences:any) => prevExperiences.slice(0, -1));
                                                         }}>-</button>
                                                 </div>
                                             </div>
@@ -546,7 +568,7 @@ const Resume:React.FC = ()=>{
                                     <button 
                                     type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
                                     onClick={()=>{
-                                        setExperiences((prevExperiences)=>[
+                                        setExperiences((prevExperiences:any)=>[
                                             ...prevExperiences,
                                             {
                                                 title:'',
@@ -804,7 +826,12 @@ const Resume:React.FC = ()=>{
                                     }}>+</button>
                                 </div>
                             </div>
-                           
+                                
+                            <button 
+                            onClick={saveProfile}
+                            className="text-xl px-4 py-2 bg-blue-600 text-white font-[600] rounded-md">
+                                Save
+                           </button>
                         </form>
                     </div>
                 </div>
@@ -818,7 +845,7 @@ const Resume:React.FC = ()=>{
                     <div className="w-full flex items-center justify-start">
                         <h1 className="w-[40%] px-4 font-[700] text-[16px] uppercase">{info?.firstName} {info?.middleName} {info?.lastName}</h1>
                         <p className="w-[30%] px-4 font-[400]">{info?.phone}</p>
-                        <p className="w-[30%] px-4 font-[400]">{info?.email}</p>
+                        {/* <p className="w-[30%] px-4 font-[400]">{info?.email}</p> */}
                     </div>
                     <div className="w-full flex items-center justify-start mt-1">
                         <h1 className="w-[40%] px-4 font-[400] tracking-[0.1rem] uppercase text-[12px]">{info?.designation}</h1>
@@ -845,7 +872,7 @@ const Resume:React.FC = ()=>{
                             <div>
                                 <h2 className="uppercase text-neutral-600 text-[13px] font-[700]">Academic Profile</h2>
                                 <hr className="border-[1.5px] border-neutral-400 w-[36%] mt-[4px] mb-2"/>
-                                {educations?.map((education,i)=>(
+                                {educations?.map((education:any,i:any)=>(
                                     <div key={i} className="py-1">
                                         <div className="text-black font-[600] mb-1 uppercase">
                                             {education?.degree}  
@@ -870,7 +897,7 @@ const Resume:React.FC = ()=>{
                             <div className="mt-4">
                                 <h2 className="uppercase text-neutral-600 text-[13px] font-[700]">Internship Profile</h2>
                                 <hr className="border-[1.5px] border-neutral-400 w-[36%] mt-[4px] mb-2"/>
-                                {experiences?.map((experience,i)=>(
+                                {experiences?.map((experience:any,i:any)=>(
                                     <div key={i} className="py-1">
                                         <div className="text-black font-[600] mb-1 flex items-center">
                                             {experience?.title}  

@@ -1,7 +1,5 @@
-import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
-import Resume from "@/components/Resume1";
-import TemplateList from "@/components/TemplateList";
+import Resume1 from "@/components/Resume1";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 
@@ -21,12 +19,11 @@ export async function getServerSideProps(context: NextPageContext){
     props:{}
   }
 }
-
-export default function templates() {
-    return (
-      <div>
-        <Navbar />
-        <TemplateList />
-      </div>
-    )
-  }
+export default function resume1() {
+  return (
+    <div>
+      <Navbar />
+      <Resume1 />
+    </div>
+  )
+}

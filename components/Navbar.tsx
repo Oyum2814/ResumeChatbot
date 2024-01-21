@@ -45,11 +45,12 @@ const Navbar = ()=>{
 
     return (
         <nav className="w-full fixed z-40 text-black flex flex-col justify-center text-xl">
+                <div className="absolute">  </div>
                 <div className={'px-4 md:px-16 py-6 flex items-center transition' }>
                 <div className="font-bold">Resume<span className="text-blue-600">Genie</span></div>
                 <div className="flex-row ml-12 gap-7 hidden lg:flex">
                     <NavbarItem label="Home" route="/"/>
-                    <NavbarItem label="My Resume" route="/myResumes"/>
+                    <NavbarItem label="Templates" route="/templates"/>
                 </div>
                 <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">
                     <p className=" text-sm">Browse</p>
