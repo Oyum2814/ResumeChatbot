@@ -69,6 +69,8 @@ model Project {
   link        String?
   description String?
   userId      String  @db.ObjectId
+  startDate   String?
+  endDate     String?
   user        User    @relation(fields: [userId], references: [id])
 }
 

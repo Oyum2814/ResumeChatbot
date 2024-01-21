@@ -25,10 +25,6 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
           skills,
           socials,
         } = req.body;
-
-        // if (!firstName || !middleName ||!lastName || !designation || !address || !phone || !summary|| !) {
-        //     throw new Error('Missing required fields');
-        // }
         
         const existingUserData = await prismadb.user.findUnique({
             where: {
@@ -43,107 +39,123 @@ export default async function handler(req:NextApiRequest,res:NextApiResponse){
             },
         });
 
-        
         if (!existingUserData) {
         throw new Error("User not found");
         }
-        if(!experiences){
-          throw new Error("experiences not found");
-        }
-        if(!educations)
-        {
-          throw new Error("Educations not found");
-        }
         console.log("Existing User Data: "+existingUserData);
-        const data:any = {
-          firstName,
-          middleName,
-          lastName,
-          designation,
-          address,
-          phone,
-          summary,
-          story,
-          site,
-          experiences: {
-              deleteMany: {
-                  userId: currentUser.id,
-              },
-              createMany: {
-                  data: experiences.map((exp: any) => ({
-                      title: exp.title,
-                      organization: exp.organization,
-                      location: exp.location,
-                      startDate: exp.startDate,
-                      endDate: exp.endDate,
-                      description: exp.description,
-                  })),
-              },
-          },
-          projects: {
-              deleteMany: {
-                  userId: currentUser.id,
-              },
-              createMany: {
-                  data: projects.map((proj: any) => ({
-                      title: proj.title,
-                      link: proj.link,
-                      description: proj.description,
-                  })),
-              },
-          },
-          skills: {
-              deleteMany: {
-                  userId: currentUser.id,
-              },
-              createMany: {
-                  data: skills.map((skill: any) => ({
-                      title: skill.title,
-                  })),
-              },
-          },
-          socials: {
-              deleteMany: {
-                  userId: currentUser.id,
-              },
-              createMany: {
-                  data: socials.map((social: any) => ({
-                      platform: social.platform,
-                      username: social.username,
-                      link: social.link,
-                  })),
-              },
-          },
-        };
-        if (educations.length>0) {
-            data.educations = {
-                deleteMany: {
-                    userId: currentUser.id,
-                },
-                createMany: {
-                    data: educations.map((ed: any) => ({
-                        school: ed.school,
-                        degree: ed.degree,
-                        city: ed.city,
-                        startDate: ed.startDate,
-                        graduationDate: ed.graduationDate,
-                        description: ed.description,
-                    })),
-                },
-            };
-        }
-        else{
-          data.educations = {
-            deleteMany: {
-                userId: currentUser.id,
-            },
-        };
-        }
+
         const updatedUser = await prismadb.user.update({
             where:{
                 id:currentUser.id
             },
-            data,
+            data: {
+                firstName,
+                middleName,
+                lastName,
+                designation,
+                address,
+                phone,
+                summary,
+                story,
+                site,
+                experiences: (experiences.length>0)?
+                {
+                    deleteMany: {
+                        userId: currentUser.id,
+                    },
+                    createMany: {
+                        data: experiences.map((exp: any) => ({
+                            title: exp.title,
+                            organization: exp.organization,
+                            location: exp.location,
+                            startDate: exp.startDate,
+                            endDate: exp.endDate,
+                            description: exp.description,
+                        })),
+                    },
+                }
+                :{
+                    deleteMany:{
+                        userId:currentUser.id,
+                    }
+                },
+                educations: (educations.length>0)?
+                {
+                    deleteMany: {
+                        userId: currentUser.id,
+                    },
+                    createMany: {
+                        data: educations.map((ed: any) => ({
+                            school: ed.school,
+                            degree: ed.degree,
+                            city: ed.city,
+                            startDate: ed.startDate,
+                            graduationDate: ed.graduationDate,
+                            description: ed.description,
+                        })),
+                    },
+                }
+                :{
+                    deleteMany:{
+                        userId:currentUser.id,
+                    }
+                },
+                projects: (projects.length>0)?
+                {
+                    deleteMany: {
+                        userId: currentUser.id,
+                    },
+                    createMany: {
+                        data: projects.map((proj: any) => ({
+                            title: proj?.title,
+                            link: proj?.link,
+                            description: proj?.description,
+                            startDate:proj?.startDate,
+                            endDate:proj?.endDate
+                        })),
+                    },
+                }
+                :{
+                    deleteMany:{
+                        userId:currentUser.id,
+                    }
+                }
+                ,
+                skills: (skills.length>0)?
+                {
+                    deleteMany: {
+                        userId: currentUser.id,
+                    },
+                    createMany: {
+                        data: skills.map((skill: any) => ({
+                            title: skill?.title,
+                        })),
+                    },
+                }
+                :{
+                    deleteMany:{
+                        userId:currentUser.id,
+                    }
+                },
+                socials: (socials.length>0)?
+                {
+                    deleteMany: {
+                        userId: currentUser.id,
+                    },
+                    createMany: {
+                        data: socials.map((social: any) => ({
+                            platform:social?.platform,
+                            username:social?.username,
+                            link:social?.link
+                        })),
+                    },
+                }
+                :{
+                    deleteMany:{
+                        userId:currentUser.id,
+                    }
+                },
+            },
         });
         return res.status(200).json(updatedUser);
     }

@@ -2,9 +2,9 @@ import React from 'react';
 import useSWR from 'swr';
 import fetcher from "@/lib/fetcher";
 
-const useEducations = (userId:string)=>{
+const useInfo = (userId:string,field:string)=>{
     const {data, error, isLoading, mutate } 
-    = useSWR(userId?`/api/educations/${userId}`: null,fetcher);
+    = useSWR(userId?`/api/${field}/${userId}`: null,fetcher);
     return {
         data,
         error,
@@ -13,4 +13,4 @@ const useEducations = (userId:string)=>{
     };
 };
 
-export default useEducations;
+export default useInfo;
