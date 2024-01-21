@@ -126,3 +126,10 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model ResumeTemplate {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  thumbnail   String
+  name        String
+  description String
+}

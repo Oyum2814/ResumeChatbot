@@ -1,6 +1,5 @@
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
-import Resume from "@/components/Resume1";
 import TemplateList from "@/components/TemplateList";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
