@@ -1,19 +1,4 @@
-interface UserProfile {
-    firstName?: string;
-    middleName?: string;
-    lastName?: string;
-    designation?: string;
-    address?: string;
-    phone?: string;
-    summary?: string;
-    story?:string;
-    site?:string;
-    experiences?: any[]; // Adjust the type based on your actual data structure
-    educations?: any[]; // Adjust the type based on your actual data structure
-    projects?: any[]; // Adjust the type based on your actual data structure
-    skills?: any[]; // Adjust the type based on your actual data structure
-    socials?: any[]; // Adjust the type based on your actual data structure
-}
+
 import Navbar from '@/components/Navbar'
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 
@@ -22,18 +7,19 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import toast from "react-hot-toast";
 import useInfo from "@/hooks/useInfo";
 
-import {Resume2} from "./ResumeTemplates"
+import {Resume1} from "./ResumeTemplates"
 
+interface ResumeProps{
+    resumeName:string;
+}
 
-const Resume:React.FC = ()=>{
+const Resume:React.FC<ResumeProps> = ({resumeName})=>{
     const {data:currentUser,mutate:mutateCurrentUser} = useCurrentUser();
     const {data:currentEducations,mutate:mutateCurrentEducations} = useInfo(currentUser?.id,'educations');
     const {data:currentExperiences,mutate:mutateCurrentExperiences} = useInfo(currentUser?.id,'experiences');
     const {data:currentProjects,mutate:mutateCurrentProjects} = useInfo(currentUser?.id,'projects');
     const {data:currentSocials,mutate:mutateCurrentSocials} = useInfo(currentUser?.id,'socials');
     const {data:currentSkills,mutate:mutateCurrentSkills} = useInfo(currentUser?.id,'skills');
-
-
 
 
     const [info,setInfo] = useState({
@@ -122,10 +108,14 @@ const Resume:React.FC = ()=>{
           console.error('Error updating user profile:', error.message);
         }
       }, [userProfile]);
+
+      
     
     return(
         <>
+       
             <Navbar />
+
             <div className="h-screen w-screen flex justify-between absolute overflow-y-hidden">
                 <section id="about-sc" className="w-[50%] h-screen overflow-y-auto">
                     <div className="container">
@@ -827,14 +817,19 @@ const Resume:React.FC = ()=>{
                         </div>
                     </div>
                 </section>
-                <Resume2
-                info={info}
-                experiences={experiences}
-                projects={projects}
-                educations={educations}
-                skills={skills}
-                socials={socials}
-                />
+
+                {(resumeName==='Template1')
+                &&(
+                    <Resume1
+                    info={info}
+                    experiences={experiences}
+                    projects={projects}
+                    educations={educations}
+                    skills={skills}
+                    socials={socials}
+                    />
+                )}
+                
                 
             </div>
         </>

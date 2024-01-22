@@ -7,7 +7,7 @@ const resume = () => {
     const {resume} = router.query;
     return (  
         <div className="text-black">
-            <Resume name={resume as string}/>
+            <Resume resumeName={resume as string}/>
         </div>
     );
 }
