@@ -7,7 +7,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import toast from "react-hot-toast";
 import useInfo from "@/hooks/useInfo";
 
-import {Resume1} from "./ResumeTemplates"
+import {Resume1,Resume2} from "./ResumeTemplates"
 
 interface ResumeProps{
     resumeName:string;
@@ -52,24 +52,30 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
             summary:currentUser?.summary,
             story:currentUser?.story,
             site:currentUser?.site,
-        }));        
+        })); 
+        mutateCurrentUser();
     },[currentUser]);
 
     useEffect(() => {
         if (currentEducations) {
             setEducations(currentEducations);
+            mutateCurrentEducations();
         }
         if (currentExperiences) {
             setExperiences(currentExperiences);
+            mutateCurrentExperiences();
         }
         if (currentProjects) {
             setProjects(currentProjects);
+            mutateCurrentProjects();
         }
         if (currentSocials) {
             setSocials(currentSocials);
+            mutateCurrentSocials();
         }
         if (currentSkills) {
             setSkills(currentSkills);
+            mutateCurrentSkills();
         }
     }, [currentEducations,currentExperiences,currentProjects,currentSocials,currentSkills]);
 
@@ -114,7 +120,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
     return(
         <>
        
-            <Navbar />
+            <Navbar resumePage/>
 
             <div className="h-screen w-screen flex justify-between absolute overflow-y-hidden">
                 <section id="about-sc" className="w-[50%] h-screen overflow-y-auto">
@@ -124,7 +130,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                 
                                 <div className="cv-form-blk">
                                     <div className="cv-form-row-title">
-                                        <h2 className="font-[600] uppercase tracking-[1.5px] text-2xl">About section</h2>
+                                        <h2 className="font-[600] uppercase tracking-[1.5px] text-xl">About section</h2>
                                     </div>
                                     <div className="cv-form-row cv-form-row-about">
                                         <div className="cols-3">
@@ -143,8 +149,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                 <span className="form-text"></span>
                                             </div>
                                             <div className="form-elem">
-                                                <label htmlFor="" className="form-label">Middle Name <span
-                                                        className="opt-text">(optional)</span></label>
+                                                <label htmlFor="" className="form-label">Middle Name</label>
                                                 <input
                                                 value={info?.middleName}
                                                 name="middlename" type="text" className="form-control middlename" id=""
@@ -670,8 +675,14 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                 <div className="cv-form-blk xl:block">
                                     <div className="cv-form-row-title">
                                         <h3>Skill Profile</h3>
+                                        
                                     </div>
-
+                                    <button data-repeater-delete type="button"
+                                                                className="repeater-remove-btn"
+                                                                onClick={()=>{
+                                                                    setSocials((prevSocials:any) => prevSocials.slice(0, -1));
+                                                                    mutateCurrentSocials();
+                                                                }}>-</button>
                                     <div className="row-separator repeater">
                                         <div className="repeater" data-repeater-list="group-e">
                                             {skills?.map((skill:any,index:any)=>(
@@ -781,12 +792,6 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                     <span className="form-text"></span>
                                                                 </div>
                                                             </div>
-                                                            <button data-repeater-delete type="button"
-                                                                className="repeater-remove-btn"
-                                                                onClick={()=>{
-                                                                    setSocials((prevSocials:any) => prevSocials.slice(0, -1));
-                                                                    mutateCurrentSocials();
-                                                                }}>-</button>
                                                         </div>
                                                     </div>
                                                 ))
@@ -821,6 +826,17 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                 {(resumeName==='Template1')
                 &&(
                     <Resume1
+                    info={info}
+                    experiences={experiences}
+                    projects={projects}
+                    educations={educations}
+                    skills={skills}
+                    socials={socials}
+                    />
+                )}
+                {(resumeName==='Template2')
+                &&(
+                    <Resume2
                     info={info}
                     experiences={experiences}
                     projects={projects}
