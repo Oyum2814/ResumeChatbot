@@ -2,7 +2,7 @@
 import Resume from "@/components/Resume";
 import { useRouter } from "next/router";
 
-const resume = () => {
+const ResumePage = () => {
     const router = useRouter();
     const {resume} = router.query;
     return (  
@@ -12,4 +12,4 @@ const resume = () => {
     );
 }
  
-export default resume;
+export default ResumePage;
