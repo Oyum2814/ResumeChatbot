@@ -7,7 +7,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import toast from "react-hot-toast";
 import useInfo from "@/hooks/useInfo";
 
-import {Resume1} from "./ResumeTemplates"
+import {Resume1,Resume2} from "./ResumeTemplates"
 
 interface ResumeProps{
     resumeName:string;
@@ -52,24 +52,30 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
             summary:currentUser?.summary,
             story:currentUser?.story,
             site:currentUser?.site,
-        }));        
+        })); 
+        mutateCurrentUser();
     },[currentUser]);
 
     useEffect(() => {
         if (currentEducations) {
             setEducations(currentEducations);
+            mutateCurrentEducations();
         }
         if (currentExperiences) {
             setExperiences(currentExperiences);
+            mutateCurrentExperiences();
         }
         if (currentProjects) {
             setProjects(currentProjects);
+            mutateCurrentProjects();
         }
         if (currentSocials) {
             setSocials(currentSocials);
+            mutateCurrentSocials();
         }
         if (currentSkills) {
             setSkills(currentSkills);
+            mutateCurrentSkills();
         }
     }, [currentEducations,currentExperiences,currentProjects,currentSocials,currentSkills]);
 
@@ -821,6 +827,17 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                 {(resumeName==='Template1')
                 &&(
                     <Resume1
+                    info={info}
+                    experiences={experiences}
+                    projects={projects}
+                    educations={educations}
+                    skills={skills}
+                    socials={socials}
+                    />
+                )}
+                {(resumeName==='Template2')
+                &&(
+                    <Resume2
                     info={info}
                     experiences={experiences}
                     projects={projects}
