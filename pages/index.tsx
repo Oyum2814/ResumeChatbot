@@ -1,8 +1,5 @@
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
-import Resume from "@/components/ResumeTemplates";
-import { NextPageContext } from "next";
-import { getSession } from "next-auth/react";
 
 // export async function getServerSideProps(context: NextPageContext){
 //   const session = await getSession(context);
