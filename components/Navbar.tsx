@@ -7,6 +7,8 @@ import MobileMenu from './MobileMenu';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import { BsPersonFill } from "react-icons/bs";
 import Link from 'next/link';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const TOP_OFFSET=66;
 interface NavbarProps{
@@ -43,16 +45,31 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
         setShowAccountMenu((current)=>!current);
     },[]);
 
-    
+    const [loader,setLoader] = useState(false);
+    const downloadPDF = ()=>{
+        const capture = document.querySelector('#resume');
+        setLoader(true);
+        html2canvas(capture as any ).then((canvas)=>{
+            const imgData = canvas.toDataURL('img/png');
+            const doc = new jsPDF('p','mm','a4');
+            const componentWidth = doc.internal.pageSize.getWidth();
+            const componentHeight = doc.internal.pageSize.getHeight();
+            doc.addImage(imgData,'PNG',0,0,componentWidth,componentHeight);
+            setLoader(false);
+            doc.save('resume.pdf');
+        })
+    }
 
     return (
+
         <nav className="w-full fixed z-40 text-black flex flex-col justify-center text-xl h-16">
                 {resumePage && 
                 (<>
                     <div className="absolute w-[50vw] bg-white h-24 top-0 -z-20"></div>
                     <div className="absolute w-[50vw] top-0  bg-black bg-opacity-50 h-16 right-0"> 
-                    <div className="relative w-full h-full flex justify-start items-center ml-4 cursor-pointer">
-                        <div className="text-sm text-white bg-blue-600 px-4 py-2 rounded-md">
+                    <div className="relative w-full h-full flex justify-start items-center ml-4 ">
+                        <div className="text-sm text-white bg-blue-600 px-4 py-2 rounded-md cursor-pointer"
+                        onClick={downloadPDF}>
                             Download
                         </div>
                     </div> 

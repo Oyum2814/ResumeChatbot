@@ -6,6 +6,7 @@ import axios from "axios";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import toast from "react-hot-toast";
 import useInfo from "@/hooks/useInfo";
+import { IoIosRemoveCircle } from "react-icons/io";
 
 import {Resume1,Resume2} from "./ResumeTemplates"
 
@@ -119,9 +120,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
     
     return(
         <>
-       
             <Navbar resumePage/>
-
             <div className="h-screen w-screen flex justify-between absolute overflow-y-hidden">
                 <section id="about-sc" className="w-[50%] h-screen overflow-y-auto">
                     <div className="container">
@@ -270,7 +269,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                 </div>
 
                                 <div className="cv-form-blk">
-                                    <div className="cv-form-row-title">
+                                    <div className="cv-form-row-title flex justify-between items-center">
                                         <h3>Academic Profile</h3>
                                     </div>
 
@@ -279,7 +278,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                             {educations?.map((education:any,index:any)=>(
                                                 <div data-repeater-item key={index}>
                                                     <div className="cv-form-row cv-form-row-experience">
-                                                        <div className="cols-3">
+                                                        <div className="cols-2">
                                                             <div className="form-elem">
                                                                 <label htmlFor="" className="form-label">Institution</label>
                                                                 <input name="edu_school"
@@ -313,6 +312,8 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                         })}}/>
                                                                 <span className="form-text"></span>
                                                             </div>
+                                                        </div>
+                                                        <div className="cols-2">
                                                             <div className="form-elem">
                                                                 <label htmlFor="" className="form-label">City</label>
                                                                 <input
@@ -329,11 +330,8 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                     })}}   />
                                                                 <span className="form-text"></span>
                                                             </div>
-                                                        </div>
-
-                                                        <div className="cols-3">
                                                             <div className="form-elem">
-                                                                <label htmlFor="" className="form-label">End Date</label>
+                                                                <label htmlFor="" className="form-label">Year of Passing</label>
                                                                 <input 
                                                                 value = {education?.graduationDate}
                                                                 name="edu_graduation_date" type="date"
@@ -349,59 +347,65 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                         })}} />
                                                                 <span className="form-text"></span>
                                                             </div>
-                                                            <div className="form-elem">
-                                                                <label htmlFor="" className="form-label">Description</label>
-                                                                <input 
-                                                                value={education?.description}
-                                                                name="edu_description" type="text"
-                                                                    placeholder="CGPA/Percentage"
-                                                                    className="form-control edu_description" id=""
-                                                                    onChange={(e) => {
-                                                                        setEducations((prevEducations:any) => {
-                                                                            const newEducations = [...prevEducations];
-                                                                            newEducations[index] = {
-                                                                                ...newEducations[index], 
-                                                                                description: e.target.value 
-                                                                            };
-                                                                            return newEducations;
-                                                                        });
-                                                                        mutateCurrentEducations();
-                                                                        }} />
-                                                                <span className="form-text xl:block"></span>
-                                                            </div>
+                                                            
                                                         </div>
-
-                                                        <button data-repeater-delete type="button"
-                                                            className="repeater-remove-btn"
-                                                            onClick={()=>{
-                                                                setEducations((prevEducations:any) => prevEducations.slice(0, -1));
-                                                                mutateCurrentEducations();
-                                                            }}>-</button>
+                                                        <div className="cols-1">
+                                                            <div className="form-elem">
+                                                                    <label htmlFor="" className="form-label">Description</label>
+                                                                    <textarea
+                                                                    value={education?.description}
+                                                                    name="edu_description" 
+                                                                        placeholder="CGPA/Percentage"
+                                                                        className="form-control edu_description" id=""
+                                                                        onChange={(e) => {
+                                                                            setEducations((prevEducations:any) => {
+                                                                                const newEducations = [...prevEducations];
+                                                                                newEducations[index] = {
+                                                                                    ...newEducations[index], 
+                                                                                    description: e.target.value 
+                                                                                };
+                                                                                return newEducations;
+                                                                            });
+                                                                            mutateCurrentEducations();
+                                                                            }} />
+                                                                    <span className="form-text xl:block"></span>
+                                                                </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             ))}
                                             
                                         </div>
-                                        <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
-                                        onClick={()=>{
-                                            setEducations((prevEducations:any)=>[
-                                                ...prevEducations,
-                                                {
-                                                    school:'',
-                                                    degree:'',
-                                                    city:'',
-                                                    startDate:'',
-                                                    graduationDate:'',
-                                                    description:''
-                                                },
-                                            ]);
-                                            mutateCurrentEducations();
-                                        }}>+</button>
+                                        <div className="flex justify-end items-center gap-x-5">
+                                            <span>
+                                                <IoIosRemoveCircle
+                                                onClick={()=>{
+                                                    setEducations((prevEducations:any) => prevEducations.slice(0, -1));
+                                                    mutateCurrentEducations();
+                                                }}
+                                                size={30} color="red"/>
+                                            </span>                            
+                                            <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
+                                            onClick={()=>{
+                                                setEducations((prevEducations:any)=>[
+                                                    ...prevEducations,
+                                                    {
+                                                        school:'',
+                                                        degree:'',
+                                                        city:'',
+                                                        startDate:'',
+                                                        graduationDate:'',
+                                                        description:''
+                                                    },
+                                                ]);
+                                                mutateCurrentEducations();
+                                            }}>+</button>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className="cv-form-blk">
-                                    <div className="cv-form-row-title">
+                                    <div className="cv-form-row-title flex justify-between items-center">
                                         <h3>Internship Profile</h3>
                                     </div>
 
@@ -429,7 +433,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                 <span className="form-text"></span>
                                                             </div>
                                                             <div className="form-elem">
-                                                                <label htmlFor="" className="form-label">Company / Organization</label>
+                                                                <label htmlFor="" className="form-label">Organization</label>
                                                                 <input 
                                                                 value={experience?.organization}
                                                                 name="exp_organization" type="text"
@@ -464,7 +468,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                             </div>
                                                         </div>
 
-                                                        <div className="cols-3">
+                                                        <div className="cols-2">
                                                             <div className="form-elem">
                                                                 <label htmlFor="" className="form-label">Start Date</label>
                                                                 <input name="exp_start_date" type="date"
@@ -498,11 +502,14 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                         })}}/>
                                                                 <span className="form-text"></span>
                                                             </div>
+                                                            
+                                                        </div>
+                                                        <div className="cols-1">
                                                             <div className="form-elem">
                                                                 <label htmlFor="" className="form-label">Description</label>
-                                                                <input
+                                                                <textarea
                                                                 value={experience?.description}
-                                                                name="exp_description" type="text"
+                                                                name="exp_description" 
                                                                     className="form-control exp_description" id=""
                                                                     onChange={(e) => {
                                                                         setExperiences((prevExperiences:any) => {
@@ -516,39 +523,44 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                 <span className="form-text"></span>
                                                             </div>
                                                         </div>
-
-                                                        <button data-repeater-delete type="button"
-                                                            className="repeater-remove-btn"
-                                                            onClick={()=>{
-                                                                setExperiences((prevExperiences:any) => prevExperiences.slice(0, -1));
-                                                                mutateCurrentExperiences();
-                                                            }}>-</button>
                                                     </div>
                                                 </div>
                                             ))}
                                             
                                         </div>
-                                        <button 
-                                        type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
-                                        onClick={()=>{
-                                            setExperiences((prevExperiences:any)=>[
-                                                ...prevExperiences,
-                                                {
-                                                    title:'',
-                                                    organization:'',
-                                                    location:'',
-                                                    startDate: '',
-                                                    endDate: '',
-                                                    description: ''
-                                                },
-                                            ]);
-                                            mutateCurrentExperiences();
-                                        }}>+</button>
+                                        <div className="flex justify-end items-center gap-x-5">
+                                            <span>
+                                                <IoIosRemoveCircle
+                                                onClick={()=>{
+                                                    setExperiences((prevExperiences:any) => prevExperiences.slice(0, -1));
+                                                    mutateCurrentExperiences();
+                                                }}
+                                                size={30} color="red"
+                                                />
+                                            </span>
+                                            <button 
+                                            type="button" data-repeater-create value="Add" className="repeater-add-btn"
+                                            onClick={()=>{
+                                                setExperiences((prevExperiences:any)=>[
+                                                    ...prevExperiences,
+                                                    {
+                                                        title:'',
+                                                        organization:'',
+                                                        location:'',
+                                                        startDate: '',
+                                                        endDate: '',
+                                                        description: ''
+                                                    },
+                                                ]);
+                                                mutateCurrentExperiences();
+                                            }}>+</button>
+                                        </div>
+                                        
                                     </div>
                                 </div>
 
                                 <div className="cv-form-blk">
-                                    <div className="cv-form-row-title">
+                                    <div className="cv-form-row-title flex justify-between items-center">
                                         <h3>Projects Profile</h3>
                                     </div>
 
@@ -558,7 +570,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                 projects?.map((project:any,index:any)=>(
                                                     <div data-repeater-item key={index}>
                                                         <div className="cv-form-row cv-form-row-experience">
-                                                            <div className="cols-3">
+                                                            <div className="cols-2">
                                                                 <div className="form-elem">
                                                                     <label htmlFor="" className="form-label">Project Name</label>
                                                                     <input name="proj_title" type="text" className="form-control proj_title"
@@ -575,6 +587,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                             }}/>
                                                                     <span className="form-text"></span>
                                                                 </div>
+
                                                                 <div className="form-elem">
                                                                     <label htmlFor="" className="form-label">Project link</label>
                                                                     <input
@@ -592,97 +605,99 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                             }}/>
                                                                     <span className="form-text"></span>
                                                                 </div>
+                                                            </div>
+                                                            <div className="cols-2">
                                                                 <div className="form-elem">
-                                                                    <label htmlFor="" className="form-label">Description</label>
-                                                                    <input
-                                                                    value={project?.description} 
-                                                                    name="proj_description" type="text"
-                                                                        className="form-control proj_description" id=""
+                                                                    <label htmlFor="" className="form-label">Start Date</label>
+                                                                    <input name="exp_start_date" type="date"
+                                                                    value={project?.startDate} 
+                                                                        className="form-control exp_start_date" id="" 
                                                                         onChange={(e) => {
                                                                             setProjects((prevProjects:any) => {
                                                                                 const newProjects = [...prevProjects];
                                                                                 newProjects[index] = {
                                                                                     ...newProjects[index], 
-                                                                                    description: e.target.value 
+                                                                                    startDate: e.target.value 
                                                                                 };
                                                                                 return newProjects;
-                                                                            });}} />
+                                                                            })}}/>
+                                                                    <span className="form-text"></span>
+                                                                </div>
+                                                                <div className="form-elem">
+                                                                    <label htmlFor="" className="form-label">End Date</label>
+                                                                    <input name="exp_end_date" type="date" className="form-control exp_end_date"
+                                                                    value={project?.endDate} id="" 
+                                                                        onChange={(e) => {
+                                                                            setProjects((prevProjects:any) => {
+                                                                                const newProjects = [...prevProjects];
+                                                                                newProjects[index] = {
+                                                                                    ...newProjects[index], 
+                                                                                    endDate: e.target.value 
+                                                                                };
+                                                                                return newProjects;
+                                                                            })}}/>
                                                                     <span className="form-text"></span>
                                                                 </div>
                                                             </div>
-                                                            <div className="cols-3">
-                                                            <div className="form-elem">
-                                                                <label htmlFor="" className="form-label">Start Date</label>
-                                                                <input name="exp_start_date" type="date"
-                                                                value={project?.startDate} 
-                                                                    className="form-control exp_start_date" id="" 
-                                                                    onChange={(e) => {
-                                                                        setProjects((prevProjects:any) => {
-                                                                            const newProjects = [...prevProjects];
-                                                                            newProjects[index] = {
-                                                                                ...newProjects[index], 
-                                                                                startDate: e.target.value 
-                                                                            };
-                                                                            return newProjects;
-                                                                        })}}/>
-                                                                <span className="form-text"></span>
+                                                            <div className="cols-1">
+                                                                <div className="form-elem">
+                                                                        <label htmlFor="" className="form-label">Description</label>
+                                                                        <input
+                                                                        value={project?.description} 
+                                                                        name="proj_description" type="text"
+                                                                            className="form-control proj_description" id=""
+                                                                            onChange={(e) => {
+                                                                                setProjects((prevProjects:any) => {
+                                                                                    const newProjects = [...prevProjects];
+                                                                                    newProjects[index] = {
+                                                                                        ...newProjects[index], 
+                                                                                        description: e.target.value 
+                                                                                    };
+                                                                                    return newProjects;
+                                                                                });}} />
+                                                                        <span className="form-text"></span>
+                                                                </div>
                                                             </div>
-                                                            <div className="form-elem">
-                                                                <label htmlFor="" className="form-label">End Date</label>
-                                                                <input name="exp_end_date" type="date" className="form-control exp_end_date"
-                                                                value={project?.endDate} id="" 
-                                                                    onChange={(e) => {
-                                                                        setProjects((prevProjects:any) => {
-                                                                            const newProjects = [...prevProjects];
-                                                                            newProjects[index] = {
-                                                                                ...newProjects[index], 
-                                                                                endDate: e.target.value 
-                                                                            };
-                                                                            return newProjects;
-                                                                        })}}/>
-                                                                <span className="form-text"></span>
-                                                            </div>
-                                                            </div>
-                                                            <button data-repeater-delete type="button"
-                                                                className="repeater-remove-btn"
-                                                                onClick={()=>{
-                                                                    setProjects((prevProjects:any) => prevProjects.slice(0, -1));
-                                                                    mutateCurrentProjects();
-                                                                }}>-</button>
                                                         </div>
                                                     </div>
                                                 ))
                                             }
                                             
                                         </div>
-                                        <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
-                                        onClick={()=>{
-                                            setProjects((prevProjects:any)=>[
-                                                ...prevProjects,
-                                                {
-                                                    title:'',
-                                                    link:'',
-                                                    description:'',
-                                                    startDate:'',
-                                                    endDate:'',
-                                                },
-                                            ]);
-                                            mutateCurrentProjects();
-                                        }}>+</button>
+                                        <div className="flex justify-end items-center gap-x-5 w-full">
+                                            <span>
+                                                <IoIosRemoveCircle
+                                                onClick={()=>{
+                                                    setProjects((prevProjects:any) => prevProjects.slice(0, -1));
+                                                    mutateCurrentProjects();
+                                                }}
+                                                size={30} color="red"/>
+                                            </span>
+                                            <div>
+                                                <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
+                                                onClick={()=>{
+                                                    setProjects((prevProjects:any)=>[
+                                                        ...prevProjects,
+                                                        {
+                                                            title:'',
+                                                            link:'',
+                                                            description:'',
+                                                            startDate:'',
+                                                            endDate:'',
+                                                        },
+                                                    ]);
+                                                    mutateCurrentProjects();
+                                                }}>+</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className="cv-form-blk xl:block">
-                                    <div className="cv-form-row-title">
+                                    <div className="cv-form-row-title flex items-center justify-between">
                                         <h3>Skill Profile</h3>
-                                        
                                     </div>
-                                    <button data-repeater-delete type="button"
-                                                                className="repeater-remove-btn"
-                                                                onClick={()=>{
-                                                                    setSocials((prevSocials:any) => prevSocials.slice(0, -1));
-                                                                    mutateCurrentSocials();
-                                                                }}>-</button>
+                                    
                                     <div className="row-separator repeater">
                                         <div className="repeater" data-repeater-list="group-e">
                                             {skills?.map((skill:any,index:any)=>(
@@ -705,32 +720,35 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                 }} />
                                                             <span className="form-text"></span>
                                                         </div>
-
-                                                        <button data-repeater-delete type="button"
-                                                            className="repeater-remove-btn"
-                                                            onClick={()=>{
-                                                                setSkills((prevSkills:any) => prevSkills.slice(0, -1));
-                                                                mutateCurrentSkills();
-                                                            }}>-</button>
                                                     </div>
                                                 </div>
                                             ))}
                                         </div>
-                                        <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
-                                        onClick={()=>{
-                                            setSkills((prevSkills:any)=>[
-                                                ...prevSkills,
-                                                {
-                                                    title:''
-                                                },
-                                            ]);
-                                            mutateCurrentSkills();
-                                        }}>+</button>
+                                        <div className="flex justify-end items-center gap-x-5">
+                                            <span>
+                                                <IoIosRemoveCircle
+                                                onClick={()=>{
+                                                    setSkills((prevSkills:any) => prevSkills.slice(0, -1));
+                                                    mutateCurrentSkills();
+                                                }}
+                                                size={30} color="red"/>
+                                            </span>
+                                            <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
+                                            onClick={()=>{
+                                                setSkills((prevSkills:any)=>[
+                                                    ...prevSkills,
+                                                    {
+                                                        title:''
+                                                    },
+                                                ]);
+                                                mutateCurrentSkills();
+                                            }}>+</button>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className="cv-form-blk">
-                                    <div className="cv-form-row-title">
+                                    <div className="cv-form-row-title flex justify-between items-center">
                                         <h3>Socials Profile</h3>
                                     </div>
 
@@ -798,26 +816,38 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                             }
                                             
                                         </div>
-                                        <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
-                                        onClick={()=>{
-                                            setSocials((prevSocials:any)=>[
-                                                ...prevSocials,
-                                                {
-                                                    platform:'',
-                                                    link:'',
-                                                    username:''
-                                                },
-                                            ]);
-                                            mutateCurrentSocials();
-                                        }}>+</button>
+                                        <div className="flex justify-end items-center gap-x-5">
+                                            <span>
+                                                <IoIosRemoveCircle
+                                                onClick={()=>{
+                                                    setSocials((prevSocials:any) => prevSocials.slice(0, -1));
+                                                    mutateCurrentSocials();
+                                                }}
+                                                size={30} color="red"/>
+                                            </span>
+                                            <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
+                                            onClick={()=>{
+                                                setSocials((prevSocials:any)=>[
+                                                    ...prevSocials,
+                                                    {
+                                                        platform:'',
+                                                        link:'',
+                                                        username:''
+                                                    },
+                                                ]);
+                                                mutateCurrentSocials();
+                                            }}>+</button>
+                                        </div>
                                     </div>
                                 </div>
                                     
-                                <button 
-                                onClick={saveProfile}
-                                className="text-xl px-4 py-2 bg-blue-600 text-white font-[600] rounded-md">
-                                    Save
-                            </button>
+                                <div className="w-full flex justify-center">
+                                    <button 
+                                    onClick={saveProfile}
+                                    className="text-xl px-4 py-2 bg-blue-600 text-white font-[600] rounded-md mx-auto">
+                                        Save
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     </div>

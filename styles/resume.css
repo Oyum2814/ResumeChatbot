@@ -264,32 +264,11 @@ textarea{
 .cols-3, .cols-2{
     display: grid;
 }
+
 .repeater-add-btn{
-    width: 30px;
-    height: 30px;
-    background-color: rgb(3, 91, 145);
-    font-size: 1.6rem;
-    color: white;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 21px;
-    margin: 1rem 0;
+    @apply w-6 h-6 flex justify-center items-center rounded-full p-1 text-white  bg-blue-600 
 }
-.repeater-remove-btn{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background-color: #ca0b00;
-    color:white;
-    font-size: 1.6rem;
-}
+
 
 /* preview section */
 .preview-cnt{
