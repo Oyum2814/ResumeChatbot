@@ -16,6 +16,17 @@ const formatDate = (date: any): any | null => {
   return format(new Date(date), "MMMM yyyy");
 };
 
+const formatBullets = (sentence:any):any|null=>{
+  if(!sentence.includes('|'))
+  {
+    return <p>{sentence.trim()}</p>
+  }
+  const items = sentence.split('|').map((item:any, index:any) => (
+    <li className="list-disc ml-2" key={index}>{item.trim()}</li>
+  ));
+  return <ul className="list-outside">{items}</ul>;
+}
+
 export const Resume1: React.FC<ResumeProps> = ({
   info,
   experiences,
@@ -29,9 +40,11 @@ export const Resume1: React.FC<ResumeProps> = ({
     <section
       id="preview-sc"
       className="h-screen overflow-y-auto print_area w-[50%] bg-gray-500 
-              flex justify-center items-center relative roboto"
+              flex justify-center items-center relative roboto  py-24 "
     >
-      <div className="w-[420px] h-[594px] bg-white  flex flex-col items-center py-4 px-2 text-[10px]">
+      <div 
+      id="resume"
+      className="w-[420px] h-[594px] bg-white  flex flex-col items-center py-4 px-2 text-[10px]">
         <div className="w-full flex items-center justify-start">
           <h1 className="w-[40%] px-4 font-[700] text-[11px] uppercase">
             {info?.firstName} {info?.middleName} {info?.lastName}
@@ -86,7 +99,7 @@ export const Resume1: React.FC<ResumeProps> = ({
                     Year of Passing -{" "}
                     <span>{formatDate(education?.graduationDate)}</span>
                   </div>
-                  <div className="text-[7px]">{education?.description}</div>
+                  <div className="text-[7px]">{formatBullets(education?.description)}</div>
                 </div>
               ))}
             </div>
@@ -109,7 +122,7 @@ export const Resume1: React.FC<ResumeProps> = ({
                       ? formatDate(experience?.endDate)
                       : "Present"}
                   </div>
-                  <div className="text-[7px]">{experience?.description}</div>
+                  <div className="text-[7px]">{formatBullets(experience?.description)}</div>
                 </div>
               ))}
             </div>
@@ -127,7 +140,7 @@ export const Resume1: React.FC<ResumeProps> = ({
                         ? formatDate(project?.endDate)
                         : "Present"}
                     </div>
-                    <div className="text-[7px]">{project?.description}</div>
+                    <div className="text-[7px]">{formatBullets(project?.description)}</div>
                   </a>
                 </div>
               ))}
@@ -181,7 +194,7 @@ export const Resume2: React.FC<ResumeProps> = ({
   return (
     <section id="preview-sc" className="h-screen overflow-y-auto print_area w-[50%] bg-gray-500 
                      flex justify-center items-center relative">
-        <div className="w-[420px] h-[594px] bg-white  flex flex-col items-center">
+        <div className="w-[420px] h-[594px] bg-white  flex flex-col items-center" id="resume">
             <h2 className="text-[26px] font-extralight xl:text-[28px]">
                 {info?.firstName} {info?.middleName} {info?.lastName}
             </h2>
@@ -199,7 +212,7 @@ export const Resume2: React.FC<ResumeProps> = ({
                             <h3 className="text-[10px] uppercase inter font-[700]">{education?.school}</h3>
                             <h3 className="tracking-[.55px] font-[400] text-[7px] uppercase">{education?.degree}</h3>
                             <p className="text-[7px] tracking-[0.4px] font-weight-[400]">{formatDate(education?.graduationDate)} | {education?.city}</p>
-                            <p className="text-[7px] font-[400] tracking-[0.4px] ">{education?.description}</p>
+                            <p className="text-[7px] font-[400] tracking-[0.4px] ">{formatBullets(education?.description)}</p>
                         </div>
                     ))}
                     <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase mt-2 mb-1">Skills</h2>
@@ -228,8 +241,8 @@ export const Resume2: React.FC<ResumeProps> = ({
                         <div className="py-[2px]" key={i}>
                             <h3 className="text-[8px] uppercase inter font-[700]">{experience?.organization} | {experience?.title} </h3>
                             <h3 className="font-[400] text-[7px] ">{formatDate(experience?.startDate)} - {experience?.endDate? (formatDate(experience?.endDate)) : 'Present'} | {experience?.location}</h3>
-                            <article className="text-[7px] font-[400] ">
-                                {experience?.description}
+                            <article className="text-[7px] max-w-[80%] font-[400] ">
+                                {formatBullets(experience?.description)}
                             </article>
                         </div>
                     ))}
@@ -238,7 +251,7 @@ export const Resume2: React.FC<ResumeProps> = ({
                     {projects?.map((project:any,i:any)=>(
                         <div className="py-[2px]" key={i}>
                             <h3 className="text-[8px] inter font-[700]">{project?.title} | <span className="text-[6px] font-[400]"><a href={project?.link}>Link</a></span></h3>
-                            <p className="text-[7px] tracking-[0.4px] font-[400]">{project?.description}</p>
+                            <p className="text-[7px] tracking-[0.4px] font-[400]">{formatBullets(project?.description)}</p>
                         </div>
                     ))}
                 </div>
