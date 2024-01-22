@@ -193,18 +193,26 @@ export const Resume2: React.FC<ResumeProps> = ({
             </p>
             <div className="flex w-[95%] mt-4">
                 <div className="w-[40%] h-full" id="left-side">
-                    <h2 className="text-[#6A6A6A] text-[13px] font-[600]">ACADEMIC</h2>
+                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] mb-1">ACADEMIC</h2>
                     {educations?.map((education:any,i:any)=>(
-                        <div className="py-1" key={i}>
+                        <div className="py-[2px]" key={i}>
                             <h3 className="text-[10px] uppercase inter font-[700]">{education?.school}</h3>
-                            <h3 className="tracking-[.55px] font-[400] text-[11px] uppercase">{education?.degree}</h3>
-                            <p className="text-[8px] tracking-[0.4px] font-weight-[400]">{formatDate(education?.graduationDate)} | {education?.city}</p>
-                            <p className="text-[8px] font-[400] tracking-[0.4px] ">{education?.description}</p>
+                            <h3 className="tracking-[.55px] font-[400] text-[7px] uppercase">{education?.degree}</h3>
+                            <p className="text-[7px] tracking-[0.4px] font-weight-[400]">{formatDate(education?.graduationDate)} | {education?.city}</p>
+                            <p className="text-[7px] font-[400] tracking-[0.4px] ">{education?.description}</p>
                         </div>
                     ))}
-                    <h2 className="text-[#6A6A6A] text-[13px] font-[600]">Social</h2>
+                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase mt-2 mb-1">Skills</h2>
+                    {skills?.map((skill:any,i:any)=>(
+                        <div className="py-[2px]" key={i}>
+                            <li className="text-[8px] font-[400] tracking-[0.4px] ">
+                                {skill?.title}
+                            </li>
+                        </div>
+                    ))}
+                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase mt-2 mb-1">Socials</h2>
                     {socials?.map((social:any,i:any)=>(
-                        <div className="py-1" key={i}>
+                        <div className="py-[2px]" key={i}>
                             <p className="text-[8px] font-[400] tracking-[0.4px] ">
                                 {social?.platform}
                                 <span> - </span>
@@ -215,22 +223,22 @@ export const Resume2: React.FC<ResumeProps> = ({
                 </div>
 
                 <div className="w-[60%] h-full" id="right-side">
-                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase">Internship</h2>
+                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase mb-1">Internship</h2>
                     {experiences?.map((experience:any,i:any)=>(
-                        <div className="py-1" key={i}>
-                            <h3 className="text-[10px] uppercase inter font-[700]">{experience?.organization} | {experience?.title} </h3>
-                            <h3 className="font-[400] text-[9px] ">{formatDate(experience?.startDate)} - {experience?.endDate? (formatDate(experience?.endDate)) : 'Present'} | {experience?.location}</h3>
-                            <article className="text-[9px] font-[400] ">
+                        <div className="py-[2px]" key={i}>
+                            <h3 className="text-[8px] uppercase inter font-[700]">{experience?.organization} | {experience?.title} </h3>
+                            <h3 className="font-[400] text-[7px] ">{formatDate(experience?.startDate)} - {experience?.endDate? (formatDate(experience?.endDate)) : 'Present'} | {experience?.location}</h3>
+                            <article className="text-[7px] font-[400] ">
                                 {experience?.description}
                             </article>
                         </div>
                     ))}
 
-                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase">Projects</h2>
+                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase mt-2 mb-1">Projects</h2>
                     {projects?.map((project:any,i:any)=>(
-                        <div className="py-1" key={i}>
-                            <h3 className="text-[10px] uppercase inter font-[700]">{project?.title}</h3>
-                            <p className="text-[10px] tracking-[0.4px] font-[400]">{project?.description}</p>
+                        <div className="py-[2px]" key={i}>
+                            <h3 className="text-[8px] inter font-[700]">{project?.title} | <span className="text-[6px] font-[400]"><a href={project?.link}>Link</a></span></h3>
+                            <p className="text-[7px] tracking-[0.4px] font-[400]">{project?.description}</p>
                         </div>
                     ))}
                 </div>
