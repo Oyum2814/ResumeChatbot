@@ -9,8 +9,10 @@ import { BsPersonFill } from "react-icons/bs";
 import Link from 'next/link';
 
 const TOP_OFFSET=66;
-
-const Navbar = ()=>{
+interface NavbarProps{
+    resumePage?:boolean;
+}
+const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
     const [showMobileMenu,setShowMobileMenu] =useState(false);
     const [showAccountMenu,setShowAccountMenu] =useState(false);
     const {data:user} = useCurrentUser();
@@ -44,8 +46,20 @@ const Navbar = ()=>{
     
 
     return (
-        <nav className="w-full fixed z-40 text-black flex flex-col justify-center text-xl">
-                <div className="absolute">  </div>
+        <nav className="w-full fixed z-40 text-black flex flex-col justify-center text-xl h-16">
+                {resumePage && 
+                (<>
+                    <div className="absolute w-[50vw] bg-white h-24 top-0 -z-20"></div>
+                    <div className="absolute w-[50vw] top-0  bg-black bg-opacity-50 h-16 right-0"> 
+                    <div className="relative w-full h-full flex justify-start items-center ml-4 cursor-pointer">
+                        <div className="text-sm text-white bg-blue-600 px-4 py-2 rounded-md">
+                            Download
+                        </div>
+                    </div> 
+                    </div>
+                </>
+                )}
+                
                 <div className={'px-4 md:px-16 py-6 flex items-center transition' }>
                 <div className="font-bold">Resume<span className="text-blue-600">Genie</span></div>
                 <div className="flex-row ml-12 gap-7 hidden lg:flex">

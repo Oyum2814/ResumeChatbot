@@ -120,7 +120,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
     return(
         <>
        
-            <Navbar />
+            <Navbar resumePage/>
 
             <div className="h-screen w-screen flex justify-between absolute overflow-y-hidden">
                 <section id="about-sc" className="w-[50%] h-screen overflow-y-auto">
