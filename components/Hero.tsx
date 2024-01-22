@@ -18,7 +18,7 @@ const Hero = () => {
                 <h3 className="md:px-6 md:py-2 text-lg md:text-4xl font-light text-center md:text-left">
                 Online resume builder with AI assistance
                 </h3>
-                <Link href="/resume"
+                <Link href="/templates"
                 className="bg-[#5d61bf] mt-4 py-2 px-6 text-white cursor-pointer 
                 rounded-md w-[80%] md:w-[25%] text-center ml-6 text-2xl font-semibold">
                     Get Started

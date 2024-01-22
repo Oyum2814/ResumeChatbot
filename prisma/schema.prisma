@@ -11,37 +11,83 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
   name           String
   image          String?
-  email          String?   @unique
+  email          String?      @unique
   emailVerified  DateTime?
   hashedPassword String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  favouriteIds   String[]  @db.ObjectId
-  sessions       Session[]
-  accounts       Account[]
-  info           Info?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  firstName      String?
+  middleName     String?
+  lastName       String?
+  designation    String?
+  address        String?
+  phone          String?
+  summary        String?
+  story          String?
+  site           String?
+  mail           String?
+  experiences    Experience[]
+  educations     Education[]
+  projects       Project[]
+  skills         Skill[]
+  socials        Social[]
+
+  sessions Session[]
+  accounts Account[]
 }
 
-model Info {
-  id           String        @id @default(auto()) @map("_id") @db.ObjectId
-  userId       String        @unique @db.ObjectId
-  firstName    String
-  middleName   String?
-  lastName     String
-  designation  String
-  address      String
-  email        String
-  phone        String
-  summary      String
-  achievements Achievement[]
-  experiences  Experience[]
-  educations   Education[]
-  projects     Project[]
-  skills       Skill[]
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+model Experience {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  title        String?
+  organization String?
+  location     String?
+  startDate    String?
+  endDate      String?
+  description  String?
+  userId       String  @db.ObjectId
+  user         User    @relation(fields: [userId], references: [id])
+}
+
+model Education {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  school         String?
+  degree         String?
+  city           String?
+  startDate      String?
+  graduationDate String?
+  description    String?
+  userId         String  @db.ObjectId
+  user           User    @relation(fields: [userId], references: [id])
+}
+
+model Project {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  title       String?
+  link        String?
+  description String?
+  userId      String  @db.ObjectId
+  startDate   String?
+  endDate     String?
+  user        User    @relation(fields: [userId], references: [id])
+}
+
+model Skill {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  title  String?
+  userId String  @db.ObjectId
+  user   User    @relation(fields: [userId], references: [id])
+}
+
+model Social {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  platform String?
+  username String?
+  link     String?
+  userId   String  @db.ObjectId
+  user     User    @relation(fields: [userId], references: [id])
 }
 
 model Account {
@@ -81,57 +127,9 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model Resume {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
-  title        String
-  description  String
-  thumbnailUrl String
-  code         String
-}
-
-model Achievement {
+model ResumeTemplate {
   id          String @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
+  thumbnail   String
+  name        String
   description String
-  infoId      String
-  info        Info   @relation(fields: [infoId], references: [id])
-}
-
-model Experience {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
-  title        String
-  organisation String
-  location     String
-  startDate    String
-  endDate      String
-  description  String
-  infoId       String @unique
-  info         Info   @relation(fields: [infoId], references: [id])
-}
-
-model Education {
-  id             String @id @default(auto()) @map("_id") @db.ObjectId
-  school         String
-  degree         String
-  city           String
-  startDate      String
-  graduationDate String
-  description    String
-  infoId         String
-  info           Info   @relation(fields: [infoId], references: [id])
-}
-
-model Project {
-  id          String @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  link        String
-  description String
-  infoId      String
-  info        Info   @relation(fields: [infoId], references: [id])
-}
-
-model Skill {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  infoId String
-  info   Info   @relation(fields: [infoId], references: [id])
 }
