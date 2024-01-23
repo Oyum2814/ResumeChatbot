@@ -77,10 +77,9 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                 </>
                 )}
                 
-                <div className={'px-4 md:px-16 py-6 flex items-center transition' }>
-                <div className="font-bold">Resume<span className="text-blue-600">Genie</span></div>
-                <div className="flex-row ml-12 gap-7 hidden lg:flex">
-                    <NavbarItem label="Home" route="/"/>
+                <div className={'px-4 md:px-16 py-6 flex items-center transition text-ms' }>
+                <Link href="/" className="font-bold cursor-pointer">Resume<span className="text-blue-600">Genie</span></Link>
+                <div className="flex-row ml-12 gap-7 hidden lg:flex text-sm">
                     <NavbarItem label="Templates" route="/templates"/>
                 </div>
                 <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">
@@ -88,25 +87,34 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                     <BsChevronDown className={`transition ${showMobileMenu?'rotate-180':'rotate-0'}`}/>
                     <MobileMenu visible={showMobileMenu} />
                 </div>
-                <div className="flex flex-row ml-auto gap-7 items-center">
-                    <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
+                {user?
+                    (
+                    <div className="flex flex-row ml-auto gap-7 items-center">
+                        <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
+                            
+                            {user?.image? (
+                                <div className="w-12 h-12 rounded-full border border-[2px] overflow-hidden bg-white">
+                                    <Image width="40" height="40"
+                                    className="h-12 w-12 object-contain rounded-full "
+                                    src={user.image} alt="profileImage"/>
+                                </div>
+                            ):
+                            (
+                                <BsPersonFill size={45}/>
+                            )}
                         
-                        {user?.image? (
-                            <div className="w-12 h-12 rounded-full border border-[2px] overflow-hidden bg-white">
-                                <Image width="40" height="40"
-                                className="h-12 w-12 object-contain rounded-full "
-                                src={user.image} alt="profileImage"/>
-                            </div>
-                        ):
-                        (
-                            <BsPersonFill size={45}/>
-                        )}
-                       
-                      
-                        <BsChevronDown className={`transition hover:scale-125 ${showAccountMenu?'rotate-180':'rotate-0'}`}/>
+                        
+                            <BsChevronDown className={`transition hover:scale-125 ${showAccountMenu?'rotate-180':'rotate-0'}`}/>
+                        </div>
+                        <AccountMenu visible={showAccountMenu}/>
+                    </div>)
+                :
+                    <div className="flex flex-row ml-auto gap-8 items-center text-sm">
+                        <Link href="/auth" className="cursor-pointer">Login</Link>
+                        <Link href="/auth" className="cursor-pointer">Register</Link>
                     </div>
-                    <AccountMenu visible={showAccountMenu}/>
-                </div>
+                }
+                
             </div>
         </nav>
     )
