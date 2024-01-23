@@ -1,7 +1,7 @@
 interface InputProps{
     id:string;
-    onChange: any;
-    value:string;
+    onChange?: any;
+    value?:string;
     label:string;
     type?:string;
 }
@@ -13,14 +13,11 @@ const Input:React.FC<InputProps> = ({id,onChange,value,label,type})=>{
             type={type}
             value={value}
             onChange={onChange}
+            placeholder={label}
             className="
-            block  border-[4px] border-[#19CC85]/60 rounded-md px-6 pt-6 pb-1 w-full text-md text-black appearance-none focus:outline-none focus:ring-0 peer
-            "
-        placeholder=""/>
-        <label className="absolute text-md text-neutral-700 duration-150 font-semibold
-        transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-6
-        peer-placeholder-shown:scale-10 peer-placeholder-shown:translate-y-0 peer-focus:scale-75
-        peer-focus:-translate-y-3" htmlFor={id}>{label}</label>
+            border-[1px] border-[#1E447680]/50 rounded-[10px] h-[50px] text-black
+            px-4 py-1 w-[320px] font-[400] manrope text-[11px]
+            "/>
         </div>
         
     )

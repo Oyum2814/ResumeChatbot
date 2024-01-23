@@ -5,7 +5,8 @@ import {signIn} from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
 import {FaGithub} from 'react-icons/fa';
 import Image from 'next/image'
-import logo from '@/public/assets/logo.png'
+import asset1 from '@/public/assets/login/asset1.png'
+import Navbar from "@/components/Navbar";
 const Auth = ()=>{
 
     const [email, setEmail] = useState('');
@@ -39,8 +40,82 @@ const Auth = ()=>{
     
 
     return(
-        <div className="relative h-screen w-screen bg-[#F9FEEA] overflow-x-hidden">
-            <div className="flex flex-col justify-center w-full h-full ">
+        <div className="relative h-screen w-screen bg-white overflow-x-hidden">
+            <Navbar />
+            <div className='h-screen w-screen flex flex-col md:flex-row  justify-center items-center '>
+                <div className="rounded-[10px]  opacity-0.6 bg-[#A0BAF11A]/10 w-[80%] h-[70%] flex justify-center items-center">
+                    <div className="w-[50%] h-full flex justify-center items-center">
+                        <Image src={asset1} alt=""
+                        width={552} height={366}/>
+                    </div>
+                    <div className="w-[30%] flex flex-col justify-center items-start ml-12">
+                        <h2 className=" manrope text-[16px] font-[700]">
+                                {variant==='login'?'Sign In':'Register'}
+                        </h2>
+                        <div className="flex flex-col gap-4 mt-4">
+                            {variant==='register'&&(
+                                <Input 
+                                label="Name"
+                                onChange={(e:any)=>setName(e.target.value)}
+                                id="name"
+                                value={name}
+                            />
+                            )}
+                            
+                            <Input 
+                                label="Email"
+                                onChange={(e:any)=>setEmail(e.target.value)}
+                                id="email"
+                                type="email"
+                                value={email}
+                            />
+                            <Input 
+                                label="Password"
+                                onChange={(e:any)=>setPassword(e.target.value)}
+                                id="password"
+                                type="password"
+                                value={password}
+                            />
+                            {variant==='register' &&(
+                                <Input label="Confirm Password" 
+                                id="confirmpassword"
+                                type="password" />
+                            )}
+
+                        </div>
+                        <button onClick={variant==='login'?login:register}
+                        className="bg-[#1E4476] px-4 py-2 rounded-lg text-white manrope
+                        mt-4 mx-auto">
+                            {variant==='login'?'Login':'Sign Up'}
+                        </button>
+                        <div className="text-neutral-500 mt-4 text-[11px] w-full text-center manrope">
+                            {variant==='login'?'New to Resume Genie?':'Already have an account?'}
+                            <span onClick={toggleVariant} className="text-black ml-1 hover:underline cursor-pointer">
+                                {variant==='login'?'Create Account':'Login'}
+                            </span>
+                            <div className="mt-2">
+                                Or {variant} With
+                            </div>
+                            <div className="flex items-center gap-3 justify-center mt-2">
+                                <div onClick={(e)=>{
+                                    e.preventDefault();
+                                    signIn('google',{callbackUrl:'/templates'});
+                                    }} 
+                                    className="cursor-pointer">
+                                    <FcGoogle size={26}/>
+
+                                </div>
+                                <div onClick={()=>signIn('github',{callbackUrl:'/templates'})}
+                                className="cursor-pointer">
+                                    <FaGithub size={26}/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {/* <div className="flex flex-col justify-center w-full h-full ">
                <div className="flex flex-col xl:flex-row justify-between items-center px-4 text-black ">
                     <div className="w-[60%] flex-col justify-center md:ml-[80px] hidden xl:flex">
                         <Image src={logo}
@@ -51,7 +126,7 @@ const Auth = ()=>{
                         <p className="mt-4 max-w-[70%]">Resume Genie is an Online platform which helps you create a resume via conversation with a Chatbot.
                         Choose from multiple templates from our site and build your resume today in 10 minutes!</p>
                     </div>
-                    <div className="bg-[#1F7A56]/20 border-[4px] border-[#19CC85]/60  p-16 self-center rounded-[20px] 
+                    <div className="p-16 self-center rounded-[20px] 
                     xl:w-[30%]  xl:mr-[80px] my-auto">
                         <h2 className=" text-4xl mb-8 font-semibold text-neutral-700 ">
                             {variant==='login'?'Sign In':'Register'}
@@ -81,25 +156,13 @@ const Auth = ()=>{
                                 value={password}
                             />
                         </div>
-                        {/* Login Button now works on both devices */}
+
                         <button onClick={variant==='login'?login:register} className="bg-[#4FB0C6]/80 py-3 text-white font-medium rounded-md w-full mt-10
                         hover:bg-[#4FB0C6] transition-">
                             {variant==='login'?'Login':'Sign Up'}
                         </button>
                         <div className="flex items-center gap-4 mt-8 justify-center">
-                            <div onClick={(e)=>{
-                                e.preventDefault();
-                                signIn('google',{callbackUrl:'/templates'});
-                                }} className=" xs:bg-blue-400 border-[1px] border-black w-15 h-15 flex items-center p-2 justify-center cursor-pointer
-                                hover:bg-neutral-200 transition rounded-full">
-                                <FcGoogle size={20}/>
-
-                            </div>
-                            <div onClick={()=>signIn('github',{callbackUrl:'/templates'})} className="border-[1px]
-                             border-black w-15 h-15 p-2 flex items-center justify-center cursor-pointer
-                             hover:bg-neutral-200 transition rounded-full">
-                                <FaGithub size={30}/>
-                            </div>
+                            
                         </div>
                         <p className="text-neutral-500 mt-12 text-center">
                             {variant==='login'?'New Here?':'Already have an account?'}
@@ -109,7 +172,7 @@ const Auth = ()=>{
                         </p>
                     </div>
                </div>
-            </div>
+            </div> */}
         </div>
     );
 }
