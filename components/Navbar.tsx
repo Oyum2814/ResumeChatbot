@@ -78,7 +78,7 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                 )}
                 
                 <div className={'px-4 md:px-16 py-6 flex items-center transition text-ms' }>
-                <div className="font-bold cursor-pointer">Resume<span className="text-blue-600">Genie</span></div>
+                <Link href="/" className="font-bold cursor-pointer">Resume<span className="text-blue-600">Genie</span></Link>
                 <div className="flex-row ml-12 gap-7 hidden lg:flex text-sm">
                     <NavbarItem label="Templates" route="/templates"/>
                 </div>
@@ -110,8 +110,8 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                     </div>)
                 :
                     <div className="flex flex-row ml-auto gap-8 items-center text-sm">
-                        <p className="cursor-pointer">Login</p>
-                        <p className="cursor-pointer">Register</p>
+                        <Link href="/auth" className="cursor-pointer">Login</Link>
+                        <Link href="/auth" className="cursor-pointer">Register</Link>
                     </div>
                 }
                 
