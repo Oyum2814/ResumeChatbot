@@ -66,7 +66,7 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                 {resumePage && 
                 (<>
                     <div className="absolute w-[50vw] md:bg-white h-24 top-0 -z-20"></div>
-                    <div className="absolute w-[50vw] top-0  md:bg-black md:bg-opacity-50 h-16 right-0"> 
+                    <div className="absolute w-[50vw] top-0  md:bg-black md:bg-opacity-80 h-16 right-0"> 
                     <div className="relative w-full h-full  justify-start items-center ml-4 hidden md:flex">
                         <div className="text-sm text-white bg-blue-600 px-4 py-2 rounded-md cursor-pointer"
                         onClick={downloadPDF}>
@@ -95,7 +95,7 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                             {user?.image? (
                                 <div className="w-12 h-12 rounded-full border border-[2px] overflow-hidden bg-white">
                                     <Image width="40" height="40"
-                                    className="h-12 w-12 object-contain rounded-full "
+                                    className="h-12 w-12 object-cover rounded-full "
                                     src={user.image} alt="profileImage"/>
                                 </div>
                             ):
@@ -109,9 +109,9 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                         <AccountMenu visible={showAccountMenu}/>
                     </div>)
                 :
-                    <div className="flex flex-row ml-auto gap-8 items-center text-sm">
-                        <Link href="/auth" className="cursor-pointer">Login</Link>
-                        <Link href="/auth" className="cursor-pointer">Register</Link>
+                    <div className="flex flex-row ml-auto gap-8 items-center text-sm font-bold">
+                        <Link href="/auth" className="cursor-pointer">Login / SignUp</Link>
+
                     </div>
                 }
                 

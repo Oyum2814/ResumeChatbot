@@ -43,14 +43,15 @@ const Auth = ()=>{
         <div className="relative h-screen w-screen bg-white overflow-x-hidden">
             <Navbar />
             <div className='h-screen w-screen flex flex-col md:flex-row  justify-center items-center '>
-                <div className="rounded-[10px]  opacity-0.6 bg-[#A0BAF11A]/10 w-[80%] h-[70%] flex justify-center items-center">
-                    <div className="w-[50%] h-full flex justify-center items-center">
+                <div className="rounded-[10px]  opacity-0.6 bg-[#A0BAF11A]/10 w-[80%] h-[80%] md:h-[70%]
+                flex flex-col md:flex-row justify-center items-center">
+                    <div className="w-[70%] h-auto md:w-[50%] md:h-full flex justify-center items-center">
                         <Image src={asset1} alt=""
                         width={552} height={366}/>
                     </div>
-                    <div className="w-[30%] flex flex-col justify-center items-start ml-12">
-                        <h2 className=" manrope text-[16px] font-[700]">
-                                {variant==='login'?'Sign In':'Register'}
+                    <div className="md:w-[30%] flex flex-col justify-center items-start md:ml-12">
+                        <h2 className="mt-8 md:mt-0 manrope mx-auto text-center md:text-left text-[16px] font-[700]">
+                                {variant==='login'?'Login':'Register'}
                         </h2>
                         <div className="flex flex-col gap-4 mt-4">
                             {variant==='register'&&(
