@@ -62,12 +62,12 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
 
     return (
 
-        <nav className="w-full fixed z-40 text-black flex flex-col justify-center text-xl h-16">
+        <nav className="w-full fixed z-40 text-black flex flex-col justify-center text-xl h-16 bg-white md:bg-none">
                 {resumePage && 
                 (<>
-                    <div className="absolute w-[50vw] bg-white h-24 top-0 -z-20"></div>
-                    <div className="absolute w-[50vw] top-0  bg-black bg-opacity-50 h-16 right-0"> 
-                    <div className="relative w-full h-full flex justify-start items-center ml-4 ">
+                    <div className="absolute w-[50vw] md:bg-white h-24 top-0 -z-20"></div>
+                    <div className="absolute w-[50vw] top-0  md:bg-black md:bg-opacity-50 h-16 right-0"> 
+                    <div className="relative w-full h-full  justify-start items-center ml-4 hidden md:flex">
                         <div className="text-sm text-white bg-blue-600 px-4 py-2 rounded-md cursor-pointer"
                         onClick={downloadPDF}>
                             Download

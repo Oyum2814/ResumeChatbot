@@ -17,7 +17,7 @@ const TemplateList = () => {
     },[fetchedTemplates])
     return ( 
         <div className="absolute w-screen h-auto mt-32 md:mt-48 flex justify-center items-center">
-            <div className="grid grid-cols-4 p-6 gap-x-16 gap-y-4 mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-4 p-6 gap-x-16 gap-y-16 md:gap-y-4 mx-auto">
                 {templates?.map((template:any,index:any)=>(
                     <Link className="w-auto  h-[35vh]  border-black border-[1px] rounded-md 
                     hover:scale-110 transition ease-in-out duration-300 "

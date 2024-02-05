@@ -7,9 +7,10 @@ import asset3 from '@/public/assets/hero/asset3.png'
 
 const Hero = () => {
     return ( 
-        <div className='h-screen w-screen flex flex-col md:flex-row  justify-center items-center '>
-            <div className="rounded-[10px]  opacity-0.6 bg-[#A0BAF11A]/10 w-[80%] h-[70%] flex justify-center items-center">
-                <div className="max-w-[50%] px-20">
+        <div className='h-screen w-screen flex   justify-center items-center '>
+            <div className="rounded-[10px]  opacity-0.6 bg-[#A0BAF11A]/10 w-[80%] h-[70%] flex justify-center items-center
+            flex-col-reverse md:flex-row">
+                <div className="md:max-w-[50%] px-20 h-[60%] md:h-auto">
                     <h2 className="font-[700] manrope text-[16px] xl:text-[21px]">
                     Create a Compelling CV with AI Assistance in Minutes
                     </h2>
@@ -25,10 +26,10 @@ const Hero = () => {
                         </Link>
                     </div>
                 </div>
-                <div className="flex h-full items-center w-[50%] overflow-hidden">
-                    <Image src={asset1} alt="" height={270} width={191} className="h-[35%] w-auto"/>
-                    <Image src={asset2} alt="" height={270} width={191} className="h-[35%] w-auto"/>
-                    <Image src={asset3} alt="" height={270} width={191} className="h-[35%] w-auto"/>
+                <div className="flex h-[40%] w-full md:h-full justify-center items-center md:w-[50%] overflow-hidden">
+                    <Image src={asset1} alt="" height={270} width={191} className="h-[50%] md:h-[35%] w-auto"/>
+                    <Image src={asset2} alt="" height={270} width={191} className="h-[50%] md:h-[35%] w-auto"/>
+                    <Image src={asset3} alt="" height={270} width={191} className="h-[50%] md:h-[35%] w-auto"/>
                 </div>
             </div>
         </div>

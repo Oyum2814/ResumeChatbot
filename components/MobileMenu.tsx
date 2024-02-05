@@ -15,8 +15,8 @@ const MobileMenu:React.FC<MobileMenuProps>=({visible})=>{
                 <Link href='/' className="px-3 text-center text-white hover:underline">
                     Home
                 </Link>
-                <Link href='/myResumes' className="px-3 text-center text-white hover:underline">
-                    My Resumes
+                <Link href='/templates' className="px-3 text-center text-white hover:underline">
+                    Templates
                 </Link>
             </div>
         </div>

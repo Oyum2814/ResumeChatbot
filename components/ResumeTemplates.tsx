@@ -39,7 +39,7 @@ export const Resume1: React.FC<ResumeProps> = ({
   return (
     <section
       id="preview-sc"
-      className="h-screen overflow-y-auto print_area w-[50%] bg-gray-500 
+      className="h-auto md:h-screen  print_area w-[100%] md:w-[50%] md:bg-gray-500 
               flex justify-center items-center relative roboto  py-24 "
     >
       <div 

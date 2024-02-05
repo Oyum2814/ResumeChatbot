@@ -121,8 +121,9 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
     return(
         <>
             <Navbar resumePage/>
-            <div className="h-screen w-screen flex justify-between absolute overflow-y-hidden">
-                <section id="about-sc" className="w-[50%] h-screen overflow-y-auto">
+            <div className="md:h-screen w-screen flex flex-col-reverse  justify-between absolute md:overflow-y-hidden
+            md:flex-row">
+                <section id="about-sc" className="w-screen md:w-[50%] h-auto md:h-screen md:overflow-y-auto">
                     <div className="container">
                         <div className="about-cnt">
                             <form action="" className="cv-form" id="cv-form">
@@ -371,6 +372,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                     <span className="form-text xl:block"></span>
                                                                 </div>
                                                         </div>
+                                                        <p className="text-xs p-4 font-bold text-neutral-500">Note : Bullet points in Description can be created by seperating two senteces by '|' sign</p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -523,6 +525,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                 <span className="form-text"></span>
                                                             </div>
                                                         </div>
+                                                        <p className="text-xs p-4 font-bold text-neutral-500">Note : Bullet points in Description can be created by seperating two senteces by '|' sign</p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -658,6 +661,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                         <span className="form-text"></span>
                                                                 </div>
                                                             </div>
+                                                            <p className="text-xs p-4 font-bold text-neutral-500">Note : Bullet points in Description can be created by seperating two senteces by '|' sign</p>
                                                         </div>
                                                     </div>
                                                 ))
