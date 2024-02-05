@@ -420,10 +420,12 @@ textarea{
 
     .print_area, .print_area *{
         visibility: visible;
+        
     }
 
     .print_area{
         width: 100%;
+        zoom:170%;
     }
 }
 .manrope{

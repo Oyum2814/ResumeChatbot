@@ -39,12 +39,12 @@ export const Resume1: React.FC<ResumeProps> = ({
   return (
     <section
       id="preview-sc"
-      className="h-auto md:h-screen  print_area w-[100%] md:w-[50%] md:bg-gray-500 
+      className="h-screen md:h-screen   w-[100%] md:w-[50%] md:bg-gray-500 
               flex justify-center items-center relative roboto  py-24 "
     >
       <div 
       id="resume"
-      className="w-[420px] h-[594px] bg-white  flex flex-col items-center py-4 px-2 text-[10px]">
+      className="print_area w-[420px] h-[594px] bg-white  flex flex-col items-center py-4 px-2 text-[10px]">
         <div className="w-full flex items-center justify-start">
           <h1 className="w-[40%] px-4 font-[700] text-[11px] uppercase">
             {info?.firstName} {info?.middleName} {info?.lastName}
@@ -192,9 +192,9 @@ export const Resume2: React.FC<ResumeProps> = ({
   socials,
 }) => {
   return (
-    <section id="preview-sc" className="h-screen overflow-y-auto print_area w-[50%] bg-gray-500 
-                     flex justify-center items-center relative">
-        <div className="w-[420px] h-[594px] bg-white  flex flex-col items-center" id="resume">
+    <section id="preview-sc" className="h-screen overflow-y-auto  w-[100%] md:w-[50%]  md:bg-gray-500 
+                     flex flex-row md:flex-col justify-center items-center relative">
+        <div className=" print_area w-[420px] h-[594px] bg-white  flex flex-col items-center" id="resume">
             <h2 className="text-[26px] font-extralight xl:text-[28px]">
                 {info?.firstName} {info?.middleName} {info?.lastName}
             </h2>
