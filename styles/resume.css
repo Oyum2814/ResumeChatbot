@@ -411,7 +411,7 @@ textarea{
 /* print section */
 @media print{
     body *{
-        visibility: hidden;
+        visibility:hidden;
     }
 
     .non_print_area{

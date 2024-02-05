@@ -123,7 +123,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
             <Navbar resumePage/>
             <div className="md:h-screen w-screen flex flex-col-reverse  justify-between absolute md:overflow-y-hidden
             md:flex-row">
-                <section id="about-sc" className="w-screen md:w-[50%] h-auto md:h-screen md:overflow-y-auto">
+                <section id="about-sc" className="non_print_area w-screen md:w-[50%] h-auto md:h-screen md:overflow-y-auto">
                     <div className="container">
                         <div className="about-cnt">
                             <form action="" className="cv-form" id="cv-form">
