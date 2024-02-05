@@ -372,7 +372,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                     <span className="form-text xl:block"></span>
                                                                 </div>
                                                         </div>
-                                                        <p className="text-xs p-4 font-bold text-neutral-500">Note : Bullet points in Description can be created by seperating two senteces by '|' sign</p>
+                                                        <p className="text-xs p-4 font-bold text-neutral-500">Note : Bullet points in Description can be created by seperating two senteces by | sign</p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -525,7 +525,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                 <span className="form-text"></span>
                                                             </div>
                                                         </div>
-                                                        <p className="text-xs p-4 font-bold text-neutral-500">Note : Bullet points in Description can be created by seperating two senteces by '|' sign</p>
+                                                        <p className="text-xs p-4 font-bold text-neutral-500">Note : Bullet points in Description can be created by seperating two senteces by | sign</p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -661,7 +661,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                         <span className="form-text"></span>
                                                                 </div>
                                                             </div>
-                                                            <p className="text-xs p-4 font-bold text-neutral-500">Note : Bullet points in Description can be created by seperating two senteces by '|' sign</p>
+                                                            <p className="text-xs p-4 font-bold text-neutral-500">Note : Bullet points in Description can be created by seperating two senteces by | sign</p>
                                                         </div>
                                                     </div>
                                                 ))
