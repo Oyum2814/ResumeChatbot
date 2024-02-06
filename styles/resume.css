@@ -411,11 +411,11 @@ textarea{
 /* print section */
 @media print{
     body *{
-        visibility:hidden;
+
     }
 
     .non_print_area{
-        display: none;
+        display:none;
     }
 
     .print_area, .print_area *{
@@ -426,8 +426,16 @@ textarea{
     .print_area{
         width: 100%;
         zoom:170%;
+        overflow-y: hidden;
     }
+   
+    @page {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
 }
+
 .manrope{
     font-family: "Manrope", sans-serif;
 }

@@ -63,7 +63,8 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
 
     return (
 
-        <nav className="w-full fixed z-40 text-black flex flex-col justify-center text-xl h-16 bg-white md:bg-none">
+        <nav className="non_print_area
+        w-full fixed z-40 text-black flex flex-col justify-center text-xl h-16 bg-white md:bg-none">
                 {resumePage && 
                 (<>
                     <div className="absolute w-[50vw] md:bg-white h-24 top-0 -z-20"></div>
@@ -71,7 +72,7 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                     <div className="relative w-full h-full  justify-start items-center ml-4 hidden md:flex">
                         <div className="text-sm text-white bg-blue-600 px-4 py-2 rounded-md cursor-pointer"
                         onClick={downloadPDF}>
-                            Download
+                            Save PDF
                         </div>
                     </div> 
                     </div>

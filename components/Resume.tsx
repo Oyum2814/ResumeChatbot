@@ -120,7 +120,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
     
     return(
         <>
-            <Navbar resumePage/>
+            <Navbar resumePage />
             <div className="md:h-screen w-screen flex flex-col-reverse  justify-between absolute md:overflow-y-hidden
             md:flex-row">
                 <section id="about-sc" className="non_print_area w-screen md:w-[50%] h-auto md:h-screen md:overflow-y-auto">
@@ -135,7 +135,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                     <div className="cv-form-row cv-form-row-about">
                                         <div className="cols-3">
                                             <div className="form-elem">
-                                                <label htmlFor="" className="form-label">First Name</label>
+                                                <label htmlFor="" className="form-label required">First Name</label>
                                                 <input
                                                 value={info?.firstName}
                                                 name="firstname" type="text" className="form-control firstname" id=""
@@ -163,7 +163,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                 <span className="form-text"></span>
                                             </div>
                                             <div className="form-elem">
-                                                <label htmlFor="" className="form-label">Last Name</label>
+                                                <label htmlFor="" className="form-label required">Last Name</label>
                                                 <input 
                                                 value = {info?.lastName}
                                                 name="lastname" type="text" className="form-control lastname" id=""
@@ -180,7 +180,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
 
                                         <div className="cols-3">
                                             <div className="form-elem">
-                                                <label htmlFor="" className="form-label">Designation</label>
+                                                <label htmlFor="" className="form-label required">Designation</label>
                                                 <input name="designation" type="text" className="form-control designation" id=""
                                                     placeholder="e.g. Sr.Accountants"
                                                     value = {info?.designation}
@@ -207,7 +207,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                             </div>
 
                                             <div className="form-elem">
-                                                <label htmlFor="" className="form-label">My Story</label>
+                                                <label htmlFor="" className="form-label required">My Story</label>
                                                 <input name="story" type="text" className="form-control email" id=""
                                                     placeholder=""
                                                     value = {info?.story}
@@ -223,7 +223,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
 
                                         <div className="cols-3">
                                             <div className="form-elem">
-                                                <label htmlFor="" className="form-label">Phone No:</label>
+                                                <label htmlFor="" className="form-label required">Phone No:</label>
                                                 <input name="phoneno" type="text" className="form-control phoneno" id=""
                                                     placeholder="e.g. 456-768-798, 567.654.002"
                                                     value = {info?.phone}
@@ -236,7 +236,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                 <span className="form-text"></span>
                                             </div>
                                             <div className="form-elem">
-                                                <label htmlFor="" className="form-label">Objective</label>
+                                                <label htmlFor="" className="form-label required">Objective</label>
                                                 <input name="summary" type="text" className="form-control summary" id=""
                                                     placeholder="e.g. Doe"
                                                     value = {info?.summary}
@@ -473,7 +473,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                         <div className="cols-2">
                                                             <div className="form-elem">
                                                                 <label htmlFor="" className="form-label">Start Date</label>
-                                                                <input name="exp_start_date" type="date"
+                                                                <input name="exp_start_date"  type="date"
                                                                 value={experience?.startDate}
                                                                     className="form-control exp_start_date" id="" 
                                                                     onChange={(e) => {
@@ -491,6 +491,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                 <label htmlFor="" className="form-label">End Date</label>
                                                                 <input 
                                                                 value={experience?.endDate}
+                                                                min={experience?.startDate}
                                                                 name="exp_end_date" type="date" className="form-control exp_end_date"
                                                                     id="" 
                                                                     onChange={(e) => {
@@ -628,7 +629,9 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                                 </div>
                                                                 <div className="form-elem">
                                                                     <label htmlFor="" className="form-label">End Date</label>
-                                                                    <input name="exp_end_date" type="date" className="form-control exp_end_date"
+                                                                    <input name="exp_end_date" type="date" 
+                                                                    min={project?.startDate}
+                                                                    className="form-control exp_end_date"
                                                                     value={project?.endDate} id="" 
                                                                         onChange={(e) => {
                                                                             setProjects((prevProjects:any) => {

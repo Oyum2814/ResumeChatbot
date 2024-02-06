@@ -11,3 +11,7 @@
 .roboto{
     font-family: "Roboto", sans-serif;
 }
+.required:after {
+    content:" *";
+    color: red;
+  }
