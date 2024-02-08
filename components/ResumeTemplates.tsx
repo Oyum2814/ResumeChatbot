@@ -1,5 +1,8 @@
 import { format } from "date-fns";
+import { Page, Text, View, Document, StyleSheet, Font ,Link, pdf } from '@react-pdf/renderer';
 
+import { useCallback, useEffect } from "react";
+import PDFViewer from "./PDFViewer";
 interface ResumeProps {
   info?: any;
   experiences?: any[]; // Adjust the type based on your actual data structure
@@ -8,6 +11,7 @@ interface ResumeProps {
   skills?: any[]; // Adjust the type based on your actual data structure
   socials?: any[]; // Adjust the type based on your actual data structure
 }
+
 
 const formatDate = (date: any): any | null => {
   if (!date) {
@@ -27,6 +31,43 @@ const formatBullets = (sentence:any):any|null=>{
   return <ul className="list-outside">{items}</ul>;
 }
 
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    padding: 12
+  },
+  section: {
+   
+    margin: 10,
+    padding: 10,
+    flexGrow: 1,
+  },
+  header: {
+    textTransform: "capitalize",
+    fontSize: 36,
+    marginBottom: 10,
+    fontWeight: 800,
+    color: '#333333',
+    letterSpacing:"1.5px"
+  },
+  text: {
+    fontSize: 12,
+    fontWeight:300,
+    marginBottom: 5,
+    color: 'black'
+  },
+  sectionTitle: {
+    
+    fontSize: 16,
+    marginBottom: 5,
+    textTransform: "uppercase",
+    letterSpacing:'1px',
+    fontWeight: 800,
+    color: '#ee2e33'
+  },
+});
+
 export const Resume1: React.FC<ResumeProps> = ({
   info,
   experiences,
@@ -37,150 +78,217 @@ export const Resume1: React.FC<ResumeProps> = ({
 }) => {
   
   return (
-    <section
-      id="preview-sc"
-      className="h-screen md:h-screen   w-[100%] md:w-[50%] md:bg-gray-500 
-              flex justify-center items-center relative roboto  py-24 "
-    >
-      <div 
-      id="resume"
-      className="print_area w-[420px] h-[594px] bg-white  flex flex-col items-center py-4 px-2 text-[10px]">
-        <div className="w-full flex items-center justify-start">
-          <h1 className="w-[40%] px-4 font-[700] text-[11px] uppercase">
-            {info?.firstName} {info?.middleName} {info?.lastName}
-          </h1>
-          <p className="w-[30%] px-4 font-[400] text-[8px]">{info?.phone}</p>
-          {/* <p className="w-[30%] px-4 font-[400]">{info?.email}</p> */}
-        </div>
-        <div className="w-full flex items-center justify-start mt-1">
-          <h1 className="w-[40%] px-4 font-[400] tracking-[0.1rem] uppercase text-[8px]">
-            {info?.designation}
-          </h1>
-          <p className="w-[30%] px-4 font-[400] text-[8px]">{info?.address}</p>
-          <p className="w-[30%] px-4 font-[400] text-[8px]">{info?.site}</p>
-        </div>
-        <hr className="w-[94%] mt-2 border-[1px] border-black mb-3" />
-        <div className="w-[94%]">
-          <h2 className="font-[700] text-[8px] uppercase text-neutral-600">
-            My Story
-          </h2>
-          <div className="flex items-center mt-1">
-            <div className="h-[13px] w-[5px] mr-2 bg-neutral-400" />
-            <p className="text-black font-[400]">{info?.story}</p>
-          </div>
-        </div>
-        <div className="w-[94%] mt-3">
-          <h2 className="font-[700] text-[8px] uppercase text-neutral-600">
-            Objective
-          </h2>
-          <div className="flex items-center mt-1">
-            <div className="h-[13px] w-[5px] mr-2 bg-neutral-400" />
-            <p className="text-black font-[400]">{info?.summary}</p>
-          </div>
-        </div>
-        <div className="w-[94%] mt-3 flex ">
-          <div className="w-[70%]">
-            <div>
-              <h2 className="uppercase text-neutral-600 text-[10px] font-[700]">
-                Academic Profile
-              </h2>
-              <hr className="border-[1.5px] border-neutral-400 w-[36%] mt-[2px] mb-2" />
-              {educations?.map((education: any, i: any) => (
-                <div key={i} className="py-[2px]">
-                  <div className="text-black font-[600]  uppercase text-[8px]">
-                    {education?.degree}
-                  </div>
-                  <div>
-                    <span className="text-[7px]">{education?.school}</span>
-                    {education?.city && (<span>, </span>)}
-                    <span className="text-[7px]">{education?.city}</span>
-                  </div>
-                  <div className="text-[7px]">
-                    Year of Passing -{" "}
-                    <span>{formatDate(education?.graduationDate)}</span>
-                  </div>
-                  <div className="text-[7px]">{formatBullets(education?.description)}</div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-2">
-              <h2 className="uppercase text-neutral-600 text-[10px] font-[700]">
-                Internship Profile
-              </h2>
-              <hr className="border-[1.5px] border-neutral-400 w-[36%] mt-[2px] mb-2" />
-              {experiences?.map((experience: any, i: any) => (
-                <div key={i} className="py-1">
-                  <div className="text-black font-[600] mb-1 flex items-center text-[8px]">
-                    {experience?.title}
-                    <div className="w-[3px] h-[10px] bg-neutral-400 mx-1" />
-                    {experience?.organization}
-                  </div>
-                  <div className="text-[7px]">
-                    {experience?.location} | {formatDate(experience?.startDate)}{" "}
-                    -{" "}
-                    {experience?.endDate
-                      ? formatDate(experience?.endDate)
-                      : "Present"}
-                  </div>
-                  <div className="text-[7px]">{formatBullets(experience?.description)}</div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-2">
-              <h2 className="uppercase text-neutral-600 text-[10px] font-[700]">
-                Project Profile
-              </h2>
-              <hr className="border-[1.5px] border-neutral-400 w-[36%] mt-[2px] mb-2" />
-              {projects?.map((project: any, i: any) => (
-                <div key={i} className="py-[2px]">
-                  <a className="cursor-pointer" href={project?.link}>
-                    <div className="text-black font-[600]  text-[8px]">
-                      {project?.title} | {formatDate(project?.startDate)} -{" "}
-                      {project?.endDate
-                        ? formatDate(project?.endDate)
-                        : "Present"}
-                    </div>
-                    <div className="text-[7px]">{formatBullets(project?.description)}</div>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="w-[30%]">
-            <div>
-              <h2 className="uppercase text-neutral-600 text-[10px] font-[700]">
-                Skills Profile
-              </h2>
-              <hr className="border-[1.5px] border-neutral-400 w-[66%] mt-[4px] mb-2" />
-              {skills?.map((skill: any, i: any) => (
-                <div key={i} className="py-[2px] text-[7px]">
-                  <li className="">{skill.title}</li>
-                </div>
-              ))}
-            </div>
-            <div className="mt-4">
-              <h2 className="uppercase text-neutral-600 text-[10px] font-[700]">
-                Socials Profile
-              </h2>
-              <hr className="border-[1.5px] border-neutral-400 w-[66%] mt-[4px] mb-2" />
-              {socials?.map((social: any, i: any) => (
-                <div key={i} className="py-1">
-                  <div className="font-[700]  text-black text-[8px]">
-                    {social?.platform}
-                  </div>
-                  <a href={social?.link} className="underline text-[7px]">
-                    {social?.username}
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <PDFViewer doc = {pdf(<Preview1 
+      info={info}
+      experiences={experiences}
+      projects={projects}
+      educations={educations}
+      skills={skills}
+      socials={socials} />)}/>
   );
 };
+
+
+
+export const Preview1 : React.FC<ResumeProps>=({
+  info,
+  experiences,
+  educations,
+  projects,
+  skills,
+  socials,
+})=>{
+  const titles = skills?.map(skill => skill.title);
+  return (
+    <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          <Text style={{ ...styles.header, width: "100%" }}>
+            {info?.firstName} {info?.middleName} {info?.lastName}
+          </Text>
+        </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBottom: "20px",
+            paddingBottom: "10px",
+            borderBottom: "2px solid #ee2e33",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+          }}
+        >
+          <View
+            style={{
+              flexBasis: "auto",
+              marginRight: "20px",
+            }}
+          >
+            <Text
+              style={{
+                ...styles.text,
+                fontWeight: 500,
+                letterSpacing: "1.1px",
+              }}
+            >
+              (+91) {info?.phone}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexBasis: "auto",
+              marginRight: "20px",
+            }}
+          >
+            <Text
+              style={{
+                ...styles.text,
+                fontWeight: 500,
+                letterSpacing: "1.1px",
+                textTransform: "lowercase",
+              }}
+            >
+              {info?.mail? info.mail : 'demo@gmail.com'}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexBasis: "auto",
+              marginRight: "20px",
+            }}
+          >
+            <Text
+              style={{
+                ...styles.text,
+                fontWeight: 500,
+                letterSpacing: "1.1px",
+              }}
+            >
+              {info?.designation}
+            </Text>
+          </View>
+        </View>
+
+        <View style={{ marginBottom: 10 }}>
+          <Text style={styles.sectionTitle}>Summary</Text>
+          <Text style={{ ...styles.text, lineHeight: "1.4px" }}>
+            {info?.summary}
+          </Text>
+        </View>
+
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          <View style={{ width: "50%", marginRight: "10px" }}>
+            <View style={{ marginBottom: 5 }}>
+              <Text style={styles.sectionTitle}>Experience</Text>
+              {experiences?.map((exp, index) => (
+                <View key={index} style={{ marginBottom: 5 }}>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      fontWeight: "bold",
+                      fontSize: "14",
+                    }}
+                  >
+                    {"\u2022"} {exp.title ? exp.title : ""}
+                  </Text>
+                  <Text style={{ ...styles.text, fontWeight: "bold" }}>
+                    {exp.organization}, {exp.location}
+                  </Text>
+                  <Text style={styles.text}>{exp.startDate}</Text>
+                  <Text style={styles.text}>{exp.description}</Text>
+                </View>
+              ))}
+            </View>
+            <View style={{ marginBottom: 5 }}>
+              <Text style={styles.sectionTitle}>Education</Text>
+              {educations?.map((edu, index) => (
+                <View key={index} style={{ marginBottom: 5 }}>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      fontSize: "13",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {edu.degree}
+                  </Text>
+                  <Text style={styles.text}>{edu.school}</Text>
+                  <Text style={styles.text}>{edu.graduationDate}</Text>
+                </View>
+              ))}
+            </View>
+            <View>
+              <Text style={styles.sectionTitle}>Skills</Text>
+              <Text style={styles.text}>{titles?.join(", ")}</Text>
+            </View>
+          </View>
+          {/* Achievement section not avaiable */}
+          {/* <View style={{ maxWidth: "50%" }}>
+            <View style={{ marginBottom: 5 }}>
+              <Text style={styles.sectionTitle}>Achievements</Text>
+              {achievements?.map((pro, index) => (
+                <View key={index}>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      fontWeight: "400",
+                      fontWeight: "500",
+                      textTransform: "capitalise",
+                      fontSize: "12",
+                    }}
+                  >
+                    {"\u2022"} {pro ? pro : ""}
+                  </Text>
+                </View>
+              ))}
+            </View>
+
+            <View style={{ marginBottom: 5 }}>
+              <Text style={styles.sectionTitle}>Projects</Text>
+              {formData.projects.map((pro, index) => (
+                <View key={index} style={{ marginBottom: 5 }}>
+                  <Text
+                    style={{
+                      ...styles.text,
+                      fontWeight: "bold",
+                      textTransform: "capitalise",
+                      fontSize: "13",
+                    }}
+                  >
+                    {"\u2022"} {pro.title ? pro.title : ""}
+                  </Text>
+
+                  <Text style={styles.text}>{pro.description}</Text>
+                </View>
+              ))}
+            </View>
+
+            <View style={{ marginBottom: 5 }}>
+              <Text style={styles.sectionTitle}>Coding Profiles</Text>
+              {formData.codingProfiles.map((profile, index) => (
+                <View key={index} style={{ marginBottom: 5 }}>
+                  <Text style={{ ...styles.text, fontWeight: "bold" }}>
+                    {profile.label}
+                  </Text>
+                  <Link
+                    style={{ ...styles.text, color: "blue" }}
+                    src={profile.profileLink}
+                  >
+                    {profile.profileLink}
+                  </Link>
+                </View>
+              ))}
+            </View>
+          </View> */}
+        </View>
+      </View>
+    </Page>
+  </Document>
+  );
+};
+
 
 
 export const Resume2: React.FC<ResumeProps> = ({
@@ -209,7 +317,7 @@ export const Resume2: React.FC<ResumeProps> = ({
                     <h2 className="text-[#6A6A6A] text-[13px] font-[600] mb-1">ACADEMIC</h2>
                     {educations?.map((education:any,i:any)=>(
                         <div className="py-[2px]" key={i}>
-                            <h3 className="text-[10px] uppercase inter font-[700]">{education?.school}</h3>
+                            <h3 className="text-[10px] uppercase  font-[700]">{education?.school}</h3>
                             <h3 className="tracking-[.55px] font-[400] text-[7px] uppercase">{education?.degree}</h3>
                             <p className="text-[7px] tracking-[0.4px] font-weight-[400]">{formatDate(education?.graduationDate)} | {education?.city}</p>
                             <p className="text-[7px] font-[400] tracking-[0.4px] ">{formatBullets(education?.description)}</p>
@@ -250,7 +358,7 @@ export const Resume2: React.FC<ResumeProps> = ({
                     <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase mt-2 mb-1">Projects</h2>
                     {projects?.map((project:any,i:any)=>(
                         <div className="py-[2px]" key={i}>
-                            <h3 className="text-[8px] inter font-[700]">{project?.title} | <span className="text-[6px] font-[400]"><a href={project?.link}>Link</a></span></h3>
+                            <h3 className="text-[8px]  font-[700]">{project?.title} | <span className="text-[6px] font-[400]"><a href={project?.link}>Link</a></span></h3>
                             <p className="text-[7px] tracking-[0.4px] font-[400]">{formatBullets(project?.description)}</p>
                         </div>
                     ))}
