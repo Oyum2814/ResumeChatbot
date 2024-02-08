@@ -2,17 +2,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Document as Doc, Page as Pag, pdfjs } from 'react-pdf'; // Used for rendering of PDF, not the actual creation of the PDF itself. That is taken care by @react-pdf/renderer which is used in Template.js 
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
-interface Props {
-  doc: any; // You should replace 'any' with the type of your 'doc' prop
-}
 
-const PDFViewer: React.FC<Props> = ({doc}) => {
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
+
+
+interface PDFViewerProps{
+  doc?:any
+  info?:any;
+  experiences?:any;
+  projects?:any;
+  educations?:any;
+  skills?:any;
+  socials?:any;
+}
+const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educations,skills,socials}) => {
   const [pdfUrl, setPdfUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const sourceCanvasRef = useRef<HTMLCanvasElement | null>(null); // Keep track of the INTERNAL canvas used by the renderer. We use this as a buffer. The actual preview on the webpage is done by another canvas.
 
-  const [canvasDimensions, setCanvasDimensions] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
   // Function to generate the PDF
   const generatePdf = async () => {
     try {
@@ -44,24 +51,11 @@ const PDFViewer: React.FC<Props> = ({doc}) => {
     }
   };
 
-  const updateCanvasDimensions = async () => {
-    try {
-      const pdfDocument = doc;
-
-      if (pdfDocument) {
-        const page = await pdfDocument.getPage(1); // Get the first page
-        const viewport = page.getViewport({ scale: 1 }); // Get the viewport
-
-        setCanvasDimensions({ width: viewport.width, height: viewport.height });
-      }
-    } catch (error) {
-      console.error('Error updating canvas dimensions:', error);
-    }
-  };
   // Re-render the PDF once the input changes
   useEffect(() => {
+    console.log("Generating PDF");
     generatePdf();
-  }, [doc]);
+  }, [doc,info,experiences,projects,educations,skills,socials]);
   
 
   // Used for double buffer, to prevent jitter when the input updates
@@ -78,10 +72,6 @@ const PDFViewer: React.FC<Props> = ({doc}) => {
     targetCtx?.drawImage(sourceCanvas, 0, 0);
   }, [loading]);
 
-  useEffect(() => {
-    updateCanvasDimensions();
-    console.log("Updated Dimensions");
-  }, [pdfUrl]);
 
   return (
     <div className="pdf-viewer h-screen overflow-y-auto  w-[100%] md:w-[50%]  md:bg-gray-500 
@@ -89,15 +79,19 @@ const PDFViewer: React.FC<Props> = ({doc}) => {
       <div className='pdf-layout'>
         <div> 
           <canvas className='RenderCanvas
-          h-screen w-[50vw]
-          scale-[70%]
+          scale-[30%]
+
           '
           id="targetCanvas" 
           height="1782" width="1470"
             ></canvas>
         </div>
         <div style={{ display: 'none' }}>
-          <Doc file={pdfUrl} >
+          <Doc file={pdfUrl}
+           loading={() => {
+              setLoading(true);
+              return <div>Loading</div>;
+            }} >
             <Pag 
             canvasRef={(canvas) => {
               if (canvas) sourceCanvasRef.current = canvas;

@@ -84,7 +84,14 @@ export const Resume1: React.FC<ResumeProps> = ({
       projects={projects}
       educations={educations}
       skills={skills}
-      socials={socials} />)}/>
+      socials={socials} />)
+    }
+    info={info}
+      experiences={experiences}
+      projects={projects}
+      educations={educations}
+      skills={skills}
+      socials={socials}/>
   );
 };
 
