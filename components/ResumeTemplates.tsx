@@ -11,7 +11,47 @@ interface ResumeProps {
   skills?: any[]; // Adjust the type based on your actual data structure
   socials?: any[]; // Adjust the type based on your actual data structure
 }
-
+Font.register({
+  family: 'Inter',
+  fonts: [
+    {
+      src: 'http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.ttf',
+      fontWeight: 100,
+    },
+    {
+      src: 'http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyfMZhrib2Bg-4.ttf',
+      fontWeight: 200,
+    },
+    {
+      src: 'http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuOKfMZhrib2Bg-4.ttf',
+      fontWeight: 300,
+    },
+    {
+      src: 'http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf',
+      fontWeight: 400,
+    },
+    {
+      src: 'http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fMZhrib2Bg-4.ttf',
+      fontWeight: 500,
+    },
+    {
+      src: 'http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYMZhrib2Bg-4.ttf',
+      fontWeight: 600,
+    },
+    {
+      src: 'http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYMZhrib2Bg-4.ttf',
+      fontWeight: 700,
+    },
+    {
+      src: 'http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyYMZhrib2Bg-4.ttf',
+      fontWeight: 800,
+    },
+    {
+      src: 'http://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuBWYMZhrib2Bg-4.ttf',
+      fontWeight: 900,
+    },
+  ],
+});
 
 const formatDate = (date: any): any | null => {
   if (!date) {
@@ -23,13 +63,18 @@ const formatDate = (date: any): any | null => {
 const formatBullets = (sentence:any):any|null=>{
   if(!sentence.includes('|'))
   {
-    return <p>{sentence.trim()}</p>
+    return <Text style={styles.text}>{sentence.trim()}</Text>
   }
   const items = sentence.split('|').map((item:any, index:any) => (
-    <li className="list-disc ml-2" key={index}>{item.trim()}</li>
+    <View key={index} style={{ flexDirection: "row", marginBottom: 4,marginLeft:-12 }}>
+              <Text style={{ marginHorizontal: 3 }}>•</Text>
+              <Text style={styles.text}>{item.trim()}</Text>
+    </View>
   ));
   return <ul className="list-outside">{items}</ul>;
 }
+Font.registerHyphenationCallback(word => [word]) //This prevents ugly line breaks 
+
 
 const styles = StyleSheet.create({
   page: {
@@ -44,18 +89,26 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   header: {
-    textTransform: "capitalize",
-    fontSize: 36,
+    textTransform: "uppercase",
+    fontSize: 19,
+    fontFamily:"Inter",
     marginBottom: 10,
-    fontWeight: 800,
-    color: '#333333',
-    letterSpacing:"1.5px"
+    fontWeight: 600,
+    color: 'black',
+    letterSpacing:"2.5px",
   },
   text: {
-    fontSize: 12,
+    fontSize: 11,
+    fontFamily:"Inter",
     fontWeight:300,
-    marginBottom: 5,
-    color: 'black'
+    color: 'black',
+    margin:'2px 0px'
+  },
+  subHeader:{
+    fontSize: 14,
+    fontFamily:"Inter",
+    fontWeight:600,
+    color: 'black',
   },
   sectionTitle: {
     
@@ -67,34 +120,6 @@ const styles = StyleSheet.create({
     color: '#ee2e33'
   },
 });
-
-export const Resume1: React.FC<ResumeProps> = ({
-  info,
-  experiences,
-  educations,
-  projects,
-  skills,
-  socials,
-}) => {
-  
-  return (
-    <PDFViewer doc = {pdf(<Preview1 
-      info={info}
-      experiences={experiences}
-      projects={projects}
-      educations={educations}
-      skills={skills}
-      socials={socials} />)
-    }
-    info={info}
-      experiences={experiences}
-      projects={projects}
-      educations={educations}
-      skills={skills}
-      socials={socials}/>
-  );
-};
-
 
 
 export const Preview1 : React.FC<ResumeProps>=({
@@ -231,64 +256,6 @@ export const Preview1 : React.FC<ResumeProps>=({
               <Text style={styles.text}>{titles?.join(", ")}</Text>
             </View>
           </View>
-          {/* Achievement section not avaiable */}
-          {/* <View style={{ maxWidth: "50%" }}>
-            <View style={{ marginBottom: 5 }}>
-              <Text style={styles.sectionTitle}>Achievements</Text>
-              {achievements?.map((pro, index) => (
-                <View key={index}>
-                  <Text
-                    style={{
-                      ...styles.text,
-                      fontWeight: "400",
-                      fontWeight: "500",
-                      textTransform: "capitalise",
-                      fontSize: "12",
-                    }}
-                  >
-                    {"\u2022"} {pro ? pro : ""}
-                  </Text>
-                </View>
-              ))}
-            </View>
-
-            <View style={{ marginBottom: 5 }}>
-              <Text style={styles.sectionTitle}>Projects</Text>
-              {formData.projects.map((pro, index) => (
-                <View key={index} style={{ marginBottom: 5 }}>
-                  <Text
-                    style={{
-                      ...styles.text,
-                      fontWeight: "bold",
-                      textTransform: "capitalise",
-                      fontSize: "13",
-                    }}
-                  >
-                    {"\u2022"} {pro.title ? pro.title : ""}
-                  </Text>
-
-                  <Text style={styles.text}>{pro.description}</Text>
-                </View>
-              ))}
-            </View>
-
-            <View style={{ marginBottom: 5 }}>
-              <Text style={styles.sectionTitle}>Coding Profiles</Text>
-              {formData.codingProfiles.map((profile, index) => (
-                <View key={index} style={{ marginBottom: 5 }}>
-                  <Text style={{ ...styles.text, fontWeight: "bold" }}>
-                    {profile.label}
-                  </Text>
-                  <Link
-                    style={{ ...styles.text, color: "blue" }}
-                    src={profile.profileLink}
-                  >
-                    {profile.profileLink}
-                  </Link>
-                </View>
-              ))}
-            </View>
-          </View> */}
         </View>
       </View>
     </Page>
@@ -296,7 +263,163 @@ export const Preview1 : React.FC<ResumeProps>=({
   );
 };
 
+export const Resume1: React.FC<ResumeProps> = ({
+  info,
+  experiences,
+  educations,
+  projects,
+  skills,
+  socials,
+}) => {
+  
+  return (
+    <PDFViewer doc = {pdf(<Preview1 
+      info={info}
+      experiences={experiences}
+      projects={projects}
+      educations={educations}
+      skills={skills}
+      socials={socials} />)
+    }
+    info={info}
+      experiences={experiences}
+      projects={projects}
+      educations={educations}
+      skills={skills}
+      socials={socials}/>
+  );
+};
 
+
+
+
+
+export const Preview2 : React.FC<ResumeProps>=({
+  info,
+  experiences,
+  educations,
+  projects,
+  skills,
+  socials,
+})=>{
+  const titles = skills?.map(skill => skill.title);
+  return (
+    <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.section}>
+        <View>
+          <Text style={{
+            fontWeight:700,
+            fontFamily: "Inter",
+            letterSpacing: "10px",
+            fontSize:'28px',
+          }}>
+            {info?.firstName} {info?.middleName} {info?.lastName}
+          </Text>
+        </View>
+
+        <View>
+          <Text style={{
+            fontWeight:400,
+            marginTop:'4px',
+            fontFamily:"Inter",
+            fontSize:'16px',
+            letterSpacing:'2px'
+          }}>
+            {info?.designation}
+          </Text>
+        </View>
+
+        <View style={{display:'flex',flexDirection:'row',marginTop:'54px'}}>          
+          <View style={{width:'40%'}}>
+            <View style={{marginBottom:'16px'}}>
+              <View><Text style={styles.header}>Contact</Text></View>
+              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.phone}</Text></View>
+              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.address}</Text></View>
+              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.site}</Text></View>
+            </View>
+
+            <View style={{marginBottom:'16px'}}>
+              <View><Text style={styles.header}>Academic</Text></View>
+              {educations?.map((education,i)=>(
+                <View key={i} style={{marginBottom:'8px'}}>
+                  <View><Text style={styles.subHeader}>{education?.degree}</Text></View>
+                  <View ><Text style={styles.subHeader}>{education?.school} , {education?.city}</Text></View>
+                  <View style={{marginTop:'4px'}}><Text style={styles.text}>Year of Passing - {formatDate(education?.graduationDate)}</Text></View>
+                  <View >{formatBullets(education?.description)}</View>
+                </View>
+              ))}
+            </View>
+
+            <View style={{marginBottom:'16px'}}>
+              <View><Text style={styles.header}>Skills</Text></View>
+              {titles?.map((title,i)=>(
+                  <Text style={styles.text} key={i}>{title}</Text>
+              ))}
+            </View>
+
+            <View style={{marginBottom:'16px'}}>
+              <View><Text style={styles.header}>Socials</Text></View>
+              {socials?.map((social,i)=>(
+                  <View key={i} style={{marginBottom:'8px',display:'flex',flexDirection:'row'}}>
+                    <Text style={styles.text}>{social?.platform} -  </Text>
+                    <Text style={styles.text}>
+                      <Link src={social?.link} style={{color:'black'}}>{social?.username}</Link>
+                    </Text>
+                  </View>
+              ))}
+            </View>
+          </View>
+
+          <View style={{height:'100%',backgroundColor:'black',width:'0.5px',marginLeft:'10%',marginRight:'10%'}}>
+
+          </View>
+
+          <View style={{width:'50%'}}>
+          <View style={{marginBottom:'16px'}}>
+              <View><Text style={styles.header}>My Story</Text></View>
+              <Text style={styles.text}>{info?.summary}</Text>
+            </View>
+
+            <View style={{marginBottom:'16px'}}>
+              <View><Text style={styles.header}>Internship</Text></View>
+              {experiences?.map((experience,i)=>(
+                <View key={i} style={{marginBottom:'8px'}}>
+                  <View><Text style={styles.subHeader}>{experience?.title}</Text></View>
+                  <View ><Text style={styles.subHeader}>{experience?.organization} , {experience?.location}</Text></View>
+                  <View style={{marginTop:'4px'}}>
+                    <Text style={styles.text}>
+                      {formatDate(experience?.startDate)} - {experience?.endDate? formatDate(experience.endDate):'Present'}
+                    </Text>
+                  </View>
+                  <View >{formatBullets(experience?.description)}</View>
+                </View>
+              ))}
+            </View>
+
+            <View style={{marginBottom:'16px'}}>
+              <View><Text style={styles.header}>projects</Text></View>
+              {projects?.map((project,i)=>(
+                <View key={i} style={{marginBottom:'8px'}}>
+                  <View><Text style={styles.subHeader}>
+                   <Link src={project?.link} style={{color:'black'}}>{project?.title}</Link>
+                  </Text></View>
+                  <View style={{marginTop:'4px'}}>
+                    <Text style={styles.text}>
+                      {formatDate(project?.startDate)} - {project?.endDate? formatDate(project.endDate):'Present'}
+                    </Text>
+                  </View>
+                  <View >{formatBullets(project?.description)}</View>
+                </View>
+              ))}
+            </View>
+          </View>
+        </View>
+      </View>
+    </Page>
+  </Document>
+  );
+};
 
 export const Resume2: React.FC<ResumeProps> = ({
   info,
@@ -306,72 +429,21 @@ export const Resume2: React.FC<ResumeProps> = ({
   skills,
   socials,
 }) => {
+  
   return (
-    <section id="preview-sc" className="h-screen overflow-y-auto  w-[100%] md:w-[50%]  md:bg-gray-500 
-                     flex flex-row md:flex-col justify-center items-center relative">
-        <div className=" print_area w-[420px] h-[594px] bg-white  flex flex-col items-center" id="resume">
-            <h2 className="text-[26px] font-extralight xl:text-[28px]">
-                {info?.firstName} {info?.middleName} {info?.lastName}
-            </h2>
-            <p className="text-[9px] font-medium">
-              {info?.phone} | {info?.address} 
-            </p>
-            <p className="text-[10px] text-center px-4 font-extralight mt-2">
-                {info?.summary}
-            </p>
-            <div className="flex w-[95%] mt-4">
-                <div className="w-[40%] h-full" id="left-side">
-                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] mb-1">ACADEMIC</h2>
-                    {educations?.map((education:any,i:any)=>(
-                        <div className="py-[2px]" key={i}>
-                            <h3 className="text-[10px] uppercase  font-[700]">{education?.school}</h3>
-                            <h3 className="tracking-[.55px] font-[400] text-[7px] uppercase">{education?.degree}</h3>
-                            <p className="text-[7px] tracking-[0.4px] font-weight-[400]">{formatDate(education?.graduationDate)} | {education?.city}</p>
-                            <p className="text-[7px] font-[400] tracking-[0.4px] ">{formatBullets(education?.description)}</p>
-                        </div>
-                    ))}
-                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase mt-2 mb-1">Skills</h2>
-                    {skills?.map((skill:any,i:any)=>(
-                        <div className="py-[2px]" key={i}>
-                            <li className="text-[8px] font-[400] tracking-[0.4px] ">
-                                {skill?.title}
-                            </li>
-                        </div>
-                    ))}
-                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase mt-2 mb-1">Socials</h2>
-                    {socials?.map((social:any,i:any)=>(
-                        <div className="py-[2px]" key={i}>
-                            <p className="text-[8px] font-[400] tracking-[0.4px] ">
-                                {social?.platform}
-                                <span> - </span>
-                                <span className="text-black font-[700]"><a href={social?.link}>{social?.username}</a></span>
-                            </p>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="w-[60%] h-full" id="right-side">
-                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase mb-1">Internship</h2>
-                    {experiences?.map((experience:any,i:any)=>(
-                        <div className="py-[2px]" key={i}>
-                            <h3 className="text-[8px] uppercase inter font-[700]">{experience?.organization} | {experience?.title} </h3>
-                            <h3 className="font-[400] text-[7px] ">{formatDate(experience?.startDate)} - {experience?.endDate? (formatDate(experience?.endDate)) : 'Present'} | {experience?.location}</h3>
-                            <article className="text-[7px] max-w-[80%] font-[400] ">
-                                {formatBullets(experience?.description)}
-                            </article>
-                        </div>
-                    ))}
-
-                    <h2 className="text-[#6A6A6A] text-[13px] font-[600] uppercase mt-2 mb-1">Projects</h2>
-                    {projects?.map((project:any,i:any)=>(
-                        <div className="py-[2px]" key={i}>
-                            <h3 className="text-[8px]  font-[700]">{project?.title} | <span className="text-[6px] font-[400]"><a href={project?.link}>Link</a></span></h3>
-                            <p className="text-[7px] tracking-[0.4px] font-[400]">{formatBullets(project?.description)}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-        </section>
+    <PDFViewer doc = {pdf(<Preview2
+      info={info}
+      experiences={experiences}
+      projects={projects}
+      educations={educations}
+      skills={skills}
+      socials={socials} />)
+    }
+    info={info}
+      experiences={experiences}
+      projects={projects}
+      educations={educations}
+      skills={skills}
+      socials={socials}/>
   );
 };
