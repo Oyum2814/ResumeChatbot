@@ -1,9 +1,8 @@
 // Responsible for rendering of the PDF
 import React, { useState, useEffect, useRef } from 'react';
 import { Document as Doc, Page as Pag, pdfjs } from 'react-pdf'; // Used for rendering of PDF, not the actual creation of the PDF itself. That is taken care by @react-pdf/renderer which is used in Template.js 
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
 
 
 interface PDFViewerProps{

@@ -12,6 +12,9 @@ export const authOptions: AuthOptions = {
       clientId: process.env.GITHUB_ID || '',
       clientSecret: process.env.GITHUB_SECRET || '',
       allowDangerousEmailAccountLinking: true,
+      httpOptions: {
+        timeout: 40000,
+      },
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
