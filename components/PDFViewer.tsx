@@ -23,15 +23,18 @@ const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educ
   const generatePdf = async () => {
     try {
       // Create a PDF document
+      console.log("create a pdf document");
       const pdfDocument = doc;
       
       // Check if the document is created successfully
       if (pdfDocument) {
+        console.log("created blob");
         const blob = await pdfDocument.toBlob();
         
         // Check if the blob is created successfully
         if (blob) {
           // Create a URL for the blob
+          console.log("Create url for blob");
           const url = URL.createObjectURL(blob);
           
           // Set the URL in the state
