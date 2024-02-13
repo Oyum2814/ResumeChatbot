@@ -23,18 +23,15 @@ const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educ
   const generatePdf = async () => {
     try {
       // Create a PDF document
-      console.log("create a pdf document");
       const pdfDocument = doc;
       
       // Check if the document is created successfully
       if (pdfDocument) {
-        console.log("created blob");
         const blob = await pdfDocument.toBlob();
         
         // Check if the blob is created successfully
         if (blob) {
           // Create a URL for the blob
-          console.log("Create url for blob");
           const url = URL.createObjectURL(blob);
           
           // Set the URL in the state
@@ -62,7 +59,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educ
 
   // Used for double buffer, to prevent jitter when the input updates
   useEffect(() => {
-    if (loading) return;
+    if (loading && !pdfUrl) return;
 
     const sourceCanvas = sourceCanvasRef.current; // The canvas used as a buffer
     const targetCanvas = document.getElementById('targetCanvas') as HTMLCanvasElement | null; // The actual canvas displayed on the webpage, once the buffer canvas is rendered, we copy the contents here. This avoids jitter caused by PDF refresh
@@ -72,7 +69,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educ
 
     // Copy the content from the source canvas to the target canvas
     targetCtx?.drawImage(sourceCanvas, 0, 0);
-  }, [loading]);
+  }, [loading,pdfUrl]);
 
 
   return (

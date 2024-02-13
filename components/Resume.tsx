@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import useInfo from "@/hooks/useInfo";
 import { IoIosRemoveCircle } from "react-icons/io";
 
-import {Resume1,Resume2} from "./ResumeTemplates"
+import {Resume1,Resume2,Resume3, Resume4} from "./ResumeTemplates"
 
 interface ResumeProps{
     resumeName:string;
@@ -714,7 +714,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                             <label htmlFor="" className="form-label">Skill</label>
                                                             <input
                                                             value={skill?.title}
-                                                            name="skill" type="text" className="form-control skill" id=""
+                                                            name="skill" type="text" className="form-control skill text-center" id=""
                                                             onChange={(e) => {
                                                                 setSkills((prevSkills:any) => {
                                                                     const newSkills = [...prevSkills];
@@ -874,6 +874,28 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                 {(resumeName==='Template2')
                 &&(
                     <Resume2
+                    info={info}
+                    experiences={experiences}
+                    projects={projects}
+                    educations={educations}
+                    skills={skills}
+                    socials={socials}
+                    />
+                )}
+                {(resumeName==='Template3')
+                &&(
+                    <Resume3
+                    info={info}
+                    experiences={experiences}
+                    projects={projects}
+                    educations={educations}
+                    skills={skills}
+                    socials={socials}
+                    />
+                )}
+                {(resumeName==='Template4')
+                &&(
+                    <Resume4
                     info={info}
                     experiences={experiences}
                     projects={projects}
