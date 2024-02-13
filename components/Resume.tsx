@@ -123,7 +123,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
             <Navbar resumePage />
             <div className="md:h-screen w-screen flex flex-col-reverse  justify-between absolute md:overflow-y-hidden
             md:flex-row">
-                <section id="about-sc" className="non_print_area w-screen md:w-[50%] h-auto md:h-screen md:overflow-y-auto">
+                <section id="about-sc" className="non_print_area w-screen md:w-[50%] h-auto md:h-screen md:overflow-y-auto my-16">
                     <div className="container">
                         <div className="about-cnt">
                             <form action="" className="cv-form" id="cv-form">
@@ -823,7 +823,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                             }
                                             
                                         </div>
-                                        <div className="flex justify-end items-center gap-x-5">
+                                        <div className="flex justify-end items-center gap-x-5 ">
                                             <span>
                                                 <IoIosRemoveCircle
                                                 onClick={()=>{
@@ -848,7 +848,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                     </div>
                                 </div>
                                     
-                                <div className="w-full flex justify-center">
+                                <div className="w-full flex justify-center mb-12">
                                     <button 
                                     onClick={saveProfile}
                                     className="text-xl px-4 py-2 bg-blue-600 text-white font-[600] rounded-md mx-auto">
