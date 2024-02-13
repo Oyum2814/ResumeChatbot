@@ -510,44 +510,46 @@ export const Preview3 : React.FC<ResumeProps>=({
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
-        <View style={{display:'flex',flexDirection:'row',justifyContent: 'space-between'}}>
-          <Text style={{
-            fontWeight:700,
-            fontFamily: "Helvetica",
-            letterSpacing: "5px",
-            fontSize:'28px',
-            textDecoration:'underline',
-            paddingBottom:'2px',
-          }}>
-            {info?.firstName} {info?.middleName} {info?.lastName}
-          </Text>
-          <View style={{flexDirection:'column',fontSize:'16px'}}>
-            <View style={{marginBottom:'4px'}}>
-              <Text>
-                {info?.phone}
-              </Text>
-            </View>
-            <View>
-              <Text>
-                {info?.address}
-              </Text>
+        <View style={{backgroundColor: '#f5f5f5',padding:'10px',borderBottom: '4px solid #575757'}}>
+          <View style={{display:'flex',flexDirection:'row',justifyContent: 'space-between'}}>
+            <Text style={{
+              fontWeight:700,
+              fontFamily: "Helvetica",
+              letterSpacing: "5px",
+              fontSize:'28px',
+              textDecoration:'underline',
+              paddingBottom:'2px',
+            }}>
+              {info?.firstName} {info?.middleName} {info?.lastName}
+            </Text>
+            <View style={{flexDirection:'column',fontSize:'16px'}}>
+              <View style={{marginBottom:'4px'}}>
+                <Text>
+                  {info?.phone}
+                </Text>
+              </View>
+              <View>
+                <Text>
+                  {info?.address}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
 
-        <View>
-          <Text style={{
-            fontWeight:400,
-            marginTop:'4px',
-            fontFamily:"Helvetica",
-            fontSize:'16px',
-            letterSpacing:'2px'
-          }}>
-            {info?.designation}
-          </Text>
+          <View>
+            <Text style={{
+              fontWeight:400,
+              marginTop:'4px',
+              fontFamily:"Helvetica",
+              fontSize:'16px',
+              letterSpacing:'2px'
+            }}>
+              {info?.designation}
+            </Text>
+          </View>
         </View>
         <View>
-          <Text style={{textAlign:'center',marginTop:'4px',textTransform:'uppercase',letterSpacing:"2.5px",}}>Summary</Text>
+          <Text style={{textAlign:'center',marginTop:'9px',textTransform:'uppercase',letterSpacing:"1px",fontSize:'15px'}}>Summary</Text>
           <Text style={{textAlign:'center',marginTop:'4px',fontSize:'12px',width:'75%',margin:'10px auto'}}>{info?.summary}</Text>
         </View>
         <View style={{display:'flex',flexDirection:'row',marginTop:'54px'}}>          
@@ -584,7 +586,7 @@ export const Preview3 : React.FC<ResumeProps>=({
             </View>
           </View>
 
-          <View style={{height:'100%',backgroundColor:'black',width:'0.5px',marginLeft:'10%',marginRight:'10%'}}>
+          <View style={{height:'100%',backgroundColor:'#575757',width:'1.5px',marginLeft:'10%',marginRight:'10%'}}>
 
           </View>
 
