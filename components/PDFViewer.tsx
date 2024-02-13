@@ -73,19 +73,19 @@ const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educ
 
 
   return (
-    <div className="pdf-viewer h-screen overflow-y-auto  w-[100%] md:w-[50%]  md:bg-gray-500 
+    <div className="pdf-viewer h-screen overflow-scroll  w-[100%] md:w-[50%]  md:bg-gray-500 
     flex flex-row md:flex-col justify-center items-center relative">
       <div className='pdf-layout'>
-        <div> 
+        {/* <div> 
           <canvas className='RenderCanvas
-          scale-[30%]
-
+         
+          scale-[30%] 
           '
           id="targetCanvas" 
           height="1782" width="1470"
             ></canvas>
-        </div>
-        <div style={{ display: 'none' }}>
+        </div> */}
+        <div className="scale-[75%] ">
           <Doc file={pdfUrl}
            loading={() => {
               setLoading(true);
@@ -102,7 +102,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educ
         <a className="download-btn absolute bottom-10 left-40 right-40 mx-auto
          text-white bg-blue-600 px-4 py-2 font-bold rounded-md text-center" 
          href={pdfUrl} download="generated_pdf.pdf"> {/*Directly use the blob url to download PDF*/ }
-          {loading ? 'Compiling...' : 'Download PDF'}
+          {loading ? 'Compiling...' : 'Save as PDF'}
         </a>
       </div>
     </div>
