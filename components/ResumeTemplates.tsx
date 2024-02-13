@@ -310,7 +310,7 @@ export const Preview2 : React.FC<ResumeProps>=({
         <View>
           <Text style={{
             fontWeight:700,
-            fontFamily: "Inter",
+            // fontFamily: "Inter",
             letterSpacing: "10px",
             fontSize:'28px',
           }}>
