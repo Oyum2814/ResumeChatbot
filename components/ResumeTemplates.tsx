@@ -124,6 +124,51 @@ const styles = StyleSheet.create({
   },
 });
 
+const styles4 = StyleSheet.create({
+  page: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    padding: 12
+  },
+  section: {
+   
+    margin: 10,
+    padding: 10,
+    flexGrow: 1,
+  },
+  header: {
+    textTransform: "capitalize",
+    fontSize: '13px',
+    fontFamily:"Helvetica",
+    marginBottom: 10,
+    fontWeight: 700,
+    color: 'black',
+    letterSpacing:"1px",
+  },
+  text: {
+    fontSize: 11,
+    fontFamily:"Helvetica",
+    fontWeight:300,
+    color: 'black',
+    margin:'2px 0px'
+  },
+  subHeader:{
+    fontSize: 14,
+    fontFamily:"Helvetica",
+    fontWeight:600,
+    color: 'black',
+  },
+  sectionTitle: {
+    
+    fontSize: 16,
+    marginBottom: 5,
+    textTransform: "uppercase",
+    letterSpacing:'1px',
+    fontWeight: 800,
+    color: '#ee2e33'
+  },
+});
+
 
 export const Preview1 : React.FC<ResumeProps>=({
   info,
@@ -647,18 +692,17 @@ export const Preview4 : React.FC<ResumeProps>=({
             {info?.designation}
           </Text>
         </View>
-
-        <View style={{display:'flex',flexDirection:'row',marginTop:'54px'}}>          
-          <View style={{width:'40%'}}>
-            <View style={{marginBottom:'16px'}}>
-              <View><Text style={styles.header}>Contact</Text></View>
+        <View style={{marginTop:'12px'}}>
               <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.phone}</Text></View>
               <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.address}</Text></View>
               <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.site}</Text></View>
-            </View>
+        </View>
+        <View style={{display:'flex',flexDirection:'row',marginTop:'54px'}}>          
+          <View style={{width:'40%'}}>
+           
 
             <View style={{marginBottom:'16px'}}>
-              <View><Text style={styles.header}>Academic</Text></View>
+              <View><Text style={styles4.header}>Academic</Text></View>
               {educations?.map((education,i)=>(
                 <View key={i} style={{marginBottom:'8px'}}>
                   <View><Text style={styles.subHeader}>{education?.degree}</Text></View>
@@ -670,14 +714,14 @@ export const Preview4 : React.FC<ResumeProps>=({
             </View>
 
             <View style={{marginBottom:'16px'}}>
-              <View><Text style={styles.header}>Skills</Text></View>
+              <View><Text style={styles4.header}>Skills</Text></View>
               {titles?.map((title,i)=>(
                   <Text style={styles.text} key={i}>{title}</Text>
               ))}
             </View>
 
             <View style={{marginBottom:'16px'}}>
-              <View><Text style={styles.header}>Socials</Text></View>
+              <View><Text style={styles4.header}>Socials</Text></View>
               {socials?.map((social,i)=>(
                   <View key={i} style={{marginBottom:'8px',display:'flex',flexDirection:'row'}}>
                     <Text style={styles.text}>{social?.platform} -  </Text>
@@ -689,18 +733,16 @@ export const Preview4 : React.FC<ResumeProps>=({
             </View>
           </View>
 
-          <View style={{height:'100%',backgroundColor:'black',width:'0.5px',marginLeft:'10%',marginRight:'10%'}}>
-
-          </View>
+        
 
           <View style={{width:'50%'}}>
           <View style={{marginBottom:'16px'}}>
-              <View><Text style={styles.header}>My Story</Text></View>
+              <View><Text style={styles4.header}>My Story</Text></View>
               <Text style={styles.text}>{info?.summary}</Text>
             </View>
 
             <View style={{marginBottom:'16px'}}>
-              <View><Text style={styles.header}>Internship</Text></View>
+              <View><Text style={styles4.header}>Internship</Text></View>
               {experiences?.map((experience,i)=>(
                 <View key={i} style={{marginBottom:'8px'}}>
                   <View><Text style={styles.subHeader}>{experience?.title}</Text></View>
@@ -716,7 +758,7 @@ export const Preview4 : React.FC<ResumeProps>=({
             </View>
 
             <View style={{marginBottom:'16px'}}>
-              <View><Text style={styles.header}>projects</Text></View>
+              <View><Text style={styles4.header}>projects</Text></View>
               {projects?.map((project,i)=>(
                 <View key={i} style={{marginBottom:'8px'}}>
                   <View><Text style={styles.subHeader}>
