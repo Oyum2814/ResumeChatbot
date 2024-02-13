@@ -89,7 +89,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educ
           <Doc file={pdfUrl}
            loading={() => {
               setLoading(true);
-              return <div>Loading</div>;
+              return <div className="manrope text-2xl text-white">Loading</div>;
             }} >
             <Pag 
             canvasRef={(canvas) => {

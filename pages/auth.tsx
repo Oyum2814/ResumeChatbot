@@ -1,18 +1,19 @@
-import {useState, useCallback} from "react";
+import {useState, useCallback, useEffect} from "react";
 import Input from "../components/Input";
 import axios from 'axios';
-import {signIn} from 'next-auth/react';
+import {getSession, signIn} from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
 import {FaGithub} from 'react-icons/fa';
 import Image from 'next/image'
 import asset1 from '@/public/assets/login/asset1.png'
 import Navbar from "@/components/Navbar";
+import { useRouter } from "next/router";
 const Auth = ()=>{
 
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-
+    const router = useRouter();
     const [variant, setVariant] = useState('login');
     const toggleVariant = useCallback(()=>{
         setVariant((currentVariant)=>currentVariant==='login'?'register':'login');
@@ -35,7 +36,19 @@ const Auth = ()=>{
             console.log(error);
         }
     },[email, name, password,login]);
-
+    
+    useEffect(() => {
+        
+        // Check if user is already authenticated
+        const checkAuth = async () => {
+          const session = await getSession();
+          if (session) {
+            // If user is authenticated, redirect to home page
+            router.replace("/");
+          }
+        };    
+        checkAuth();
+    }, []);   
     
 
     return(
@@ -48,11 +61,11 @@ const Auth = ()=>{
                         <Image src={asset1} alt=""
                         width={552} height={366}/>
                     </div>
-                    <div className="md:w-[30%] flex flex-col justify-center items-start md:ml-12">
+                    <div className="md:w-[30%] flex flex-col justify-center items-start md:ml-12 ">
                         <h2 className="mt-8 md:mt-0 manrope mx-auto text-center md:text-left text-[16px] font-[700]">
                                 {variant==='login'?'Login':'Register'}
                         </h2>
-                        <div className="flex flex-col gap-4 mt-4">
+                        <div className="flex flex-col gap-4 mt-4 w-full">
                             {variant==='register'&&(
                                 <Input 
                                 label="Name"
@@ -86,7 +99,7 @@ const Auth = ()=>{
                         <button onClick={variant==='login'?login:register}
                         className="bg-[#1E4476] px-4 py-2 rounded-lg text-white manrope
                         mt-4 mx-auto">
-                            {variant==='login'?'Login':'Sign Up'}
+                            {variant==='login'?'Login':'Register'}
                         </button>
                         <div className="text-neutral-500 mt-4 text-[11px] w-full text-center manrope">
                             {variant==='login'?'New to Resume Genie?':'Already have an account?'}

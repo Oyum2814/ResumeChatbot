@@ -16,7 +16,7 @@ const Input:React.FC<InputProps> = ({id,onChange,value,label,type})=>{
             placeholder={label}
             className="
             border-[1px] border-[#1E447680]/50 rounded-[10px] h-[50px] text-black
-            px-4 py-1 w-[320px] font-[400] manrope text-[11px]
+            px-4 py-1 w-full font-[400] manrope text-[11px]
             "/>
         </div>
         
