@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   header: {
     textTransform: "uppercase",
     fontSize: 19,
-    fontFamily:"Inter",
+    // fontFamily:"Inter",
     marginBottom: 10,
     fontWeight: 600,
     color: 'black',
@@ -99,14 +99,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 11,
-    fontFamily:"Inter",
+    // fontFamily:"Inter",
     fontWeight:300,
     color: 'black',
     margin:'2px 0px'
   },
   subHeader:{
     fontSize: 14,
-    fontFamily:"Inter",
+    // fontFamily:"Inter",
     fontWeight:600,
     color: 'black',
   },
@@ -322,7 +322,7 @@ export const Preview2 : React.FC<ResumeProps>=({
           <Text style={{
             fontWeight:400,
             marginTop:'4px',
-            fontFamily:"Inter",
+            // fontFamily:"Inter",
             fontSize:'16px',
             letterSpacing:'2px'
           }}>
