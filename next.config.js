@@ -7,6 +7,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "www.freeiconspng.com",
       "firebasestorage.googleapis.com",
+      "fonts.gstatic.com",
     ],
   },
 };
