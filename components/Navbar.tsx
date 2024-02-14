@@ -67,15 +67,15 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
         w-full fixed z-40 text-black flex flex-col justify-center text-xl h-16 bg-white md:bg-none">
                 {resumePage && 
                 (<>
-                    <div className="absolute w-[50vw] md:bg-white h-16 border-b-[1px] top-0 -z-20"></div>
-                    <div className="absolute w-[50vw] top-0  md:bg-black md:bg-opacity-80 h-16 right-0"> 
+                    <div className="absolute w-[100vw] md:bg-white h-16 border-b-[1px] top-0 -z-20"></div>
+                    {/* <div className="absolute w-[50vw] top-0  md:bg-black md:bg-opacity-80 h-16 right-0">  */}
                     <div className="relative w-full h-full  justify-start items-center ml-4 hidden md:flex">
                         {/* <div className="text-sm text-white bg-blue-600 px-4 py-2 rounded-md cursor-pointer"
                         onClick={downloadPDF}>
                             Save PDF
                         </div> */}
                     </div> 
-                    </div>
+                    {/* </div> */}
                 </>
                 )}
                 
@@ -95,7 +95,7 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                         <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
                             
                             {user?.image? (
-                                <div className="w-12 h-12 rounded-full border border-[2px] overflow-hidden bg-white">
+                                <div className="w-12 h-12 rounded-full  border-[2px] overflow-hidden bg-white">
                                     <Image width="40" height="40"
                                     className="h-12 w-12 object-cover rounded-full "
                                     src={user.image} alt="profileImage"/>

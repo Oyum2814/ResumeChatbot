@@ -1,3 +1,4 @@
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import TemplateList from "@/components/TemplateList";
@@ -25,6 +26,7 @@ export default function templates() {
     return (
       <div>
         <Navbar />
+        <Breadcrumbs template/>
         <TemplateList />
       </div>
     )

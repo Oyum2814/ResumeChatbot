@@ -13,48 +13,47 @@ interface ResumeProps {
   socials?: any[]; // Adjust the type based on your actual data structure
 }
 
-
-// Font.register({
-//   family: 'Inter',
-//   fonts: [
-//     {
-//       src: 'static/Inter-Thin.ttf',
-//       fontWeight: 100,
-//     },
-//     {
-//       src: 'static/Inter-ExtraLight.ttf',
-//       fontWeight: 200,
-//     },
-//     {
-//       src: 'static/Inter-Light.ttf',
-//       fontWeight: 300,
-//     },
-//     {
-//       src: 'static/Inter-Regular.ttf',
-//       fontWeight: 400,
-//     },
-//     {
-//       src: 'static/Inter-Medium.ttf',
-//       fontWeight: 500,
-//     },
-//     {
-//       src: 'static/Inter-SemiBold.ttf',
-//       fontWeight: 600,
-//     },
-//     {
-//       src: 'static/Inter-Bold.ttf',
-//       fontWeight: 700,
-//     },
-//     {
-//       src: 'static/Inter-ExtraBold.ttf',
-//       fontWeight: 800,
-//     },
-//     {
-//       src: 'static/Inter-Black.ttf',
-//       fontWeight: 900,
-//     },
-//   ],
-// });
+Font.register({
+  family: 'Inter',
+  fonts: [
+    {
+      src: '/fonts/Inter/static/Inter-Thin.ttf',
+      fontWeight: 100,
+    },
+    {
+      src: '/fonts/Inter/static/Inter-ExtraLight.ttf',
+      fontWeight: 200,
+    },
+    {
+      src: '/fonts/Inter/static/Inter-Light.ttf',
+      fontWeight: 300,
+    },
+    {
+      src: '/fonts/Inter/static/Inter-Regular.ttf',
+      fontWeight: 400,
+    },
+    {
+      src: '/fonts/Inter/static/Inter-Medium.ttf',
+      fontWeight: 500,
+    },
+    {
+      src: '/fonts/Inter/static/Inter-SemiBold.ttf',
+      fontWeight: 600,
+    },
+    {
+      src: '/fonts/Inter/static/Inter-Bold.ttf',
+      fontWeight: 700,
+    },
+    {
+      src: '/fonts/Inter/static/Inter-ExtraBold.ttf',
+      fontWeight: 800,
+    },
+    {
+      src: '/fonts/Inter/static/Inter-Black.ttf',
+      fontWeight: 900,
+    },
+  ],
+});
 
 const formatDate = (date: any): any | null => {
   if (!date) {
@@ -514,7 +513,7 @@ export const Preview3 : React.FC<ResumeProps>=({
           <View style={{display:'flex',flexDirection:'row',justifyContent: 'space-between'}}>
             <Text style={{
               fontWeight:700,
-              fontFamily: "Helvetica",
+              fontFamily: "Inter",
               letterSpacing: "5px",
               fontSize:'28px',
               textDecoration:'underline',

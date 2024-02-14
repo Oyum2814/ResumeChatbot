@@ -1,3 +1,4 @@
+import Breadcrumbs from "@/components/Breadcrumbs";
 import Resume from "@/components/Resume";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
@@ -24,6 +25,7 @@ const ResumePage = () => {
     const {resume} = router.query;
     return (  
         <div className="text-black">
+            <Breadcrumbs resume resumeName={resume as string}/>
             <Resume resumeName={resume as string}/>
         </div>
     );
