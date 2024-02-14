@@ -184,7 +184,7 @@ export const Preview1 : React.FC<ResumeProps>=({
       <View style={styles.section}>
         <View style={{ display: "flex", flexDirection: "row" }}>
           <Text style={{ ...styles.header, width: "100%" }}>
-            {info?.firstName} {info?.middleName} {info?.lastName}
+            {info?.firstName? info.firstName :'John'} {info?.middleName} {info?.lastName? info.lastName:'Doe'}
           </Text>
         </View>
 
@@ -212,7 +212,7 @@ export const Preview1 : React.FC<ResumeProps>=({
                 letterSpacing: "1.1px",
               }}
             >
-              (+91) {info?.phone}
+              (+91) {info?.phone? info.phone :'+91 1234567890'}
             </Text>
           </View>
           <View
@@ -361,7 +361,7 @@ export const Preview2 : React.FC<ResumeProps>=({
             letterSpacing: "10px",
             fontSize:'28px',
           }}>
-            {info?.firstName} {info?.middleName} {info?.lastName}
+            {info?.firstName? info.firstName :'John'} {info?.middleName} {info?.lastName? info.lastName:'Doe'}
           </Text>
         </View>
 
@@ -381,13 +381,23 @@ export const Preview2 : React.FC<ResumeProps>=({
           <View style={{width:'40%'}}>
             <View style={{marginBottom:'16px'}}>
               <View><Text style={styles.header}>Contact</Text></View>
-              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.phone}</Text></View>
-              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.address}</Text></View>
-              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.site}</Text></View>
+              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.phone? info.phone :'+91 1234567890'}</Text></View>
+              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.address? info.address : 'Suite 444-A Padberg'}</Text></View>
+              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.site? info.site : 'www.site.com'}</Text></View>
             </View>
 
             <View style={{marginBottom:'16px'}}>
               <View><Text style={styles.header}>Academic</Text></View>
+              {!educations &&
+              (
+              <View  style={{marginBottom:'8px'}}>
+                                <View><Text style={styles.subHeader}>Higher Secondary</Text></View>
+                                <View ><Text style={styles.subHeader}> DPS , Noida</Text></View>
+                                <View style={{marginTop:'4px'}}><Text style={styles.text}>Year of Passing - 2025</Text></View>
+                                <View >{formatBullets('description1|description2')}</View>
+                              </View>
+              )
+              }
               {educations?.map((education,i)=>(
                 <View key={i} style={{marginBottom:'8px'}}>
                   <View><Text style={styles.subHeader}>{education?.degree}</Text></View>
@@ -519,17 +529,17 @@ export const Preview3 : React.FC<ResumeProps>=({
               textDecoration:'underline',
               paddingBottom:'2px',
             }}>
-              {info?.firstName} {info?.middleName} {info?.lastName}
+              {info?.firstName? info.firstName :'John'} {info?.middleName} {info?.lastName? info.lastName:'Doe'}
             </Text>
             <View style={{flexDirection:'column',fontSize:'16px'}}>
               <View style={{marginBottom:'4px'}}>
                 <Text>
-                  {info?.phone}
+                  {info?.phone? info.phone :'+91 1234567890'}
                 </Text>
               </View>
               <View>
                 <Text>
-                  {info?.address}
+                  {info?.address? info.address : 'Suite 444-A Padberg'}
                 </Text>
               </View>
             </View>
@@ -555,6 +565,16 @@ export const Preview3 : React.FC<ResumeProps>=({
           <View style={{width:'40%'}}>
             <View style={{marginBottom:'16px'}}>
               <View><Text style={styles.header}>Academic</Text></View>
+              {!educations &&
+              (
+              <View  style={{marginBottom:'8px'}}>
+                                <View><Text style={styles.subHeader}>Higher Secondary</Text></View>
+                                <View ><Text style={styles.subHeader}> DPS , Noida</Text></View>
+                                <View style={{marginTop:'4px'}}><Text style={styles.text}>Year of Passing - 2025</Text></View>
+                                <View >{formatBullets('description1|description2')}</View>
+              </View>
+              )
+              }
               {educations?.map((education,i)=>(
                 <View key={i} style={{marginBottom:'8px'}}>
                   <View><Text style={styles.subHeader}>{education?.degree}</Text></View>
@@ -678,7 +698,7 @@ export const Preview4 : React.FC<ResumeProps>=({
             letterSpacing: "2px",
             fontSize:'28px',
           }}>
-            {info?.firstName} {info?.middleName} {info?.lastName}
+            {info?.firstName? info.firstName :'John'} {info?.middleName} {info?.lastName? info.lastName:'Doe'}
           </Text>
         </View>
 
@@ -694,9 +714,9 @@ export const Preview4 : React.FC<ResumeProps>=({
           </Text>
         </View>
         <View style={{marginTop:'12px'}}>
-              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.phone}</Text></View>
-              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.address}</Text></View>
-              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.site}</Text></View>
+              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.phone? info.phone :'+91 1234567890'}</Text></View>
+              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.address? info.address : 'Suite 444-A Padberg'}</Text></View>
+              <View style={{marginBottom:'2px'}}><Text style={styles.subHeader}>{info?.site? info.site : 'www.site.com'}</Text></View>
         </View>
         <View style={{display:'flex',flexDirection:'row',marginTop:'54px'}}>          
           <View style={{width:'40%'}}>
@@ -704,6 +724,17 @@ export const Preview4 : React.FC<ResumeProps>=({
 
             <View style={{marginBottom:'16px'}}>
               <View><Text style={styles4.header}>Academic</Text></View>
+
+              {!educations &&
+              (
+              <View  style={{marginBottom:'8px'}}>
+                                <View><Text style={styles.subHeader}>Higher Secondary</Text></View>
+                                <View ><Text style={styles.subHeader}> DPS , Noida</Text></View>
+                                <View style={{marginTop:'4px'}}><Text style={styles.text}>Year of Passing - 2025</Text></View>
+                                <View >{formatBullets('description1|description2')}</View>
+                              </View>
+              )
+              }
               {educations?.map((education,i)=>(
                 <View key={i} style={{marginBottom:'8px'}}>
                   <View><Text style={styles.subHeader}>{education?.degree}</Text></View>
