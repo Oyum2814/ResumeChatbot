@@ -859,7 +859,9 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                         </div>
                     </div>
                 </section>
+                <div className="hidden md:block h-full w-[1px] bg-neutral-300">
 
+                </div>
                 {(resumeName==='Template1')
                 &&(
                     <Resume1
