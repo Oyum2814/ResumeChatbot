@@ -713,26 +713,28 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                                 <div className="cv-form-row cv-form-row-skills">
                                                     <div className="form-elem">
                                                         <label htmlFor="" className="form-label">Skill</label>
-                                                        <input
-                                                        value = {skillInput}
-                                                        onChange={(e:any)=>{
-                                                            setSkillInput(e.target.value);
-                                                        }}
-                                                        name="skill" type="text" className="form-control skill text-center" id=""
-                                                         />
-                                                         <button type="button" data-repeater-create value="Add" className=" bg-blue-600 text-white font-bold px-4 py-2 text-sm mt-2 mr-0"
-                                                            onClick={()=>{
-                                                                setSkills((prevSkills:any)=>[
-                                                                    ...prevSkills,
-                                                                    {
-                                                                        id:'',
-                                                                        title:skillInput,
-                                                                        userId:'',
-                                                                    },
-                                                                ]);
-                                                                mutateCurrentSkills();
-                                                            }}>Add Skill</button>
-                                                       
+                                                        <div>
+                                                            <input
+                                                            value = {skillInput}
+                                                            onChange={(e:any)=>{
+                                                                setSkillInput(e.target.value);
+                                                            }}
+                                                            name="skill" type="text" className="form-control skill text-center" id=""
+                                                            />
+                                                            <button type="button" data-repeater-create value="Add" className=" bg-blue-600 text-white font-bold px-4 py-2 text-sm mt-2 mr-0"
+                                                                onClick={()=>{
+                                                                    setSkills((prevSkills:any)=>[
+                                                                        ...prevSkills,
+                                                                        {
+                                                                            id:'',
+                                                                            title:skillInput,
+                                                                            userId:'',
+                                                                        },
+                                                                    ]);
+                                                                    mutateCurrentSkills();
+                                                                }}>Add Skill
+                                                            </button>
+                                                        </div>
                                                         <div className='px-2 pt-2 pb-11 mb-3 flex flex-wrap rounded-lg bg-purple-200 dark:bg-gray-400 mt-2'>
                                                             {skills?.map((skill:any,index:any)=>(
                                                                     <div key={index}>
