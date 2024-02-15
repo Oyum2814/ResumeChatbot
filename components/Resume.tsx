@@ -21,7 +21,7 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
     const {data:currentProjects,mutate:mutateCurrentProjects} = useInfo(currentUser?.id,'projects');
     const {data:currentSocials,mutate:mutateCurrentSocials} = useInfo(currentUser?.id,'socials');
     const {data:currentSkills,mutate:mutateCurrentSkills} = useInfo(currentUser?.id,'skills');
-
+    const [skillInput,setSkillInput] = useState();
 
     const [info,setInfo] = useState({
         firstName:'John',
@@ -109,6 +109,8 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                 ...updatedUser,
                 ...userProfile,
             }));
+            await mutateCurrentEducations();
+
             toast.success('Saved');
             console.log('User profile updated successfully:', response.data);
         } catch (error:any) {
@@ -707,50 +709,55 @@ const Resume:React.FC<ResumeProps> = ({resumeName})=>{
                                     
                                     <div className="row-separator repeater">
                                         <div className="repeater" data-repeater-list="group-e">
-                                            {skills?.map((skill:any,index:any)=>(
-                                                <div data-repeater-item key={index}>
-                                                    <div className="cv-form-row cv-form-row-skills">
-                                                        <div className="form-elem">
-                                                            <label htmlFor="" className="form-label">Skill</label>
-                                                            <input
-                                                            value={skill?.title}
-                                                            name="skill" type="text" className="form-control skill text-center" id=""
-                                                            onChange={(e) => {
-                                                                setSkills((prevSkills:any) => {
-                                                                    const newSkills = [...prevSkills];
-                                                                    newSkills[index] = {
-                                                                        ...newSkills[index], 
-                                                                        title: e.target.value 
-                                                                    };
-                                                                    return newSkills;
-                                                                });
-                                                                }} />
-                                                            <span className="form-text"></span>
+                                            <div >
+                                                <div className="cv-form-row cv-form-row-skills">
+                                                    <div className="form-elem">
+                                                        <label htmlFor="" className="form-label">Skill</label>
+                                                        <input
+                                                        value = {skillInput}
+                                                        onChange={(e:any)=>{
+                                                            setSkillInput(e.target.value);
+                                                        }}
+                                                        name="skill" type="text" className="form-control skill text-center" id=""
+                                                         />
+                                                         <button type="button" data-repeater-create value="Add" className=" bg-blue-600 text-white font-bold px-4 py-2 text-sm mt-2 mr-0"
+                                                            onClick={()=>{
+                                                                setSkills((prevSkills:any)=>[
+                                                                    ...prevSkills,
+                                                                    {
+                                                                        id:'',
+                                                                        title:skillInput,
+                                                                        userId:'',
+                                                                    },
+                                                                ]);
+                                                                mutateCurrentSkills();
+                                                            }}>Add Skill</button>
+                                                       
+                                                        <div className='px-2 pt-2 pb-11 mb-3 flex flex-wrap rounded-lg bg-purple-200 dark:bg-gray-400 mt-2'>
+                                                            {skills?.map((skill:any,index:any)=>(
+                                                                    <div key={index}>
+                                                                        <span
+                                                                            className="flex flex-wrap pl-4 pr-2 py-2 m-1 justify-between items-center text-sm font-medium rounded-xl cursor-pointer bg-purple-500 text-gray-200 hover:bg-purple-600 hover:text-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-100">
+                                                                            {skill?.title}
+                                                                            <svg onClick={(e:any)=>{
+                                                                               setSkills((prevSkills:any) => prevSkills.filter((prevSkill:any) => prevSkill.title !== skill.title));
+                                                                               mutateCurrentSkills();
+                                                                            }} xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-3 hover:text-gray-300" viewBox="0 0 20 20"
+                                                                            fill="currentColor" >
+                                                                                <path fill-rule="evenodd"
+                                                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                                                    clip-rule="evenodd" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </div>
+                                                            ))}  
                                                         </div>
+                                                        <span className="form-text"></span>
                                                     </div>
                                                 </div>
-                                            ))}
+                                            </div>
                                         </div>
-                                        <div className="flex justify-end items-center gap-x-5">
-                                            <span>
-                                                <IoIosRemoveCircle
-                                                onClick={()=>{
-                                                    setSkills((prevSkills:any) => prevSkills.slice(0, -1));
-                                                    mutateCurrentSkills();
-                                                }}
-                                                size={30} color="red"/>
-                                            </span>
-                                            <button type="button" data-repeater-create value="Add" className="repeater-add-btn bg-blue-400 text-white"
-                                            onClick={()=>{
-                                                setSkills((prevSkills:any)=>[
-                                                    ...prevSkills,
-                                                    {
-                                                        title:''
-                                                    },
-                                                ]);
-                                                mutateCurrentSkills();
-                                            }}>+</button>
-                                        </div>
+                                        
                                     </div>
                                 </div>
 
