@@ -8,9 +8,9 @@ import asset3 from '@/public/assets/hero/asset3.png'
 const Hero = () => {
     return ( 
         <div className='h-screen w-screen flex   justify-center items-center '>
-            <div className="rounded-[10px]  opacity-0.6 bg-[#A0BAF11A]/10 w-[80%] h-[70%] flex justify-center items-center
+            <div className="rounded-[10px]  opacity-0.6 hero-card text-white w-[80%] h-[70%] flex justify-center items-center
             flex-col-reverse md:flex-row">
-                <div className="md:max-w-[50%] px-20 h-[60%] md:h-auto">
+                <div className="md:max-w-[50%] px-4 md:px-20 h-[60%] md:h-auto text-center md:text-left">
                     <h2 className="font-[700] manrope text-[16px] xl:text-[21px]">
                     Create a Compelling CV with AI Assistance in Minutes
                     </h2>
@@ -21,7 +21,7 @@ const Hero = () => {
                     <div className=" mt-6">
                         <Link 
                         href={"/templates"}
-                        className="px-4 py-2 bg-[#1E4476] text-white rounded-[10px]">
+                        className="px-4 py-2 bg-white text-[#6a2c70] font-extralight rounded-[10px]">
                             Get Started Now
                         </Link>
                     </div>

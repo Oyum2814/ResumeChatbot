@@ -16,16 +16,16 @@ const TemplateList = () => {
         }
     },[fetchedTemplates])
     return ( 
-        <div className="absolute w-screen h-auto mt-32 md:mt-48 flex justify-center items-center">
+        <div className="template-bg pb-40 absolute w-screen h-auto top-48 md:top-60  flex justify-center items-center ">
             <div className="grid grid-cols-1 md:grid-cols-4 p-6 gap-x-16 gap-y-16 md:gap-y-4 mx-auto">
                 {templates?.map((template:any,index:any)=>(
-                    <Link className="w-auto  h-[35vh]  border-black border-[1px] rounded-md 
+                    <Link className="w-auto  h-[35vh]  shadow-xl rounded-md 
                     hover:scale-110 transition ease-in-out duration-300 "
                    href={`/resume/${template?.name}`} key={index}>
                        <Image 
                        width={400}
                        height={300}
-                       className="h-full w-full object-cover cursor-pointer p-4"
+                       className="h-full w-full object-cover cursor-pointer border-[1px]"
                        alt={template?.name}
                        src={template?.thumbnail}/>
                        <p className="text-center mt-2 font-[700] text-xl">{template?.name}</p>

@@ -52,17 +52,17 @@ const Auth = ()=>{
     
 
     return(
-        <div className="relative h-screen w-screen bg-white overflow-x-hidden">
+        <div className="relative h-screen w-screen hero-bg overflow-x-hidden">
             <Navbar />
             <div className='h-screen w-screen flex flex-col md:flex-row  justify-center items-center '>
-                <div className="rounded-[10px]  opacity-0.6 bg-[#A0BAF11A]/10 w-[80%] h-[80%] md:h-[70%]
+                <div className="rounded-[10px]  opacity-0.6 hero-card w-[80%] h-[80%] md:h-[70%]
                 flex flex-col md:flex-row justify-center items-center">
                     <div className="w-[70%] h-auto md:w-[50%] md:h-full flex justify-center items-center">
                         <Image src={asset1} alt=""
                         width={552} height={366}/>
                     </div>
                     <div className="md:w-[30%] flex flex-col justify-center items-start md:ml-12 ">
-                        <h2 className="mt-8 md:mt-0 manrope mx-auto text-center md:text-left text-[16px] font-[700]">
+                        <h2 className="text-white mt-8 md:mt-0 manrope mx-auto text-center md:text-left text-[16px] font-[700]">
                                 {variant==='login'?'Login':'Register'}
                         </h2>
                         <div className="flex flex-col gap-4 mt-4 w-full">
@@ -97,13 +97,13 @@ const Auth = ()=>{
 
                         </div>
                         <button onClick={variant==='login'?login:register}
-                        className="bg-[#1E4476] px-4 py-2 rounded-lg text-white manrope
+                        className="cursor-pointer px-4 py-2 bg-white text-[#6a2c70] font-extralight rounded-[10px] manrope
                         mt-4 mx-auto">
                             {variant==='login'?'Login':'Register'}
                         </button>
-                        <div className="text-neutral-500 mt-4 text-[11px] w-full text-center manrope">
+                        <div className="text-white mt-4 text-[11px] w-full text-center manrope">
                             {variant==='login'?'New to Resume Genie?':'Already have an account?'}
-                            <span onClick={toggleVariant} className="text-black ml-1 hover:underline cursor-pointer">
+                            <span onClick={toggleVariant} className="text-white ml-1 hover:underline cursor-pointer">
                                 {variant==='login'?'Create Account':'Login'}
                             </span>
                             <div className="mt-2">

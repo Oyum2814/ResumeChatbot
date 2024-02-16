@@ -24,10 +24,12 @@ export async function getServerSideProps(context: NextPageContext){
 
 export default function templates() {
     return (
-      <div>
-        <Navbar />
+      <>
+      <Navbar />
+      <div className="template-bg w-screen h-screen flex flex-col justify-center items-center">
         <Breadcrumbs template/>
         <TemplateList />
       </div>
+      </>
     )
   }

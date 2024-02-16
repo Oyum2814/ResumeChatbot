@@ -7,8 +7,8 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs:React.FC<BreadcrumbsProps> = ({template,resume,resumeName}) => {
     return ( 
-        <nav className={`flex z-40 bg-gray-200 text-black ${resume?'w-full md:w-[50%] top-16 ':'w-full top-20'} py-2 px-4  
-        absolute `} aria-label="Breadcrumb">
+        <nav className={`flex z-20 bg-[#6a2c70] text-white ${resume?'w-full md:w-[50%] top-16 ':' top-20'} py-2 px-4  
+        absolute ${template?'mt-16 md:mt-8 xl:mt-32 w-[80vw] md:w-[68vw]':''}`} aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
           <li className="inline-flex items-center">
             <Link href="/" className="inline-flex items-center text-sm font-medium  hover:text-blue-600 dark: dark:hover:text-blue-600">
@@ -25,7 +25,7 @@ const Breadcrumbs:React.FC<BreadcrumbsProps> = ({template,resume,resumeName}) =>
                     <svg className="rtl:rotate-180 w-3 h-3 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
                     </svg>
-                    <span className="ms-1 text-sm font-medium text-gray-500 md:ms-2 ">Template</span>
+                    <span className="ms-1 text-sm font-medium text-white md:ms-2 ">Template</span>
                     </div>
                 </li>
             )

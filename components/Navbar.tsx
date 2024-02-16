@@ -9,12 +9,14 @@ import { BsPersonFill } from "react-icons/bs";
 import Link from 'next/link';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { useRouter } from 'next/router';
 
 const TOP_OFFSET=66;
 interface NavbarProps{
     resumePage?:boolean;
+    homePage?:boolean;
 }
-const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
+const Navbar:React.FC<NavbarProps> = ({resumePage,homePage})=>{
     const [showMobileMenu,setShowMobileMenu] =useState(false);
     const [showAccountMenu,setShowAccountMenu] =useState(false);
     const {data:user} = useCurrentUser();
@@ -62,9 +64,10 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
     }
 
     return (
-
-        <nav className="non_print_area
-        w-full fixed z-40 text-black flex flex-col justify-center text-xl h-16 bg-white md:bg-none">
+        // update : changed text to white from back and background to transparent from white
+        <nav className={`non_print_area manrope
+        w-full fixed z-40 text-white flex flex-col justify-center text-xl h-16 ${homePage?'bg-transparent':'bg-[#6a2c70]'}
+         md:bg-none`}>
                 {resumePage && 
                 (<>
                     <div className="absolute w-[100vw] md:bg-white h-16 border-b-[1px] top-0 -z-20"></div>
@@ -80,7 +83,7 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                 )}
                 
                 <div className={'px-4 md:px-16 py-6 flex items-center transition text-ms' }>
-                <Link href="/" className="font-bold cursor-pointer">Resume<span className="text-blue-600">Genie</span></Link>
+                <Link href="/" className="font-bold cursor-pointer">Resume<span className="text-blue-500">Genie</span></Link>
                 <div className="flex-row ml-12 gap-7 hidden lg:flex text-sm">
                     <NavbarItem label="Templates" route="/templates"/>
                 </div>
@@ -102,7 +105,7 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                                 </div>
                             ):
                             (
-                                <BsPersonFill size={45}/>
+                                <BsPersonFill size={30}/>
                             )}
                         
                         
@@ -112,7 +115,7 @@ const Navbar:React.FC<NavbarProps> = ({resumePage})=>{
                     </div>)
                 :
                     <div className="flex flex-row ml-auto gap-8 items-center text-sm font-bold">
-                        <Link href="/auth" className="cursor-pointer">Login / SignUp</Link>
+                        <Link href="/auth" className="cursor-pointer px-4 py-2 bg-white text-[#6a2c70] font-extralight rounded-[10px]">Login / SignUp</Link>
 
                     </div>
                 }

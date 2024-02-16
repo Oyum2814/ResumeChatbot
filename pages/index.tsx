@@ -19,8 +19,8 @@ import Navbar from "@/components/Navbar";
 // }
 export default function Home() {
   return (
-    <div>
-      <Navbar />
+    <div className="hero-bg">
+      <Navbar homePage/>
       <Hero />
     </div>
   )
