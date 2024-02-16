@@ -8,6 +8,7 @@ import Image from 'next/image'
 import asset1 from '@/public/assets/login/asset1.png'
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/router";
+import toast from "react-hot-toast";
 const Auth = ()=>{
 
     const [email, setEmail] = useState('');
@@ -21,10 +22,16 @@ const Auth = ()=>{
 
     const login = useCallback(async()=>{
         try{
-            const res = await signIn('credentials',{email, password, callbackUrl:'/templates'});
-            if (res?.error) { console.log("Error  - ",res.error); }
+            const res = await signIn('credentials',{email, password, redirect:false});
+
+            if (res?.error) {
+                toast.error("Wrong Credentials");
+            } else {
+                router.push('/templates');
+            }
+    
         } catch(error){
-            console.log(error);
+            toast.error('Wrong Credentials');
         }
     },[email, password]);
 

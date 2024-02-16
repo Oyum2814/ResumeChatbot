@@ -5,6 +5,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { compare } from 'bcrypt';
 import prismadb from '@/lib/prismadb';
+import toast from 'react-hot-toast';
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -44,7 +45,7 @@ export const authOptions: AuthOptions = {
         }});
 
         if (!user || !user.hashedPassword) {
-          throw new Error('Email does not exist');
+          toast.error("Email does not exist")
         }
 
         const isCorrectPassword = await compare(credentials.password, user.hashedPassword);
