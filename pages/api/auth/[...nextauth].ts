@@ -47,8 +47,10 @@ export const authOptions: AuthOptions = {
         if (!user || !user.hashedPassword) {
           toast.error("Email does not exist")
         }
-
-        const isCorrectPassword = await compare(credentials.password, user.hashedPassword);
+        let isCorrectPassword
+        if (user?.hashedPassword) {
+          isCorrectPassword = await compare(credentials.password, user.hashedPassword);
+        }
 
         if (!isCorrectPassword) {
           throw new Error('Incorrect password');
