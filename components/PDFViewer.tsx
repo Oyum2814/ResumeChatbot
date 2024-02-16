@@ -73,7 +73,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educ
 
 
   return (
-    <div className="pdf-viewer h-screen overflow-y-scroll overflow-x-hidden  w-[100%] md:w-[50%]  
+    <div className="pdf-viewer h-auto md:h-screen md:overflow-y-scroll overflow-x-hidden  w-[100%] md:w-[50%]  
     flex flex-row md:flex-col justify-center items-center relative">
       <div className='pdf-layout w-full h-full  flex flex-col justify-center  items-center'>
         {/* <div> 
@@ -106,8 +106,8 @@ const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educ
           </Doc>
         </div>
         {!loading && (
-          <a className="download-btn -mt-[12%] 
-          text-white bg-blue-600 px-4 py-2 font-bold w-[50vw] md:w-[20vw] rounded-md text-center" 
+          <a className="download-btn -mt-[24%] md:-mt-[12%] 
+          text-white bg-[#6a2c70] px-4 py-2 font-bold w-[50vw] md:w-[20vw] rounded-md text-center  md:mb-0" 
           href={pdfUrl} download="generated_pdf.pdf"> {/*Directly use the blob url to download PDF*/ }
              Save as PDF
           </a>

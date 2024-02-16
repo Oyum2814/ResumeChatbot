@@ -7,7 +7,7 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs:React.FC<BreadcrumbsProps> = ({template,resume,resumeName}) => {
     return ( 
-        <nav className={`flex z-20 bg-[#6a2c70] text-white ${resume?'w-full md:w-[50%] top-16 ':' top-20'} py-2 px-4  
+        <nav className={`flex z-20 bg-[#6a2c70] text-white ${resume?'w-full fixed top-16 md:w-[50%]  ':' top-20'} py-2 px-4  
         absolute ${template?'mt-16 md:mt-8 xl:mt-32 w-[80vw] md:w-[68vw]':''}`} aria-label="Breadcrumb">
         <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
           <li className="inline-flex items-center">

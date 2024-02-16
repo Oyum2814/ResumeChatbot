@@ -66,11 +66,12 @@ const Navbar:React.FC<NavbarProps> = ({resumePage,homePage})=>{
     return (
         // update : changed text to white from back and background to transparent from white
         <nav className={`non_print_area manrope
-        w-full fixed z-40 text-white flex flex-col justify-center text-xl h-16 ${homePage?'bg-transparent':'bg-[#6a2c70]'}
+        w-full fixed z-40 text-white flex flex-col justify-center text-xl h-16 
+        ${homePage?'bg-transparent':'bg-[#6a2c70]'}
          md:bg-none`}>
                 {resumePage && 
                 (<>
-                    <div className="absolute w-[100vw] md:bg-white h-16 border-b-[1px] top-0 -z-20"></div>
+                    <div className="absolute w-[100vw] md:bg-[#6a2c70] h-16 border-b-[1px] top-0 -z-20"></div>
                     {/* <div className="absolute w-[50vw] top-0  md:bg-black md:bg-opacity-80 h-16 right-0">  */}
                     <div className="relative w-full h-full  justify-start items-center ml-4 hidden md:flex">
                         {/* <div className="text-sm text-white bg-blue-600 px-4 py-2 rounded-md cursor-pointer"
