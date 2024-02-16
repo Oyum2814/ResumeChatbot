@@ -85,7 +85,7 @@ const PDFViewer: React.FC<PDFViewerProps> = ({doc,info,experiences,projects,educ
           height="1782" width="1470"
             ></canvas>
         </div> */}
-        <div className={`scale-[50%] md:scale-[75%] ${loading?'':'shadow-xl border-[1px]'} `}>
+        <div className={`scale-[50%] md:scale-[50%] xl:scale-[75%] ${loading?'':'shadow-xl border-[1px]'} `}>
           <Doc file={pdfUrl}
            loading={() => {
               setLoading(true);
